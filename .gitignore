@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# build
+dist/
+build/
+
+# env
+.env
+.env.local
+.env.*.local
+
+# system
+.DS_Store
+Thumbs.db
+
+# graphify outputs (keep graph but not temp files)
+graphify-out/.graphify_*
+graphify-out/.graphify_chunk_*

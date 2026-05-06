@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Surfaces. Near-black, not pure. */
+  --bg: 240 6% 5%;
+  --panel: 240 6% 7%;
+  --panel-2: 240 6% 9%;
+  --border: 240 5% 14%;
+  --border-strong: 240 5% 20%;
+
+  /* Text */
+  --fg: 0 0% 93%;
+  --muted: 240 4% 62%;
+  --subtle: 240 4% 42%;
+
+  /* Accents. Desaturated, used sparingly. */
+  --critical: 6 64% 56%;
+  --warning: 35 75% 55%;
+  --info: 210 55% 60%;
+  --ok: 145 30% 52%;
+}
+
+html,
+body {
+  background: hsl(var(--bg));
+  color: hsl(var(--fg));
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+::selection {
+  background: hsl(var(--info) / 0.25);
+}
+
+/* Subtle scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border-strong));
+  border-radius: 8px;
+  border: 2px solid hsl(var(--bg));
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted) / 0.4);
+}

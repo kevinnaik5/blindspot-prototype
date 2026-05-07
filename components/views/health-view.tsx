@@ -29,6 +29,7 @@ import {
 } from "@/data/health";
 import { getRuns, type RunStatus } from "@/data/runs";
 import { SectionHeading } from "@/components/section-label";
+import { HandoffLink } from "@/components/handoff-link";
 import { relativeFromNow, shortDateTime } from "@/lib/time";
 import { cn } from "@/lib/utils";
 
@@ -150,7 +151,7 @@ export function HealthView({ workflow }: { workflow: Workflow }) {
         )}
 
         {/* What we've learned. Now a 2-column story-card grid. */}
-        <LearnedSection health={health} />
+        <LearnedSection health={health} workflowId={workflow.id} />
 
         {/* Run composition (Cloudflare-style) */}
         <RunComposition workflowId={workflow.id} />
@@ -205,17 +206,25 @@ export function HealthView({ workflow }: { workflow: Workflow }) {
                             {a.detail}
                           </p>
                         )}
-                        <div className="mt-2 flex items-center gap-2 text-[11px] text-subtle">
-                          <span
-                            className={cn(
-                              "inline-flex items-center gap-1 rounded-sm border px-1.5 py-px text-[10px] font-medium uppercase tracking-[0.08em]",
-                              TONE_BG[sm.tone],
-                              TONE_TEXT[sm.tone],
-                            )}
-                          >
-                            {sm.label}
-                          </span>
-                          <span>{relativeFromNow(a.at)}</span>
+                        <div className="mt-2 flex items-center justify-between gap-3 text-[11px] text-subtle">
+                          <div className="flex items-center gap-2">
+                            <span
+                              className={cn(
+                                "inline-flex items-center gap-1 rounded-sm border px-1.5 py-px text-[10px] font-medium uppercase tracking-[0.08em]",
+                                TONE_BG[sm.tone],
+                                TONE_TEXT[sm.tone],
+                              )}
+                            >
+                              {sm.label}
+                            </span>
+                            <span>{relativeFromNow(a.at)}</span>
+                          </div>
+                          {a.suggestedActionId && (
+                            <HandoffLink
+                              workflowId={workflow.id}
+                              actionId={a.suggestedActionId}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
@@ -402,7 +411,13 @@ const LEARNED_TONE: Record<
   },
 };
 
-function LearnedSection({ health }: { health: WorkflowHealth }) {
+function LearnedSection({
+  health,
+  workflowId,
+}: {
+  health: WorkflowHealth;
+  workflowId: string;
+}) {
   const allOk = health.learned.baselines.every((b) => b.tone === "ok");
 
   return (
@@ -424,14 +439,20 @@ function LearnedSection({ health }: { health: WorkflowHealth }) {
 
       <div className="mt-3 grid grid-cols-1 gap-3 lg:grid-cols-2">
         {health.learned.baselines.map((b, i) => (
-          <LearnedCard key={i} baseline={b} />
+          <LearnedCard key={i} baseline={b} workflowId={workflowId} />
         ))}
       </div>
     </section>
   );
 }
 
-function LearnedCard({ baseline: b }: { baseline: LearnedBaseline }) {
+function LearnedCard({
+  baseline: b,
+  workflowId,
+}: {
+  baseline: LearnedBaseline;
+  workflowId: string;
+}) {
   const tone = LEARNED_TONE[b.tone];
 
   return (
@@ -484,6 +505,15 @@ function LearnedCard({ baseline: b }: { baseline: LearnedBaseline }) {
       >
         {b.deviation}
       </p>
+
+      {b.suggestedActionId && (
+        <div className="mt-3 flex justify-end">
+          <HandoffLink
+            workflowId={workflowId}
+            actionId={b.suggestedActionId}
+          />
+        </div>
+      )}
     </div>
   );
 }

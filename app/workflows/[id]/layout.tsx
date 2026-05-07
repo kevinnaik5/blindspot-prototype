@@ -2,8 +2,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { getWorkflow, PLATFORM_LABEL } from "@/data/workflows";
+import { getActions } from "@/data/actions";
 import { relativeFromNow } from "@/lib/time";
 import { WorkflowTabs } from "@/components/workflow-tabs";
+import { LensHeader } from "@/components/lens-header";
 import { cn } from "@/lib/utils";
 
 export default async function WorkflowLayout({
@@ -18,6 +20,8 @@ export default async function WorkflowLayout({
   if (!workflow) notFound();
 
   const failing = workflow.status !== "healthy";
+  const actions = getActions(id);
+  const hasUrgentAction = actions.some((a) => a.priority === "urgent");
 
   return (
     <div className="flex h-full flex-col">
@@ -61,7 +65,12 @@ export default async function WorkflowLayout({
           </div>
         </div>
 
-        <WorkflowTabs id={id} />
+        <WorkflowTabs
+          id={id}
+          actionCount={actions.length}
+          hasUrgentAction={hasUrgentAction}
+        />
+        <LensHeader id={id} />
       </div>
 
       {/* Tab content fills the remaining viewport */}

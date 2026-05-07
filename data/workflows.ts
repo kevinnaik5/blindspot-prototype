@@ -26,6 +26,9 @@ export type WorkflowChange = {
   summary: string;
   // Marks this change as the suspected cause of the current incident
   significant?: boolean;
+  // When the change is the suspected cause, link it to the action that
+  // best addresses it so the operator can hand off from diagnosis to fix.
+  suggestedActionId?: string;
 };
 
 export type DependencyHealth = "ok" | "degraded" | "down";
@@ -34,6 +37,33 @@ export type Dependency = {
   service: string;
   health: DependencyHealth;
   note?: string;
+  // What this workflow expects from this dependency. Pairs with `health`
+  // — when the dep drifts, the contract is what's broken.
+  expectation?: string;
+};
+
+export type SLOTone = "ok" | "warning" | "critical";
+
+export type SLO = {
+  // Plain-language description of what is being measured
+  metric: string;
+  // The target this workflow promises (e.g. "95% within 2 minutes")
+  target: string;
+  // The current observation, optional
+  current?: string;
+  tone?: SLOTone;
+  // What missing this SLO costs in business terms
+  consequence?: string;
+};
+
+export type StakeholderRole = "owner" | "escalation" | "consumer" | "approver";
+
+export type Stakeholder = {
+  name: string;
+  role: StakeholderRole;
+  // One-line description of why this person/team is on the list
+  detail?: string;
+  contact?: string;
 };
 
 export type Cadence = {
@@ -66,12 +96,18 @@ export type Workflow = {
   lastRunAt: string;
   cadence: Cadence;
   intent: string;
+  // One-line business outcome — the "north star" the workflow exists for.
+  // Read by the Intent tab as the primary headline.
+  goal?: string;
   currentState: CurrentState;
   steps: WorkflowStep[];
   edges: WorkflowEdge[];
   positions: Record<string, { x: number; y: number }>;
   changes: WorkflowChange[];
   dependencies: Dependency[];
+  // Optional intent-tab content. Falls back to {owner} when absent.
+  slos?: SLO[];
+  stakeholders?: Stakeholder[];
 };
 
 export const WORKFLOWS: Workflow[] = [
@@ -90,6 +126,7 @@ export const WORKFLOWS: Workflow[] = [
     },
     intent:
       "When a new customer signs up via Clerk, send a personalised welcome email through Postmark and create a contact record in HubSpot so sales can reach out within the day.",
+    goal: "Every new customer feels welcomed within minutes of signup, and Sales has the record to follow up the same day.",
     currentState: {
       headline: "Silently failing since 8:32 AM (6h ago).",
       detail:
@@ -153,6 +190,7 @@ export const WORKFLOWS: Workflow[] = [
         summary:
           "Webhook payload changed. The user object is now empty on signup events. No Acme deploy went out around this time.",
         significant: true,
+        suggestedActionId: "pause",
       },
       {
         at: "2026-04-23T14:02:00Z",
@@ -170,10 +208,86 @@ export const WORKFLOWS: Workflow[] = [
         service: "Clerk",
         health: "degraded",
         note: "Auth API returns 200 with empty body",
+        expectation:
+          "Non-empty user payload (id, email, first_name, last_name) on every signup webhook.",
       },
-      { service: "Postmark", health: "ok" },
-      { service: "HubSpot", health: "ok" },
-      { service: "Slack", health: "ok" },
+      {
+        service: "Postmark",
+        health: "ok",
+        expectation:
+          "Send completes in under 5 seconds with 99% inbox delivery.",
+      },
+      {
+        service: "HubSpot",
+        health: "ok",
+        expectation:
+          "Contact creation idempotent on email, completes within 10 seconds.",
+      },
+      {
+        service: "Slack",
+        health: "ok",
+        expectation:
+          "Posts arrive in #signups within 60 seconds with name + email.",
+      },
+    ],
+    slos: [
+      {
+        metric: "End-to-end signup completion",
+        target: "95% of signups complete the workflow within 2 minutes",
+        current: "0% in the last 6 hours",
+        tone: "critical",
+        consequence:
+          "Every customer who signed up since 8:32 AM has a broken first impression.",
+      },
+      {
+        metric: "Welcome email delivered",
+        target: "100% of signups receive a welcome email within 5 minutes",
+        current: "0% — 240 emails skipped silently since 8:32 AM",
+        tone: "critical",
+        consequence:
+          "240 customers are waiting for an email that will never arrive.",
+      },
+      {
+        metric: "HubSpot contact created",
+        target: "100% of signups land in HubSpot within 5 minutes",
+        current: "0% — 240 contacts missing since 8:32 AM",
+        tone: "critical",
+        consequence:
+          "Sales has no record of these signups; same-day follow-up is blocked.",
+      },
+      {
+        metric: "Slack #signups visibility",
+        target: "Every signup posted with name and email for live awareness",
+        current: "Posting empty rows since 8:32 AM",
+        tone: "warning",
+        consequence:
+          "The team sees activity but can't act on it without a payload.",
+      },
+    ],
+    stakeholders: [
+      {
+        name: "Mira Chen",
+        role: "owner",
+        detail: "Owns the welcome email copy and the workflow definition.",
+        contact: "mira@acme.co",
+      },
+      {
+        name: "Revenue Operations",
+        role: "escalation",
+        detail: "Paged when an SLO breaches for more than 30 minutes.",
+      },
+      {
+        name: "Theo Brandt — Sales",
+        role: "consumer",
+        detail:
+          "Relies on the HubSpot record landing within the day to follow up.",
+      },
+      {
+        name: "Marketing",
+        role: "consumer",
+        detail:
+          "Tracks the welcome-email open rate as a campaign signal.",
+      },
     ],
   },
   {
@@ -191,6 +305,7 @@ export const WORKFLOWS: Workflow[] = [
     },
     intent:
       "Notify the #revenue Slack channel whenever Stripe captures a payment over $500, so the team has live awareness of larger deals.",
+    goal: "Revenue gets live awareness of every meaningful payment within seconds.",
     currentState: {
       headline: "Running normally for the last 30 days.",
       detail: "The most recent run completed in under a second.",
@@ -222,8 +337,38 @@ export const WORKFLOWS: Workflow[] = [
       },
     ],
     dependencies: [
-      { service: "Stripe", health: "ok" },
-      { service: "Slack", health: "ok" },
+      {
+        service: "Stripe",
+        health: "ok",
+        expectation:
+          "Charge events delivered within 2 seconds of capture.",
+      },
+      {
+        service: "Slack",
+        health: "ok",
+        expectation: "Posts arrive in #revenue within 5 seconds of trigger.",
+      },
+    ],
+    slos: [
+      {
+        metric: "Notification posted",
+        target: "Notification reaches #revenue within 30 seconds of charge",
+        current: "Median 0.6s",
+        tone: "ok",
+      },
+    ],
+    stakeholders: [
+      {
+        name: "Jamal Park",
+        role: "owner",
+        detail: "Maintains the filter threshold and the message format.",
+        contact: "jamal@acme.co",
+      },
+      {
+        name: "Revenue team",
+        role: "consumer",
+        detail: "Reads the channel for live awareness on bigger deals.",
+      },
     ],
   },
   {
@@ -241,6 +386,7 @@ export const WORKFLOWS: Workflow[] = [
     },
     intent:
       "Capture feedback from the customer Typeform into a Notion database and email a daily digest to the product team.",
+    goal: "Every customer comment lands in Notion within minutes so the product team can triage and respond.",
     currentState: {
       headline: "Running normally.",
       detail:
@@ -267,9 +413,52 @@ export const WORKFLOWS: Workflow[] = [
     },
     changes: [],
     dependencies: [
-      { service: "Typeform", health: "ok" },
-      { service: "Notion", health: "ok" },
-      { service: "Gmail", health: "ok" },
+      {
+        service: "Typeform",
+        health: "ok",
+        expectation: "Webhook fires within 10 seconds of form submission.",
+      },
+      {
+        service: "Notion",
+        health: "ok",
+        expectation:
+          "Append to database completes via the legacy endpoint (sunset May 26).",
+      },
+      {
+        service: "Gmail",
+        health: "ok",
+        expectation: "Daily digest delivers by 9:00 AM PT.",
+      },
+    ],
+    slos: [
+      {
+        metric: "Submission landed in Notion",
+        target: "100% of submissions appear in the database within 5 minutes",
+        current: "100% over the last 30 days",
+        tone: "ok",
+      },
+      {
+        metric: "Endpoint compatibility",
+        target: "Workflow uses a non-deprecated Notion API",
+        current:
+          "Using legacy database append endpoint — removed on May 26 (30 days)",
+        tone: "warning",
+        consequence:
+          "If not migrated by May 26, all submissions will fail without warning.",
+      },
+    ],
+    stakeholders: [
+      {
+        name: "Priya Shah",
+        role: "owner",
+        detail: "Maintains the Notion schema and Typeform questions.",
+        contact: "priya@acme.co",
+      },
+      {
+        name: "Product team",
+        role: "consumer",
+        detail: "Reads the daily digest and triages feedback in Notion.",
+      },
     ],
   },
   {
@@ -287,6 +476,7 @@ export const WORKFLOWS: Workflow[] = [
     },
     intent:
       "Mirror new GitHub issues into Linear so engineering can triage them in one place.",
+    goal: "Engineering triages every reported issue in Linear without switching tools.",
     currentState: {
       headline: "Running normally.",
       detail: "No changes in the last 30 days.",
@@ -312,8 +502,37 @@ export const WORKFLOWS: Workflow[] = [
     },
     changes: [],
     dependencies: [
-      { service: "GitHub", health: "ok" },
-      { service: "Linear", health: "ok" },
+      {
+        service: "GitHub",
+        health: "ok",
+        expectation: "Issue webhook fires within 5 seconds of issue open.",
+      },
+      {
+        service: "Linear",
+        health: "ok",
+        expectation: "Issue creation idempotent on the GitHub issue id.",
+      },
+    ],
+    slos: [
+      {
+        metric: "Linear issue created",
+        target: "100% of GitHub issues mirrored within 1 minute",
+        current: "100% over the last 90 days",
+        tone: "ok",
+      },
+    ],
+    stakeholders: [
+      {
+        name: "Theo Brandt",
+        role: "owner",
+        detail: "Maintains the GitHub-to-Linear field mapping.",
+        contact: "theo@acme.co",
+      },
+      {
+        name: "Engineering",
+        role: "consumer",
+        detail: "Triages issues in Linear without leaving the tool.",
+      },
     ],
   },
   {
@@ -331,6 +550,7 @@ export const WORKFLOWS: Workflow[] = [
     },
     intent:
       "Pull the previous day's revenue from Stripe and post a formatted summary to #leadership every morning at 8 AM.",
+    goal: "Leadership starts every morning with yesterday's revenue summary at 8 AM PT.",
     currentState: {
       headline: "Today's report posted on schedule at 8:00 AM.",
       detail: "Past 30 runs all completed within 4 seconds.",
@@ -359,8 +579,37 @@ export const WORKFLOWS: Workflow[] = [
     },
     changes: [],
     dependencies: [
-      { service: "Stripe", health: "ok" },
-      { service: "Slack", health: "ok" },
+      {
+        service: "Stripe",
+        health: "ok",
+        expectation: "Charges API responds within 5 seconds.",
+      },
+      {
+        service: "Slack",
+        health: "ok",
+        expectation: "Post to #leadership delivers within 30 seconds.",
+      },
+    ],
+    slos: [
+      {
+        metric: "Daily report on time",
+        target: "Posted to #leadership by 8:05 AM PT every weekday",
+        current: "100% on time over the last 30 days",
+        tone: "ok",
+      },
+    ],
+    stakeholders: [
+      {
+        name: "Jamal Park",
+        role: "owner",
+        detail: "Maintains the report template and the schedule.",
+        contact: "jamal@acme.co",
+      },
+      {
+        name: "Leadership",
+        role: "consumer",
+        detail: "Reads the summary at the start of each weekday.",
+      },
     ],
   },
 ];

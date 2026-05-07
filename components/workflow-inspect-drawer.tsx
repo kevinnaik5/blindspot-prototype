@@ -16,6 +16,7 @@ import {
   type DependencyHealth,
 } from "@/data/workflows";
 import { SectionHeading } from "./section-label";
+import { HandoffLink } from "./handoff-link";
 import { relativeFromNow, shortDateTime } from "@/lib/time";
 import { cn } from "@/lib/utils";
 
@@ -157,6 +158,14 @@ export function WorkflowInspectDrawer({
                   >
                     {change.summary}
                   </p>
+                  {change.suggestedActionId && (
+                    <div className="mt-2 flex justify-end">
+                      <HandoffLink
+                        workflowId={workflow.id}
+                        actionId={change.suggestedActionId}
+                      />
+                    </div>
+                  )}
                 </div>
               </li>
             ))}

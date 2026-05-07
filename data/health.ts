@@ -8,6 +8,9 @@ export type Anomaly = {
   summary: string;
   // Optional context, kept short
   detail?: string;
+  // Links this anomaly to a recommended action so the operator can hand
+  // off from observation to remediation without losing context.
+  suggestedActionId?: string;
 };
 
 export type HealthPoint = {
@@ -63,6 +66,7 @@ export type LearnedBaseline = {
     expected: string;
     received: string;
   };
+  suggestedActionId?: string;
 };
 
 export type LearnedProfile = {
@@ -154,6 +158,7 @@ const HEALTH: Record<string, WorkflowHealth> = {
             currentValue: 0,
             unit: "%",
           },
+          suggestedActionId: "pause",
         },
         {
           metric: "Payload shape",
@@ -165,6 +170,7 @@ const HEALTH: Record<string, WorkflowHealth> = {
             expected: "user.{ id, email, first_name, last_name }",
             received: "user.{ }",
           },
+          suggestedActionId: "open-zapier",
         },
         {
           metric: "Volume per hour",
@@ -219,6 +225,7 @@ const HEALTH: Record<string, WorkflowHealth> = {
         summary:
           "Auth success rate dropped from 99.2% to 0%.",
         detail: "No error surfaced to the user. Each run still reports success.",
+        suggestedActionId: "pause",
       },
       {
         id: "a2",
@@ -226,6 +233,7 @@ const HEALTH: Record<string, WorkflowHealth> = {
         severity: "critical",
         summary:
           "Welcome emails skipped silently. 240 missed since the drop.",
+        suggestedActionId: "notify-owner",
       },
       {
         id: "a3",
@@ -233,6 +241,7 @@ const HEALTH: Record<string, WorkflowHealth> = {
         severity: "critical",
         summary:
           "HubSpot contact creation skipped silently. 240 missed since the drop.",
+        suggestedActionId: "rollback",
       },
       {
         id: "a4",

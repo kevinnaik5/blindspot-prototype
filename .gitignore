@@ -18,6 +18,10 @@ build/
 .DS_Store
 Thumbs.db
 
-# graphify outputs (keep graph but not temp files)
+# graphify outputs (keep graph but not temp/cache files)
 graphify-out/.graphify_*
 graphify-out/.graphify_chunk_*
+graphify-out/cache/
+
+# typescript incremental build cache
+*.tsbuildinfo

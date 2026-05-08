@@ -14,7 +14,16 @@ export function SectionHeading({
   icon?: LucideIcon;
 }) {
   return (
-    <div className={cn("flex items-baseline justify-between", className)}>
+    <div
+      className={cn(
+        "flex items-baseline justify-between",
+        // When there's a trailing element (like "View all" or a count),
+        // anchor it to the heading with a separator line so the two
+        // sides don't float apart across the empty middle.
+        trailing && "border-b border-border pb-2.5",
+        className,
+      )}
+    >
       <h2 className="flex items-center gap-2 text-[14px] font-medium tracking-tightish text-fg">
         {Icon && (
           <Icon

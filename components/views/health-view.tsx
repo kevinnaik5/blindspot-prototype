@@ -1,18 +1,23 @@
 "use client";
 
 import {
+  Bar,
+  BarChart,
   LineChart,
   Line,
+  Tooltip,
   XAxis,
   YAxis,
   CartesianGrid,
   ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
+import Link from "next/link";
 import {
   Activity,
   AlertCircle,
   AlertTriangle,
+  ArrowRight,
   Info,
   BarChart3,
   Telescope,
@@ -27,7 +32,7 @@ import {
   type HealthStat,
   type LearnedBaseline,
 } from "@/data/health";
-import { getRuns, type RunStatus } from "@/data/runs";
+import { getRuns, type Run, type RunStatus } from "@/data/runs";
 import { SectionHeading } from "@/components/section-label";
 import { HandoffLink } from "@/components/handoff-link";
 import { relativeFromNow, shortDateTime } from "@/lib/time";
@@ -223,6 +228,13 @@ export function HealthView({ workflow }: { workflow: Workflow }) {
                             <HandoffLink
                               workflowId={workflow.id}
                               actionId={a.suggestedActionId}
+                              tone={
+                                a.severity === "critical"
+                                  ? "critical"
+                                  : a.severity === "warning"
+                                  ? "warning"
+                                  : "info"
+                              }
                             />
                           )}
                         </div>
@@ -511,6 +523,13 @@ function LearnedCard({
           <HandoffLink
             workflowId={workflowId}
             actionId={b.suggestedActionId}
+            tone={
+              b.tone === "critical"
+                ? "critical"
+                : b.tone === "warning"
+                ? "warning"
+                : "info"
+            }
           />
         </div>
       )}
@@ -616,6 +635,50 @@ const RUN_SEGMENTS: {
   { key: "failed", label: "Failed", bar: "bg-critical/75", dot: "bg-critical" },
 ];
 
+type HourBucket = {
+  // ISO timestamp of the bucket start (used for sorting)
+  bucketStart: number;
+  // Display label for the x-axis (e.g. "8a", "10p")
+  hour: string;
+  success: number;
+  silent: number;
+  failed: number;
+};
+
+function formatHourLabel(d: Date): string {
+  let h = d.getHours();
+  const suffix = h >= 12 ? "p" : "a";
+  h = h % 12;
+  if (h === 0) h = 12;
+  return `${h}${suffix}`;
+}
+
+function bucketRunsByHour(runs: Run[]): HourBucket[] {
+  const map = new Map<number, HourBucket>();
+  for (const r of runs) {
+    const d = new Date(r.startedAt);
+    d.setMinutes(0, 0, 0);
+    const start = d.getTime();
+    let b = map.get(start);
+    if (!b) {
+      b = {
+        bucketStart: start,
+        hour: formatHourLabel(d),
+        success: 0,
+        silent: 0,
+        failed: 0,
+      };
+      map.set(start, b);
+    }
+    if (r.status === "success") b.success++;
+    else if (r.status === "silent-failure") b.silent++;
+    else b.failed++;
+  }
+  return Array.from(map.values()).sort(
+    (a, b) => a.bucketStart - b.bucketStart,
+  );
+}
+
 function RunComposition({ workflowId }: { workflowId: string }) {
   const runs = getRuns(workflowId);
   if (runs.length === 0) return null;
@@ -627,6 +690,8 @@ function RunComposition({ workflowId }: { workflowId: string }) {
     failed: 0,
   };
   for (const r of runs) counts[r.status]++;
+
+  const buckets = bucketRunsByHour(runs);
 
   const dominant = (Object.entries(counts) as [RunStatus, number][])
     .sort((a, b) => b[1] - a[1])[0];
@@ -650,15 +715,17 @@ function RunComposition({ workflowId }: { workflowId: string }) {
         Run composition
       </SectionHeading>
       <div className="mt-3 rounded-[6px] border border-border bg-panel p-5">
-        <dl className="grid grid-cols-1 gap-x-8 gap-y-2.5 sm:grid-cols-2">
+        {/* Stacked bars by hour — shows when the failure pattern emerged */}
+        <RunStatusChart data={buckets} />
+
+        {/* Legend rows with crosslinks to status-filtered run history */}
+        <dl className="mt-5 grid grid-cols-1 gap-x-3 gap-y-1 border-t border-border pt-4 sm:grid-cols-2">
           {RUN_SEGMENTS.map((seg) => {
             const count = counts[seg.key];
             const pct = total > 0 ? Math.round((count / total) * 100) : 0;
-            return (
-              <div
-                key={seg.key}
-                className="flex items-center justify-between gap-3"
-              >
+            const disabled = count === 0;
+            const inner = (
+              <>
                 <dt className="flex items-center gap-2">
                   <span className={cn("h-2 w-2 rounded-full", seg.dot)} />
                   <span className="text-[12.5px] text-muted">{seg.label}</span>
@@ -666,27 +733,36 @@ function RunComposition({ workflowId }: { workflowId: string }) {
                 <dd className="flex items-baseline gap-1.5 text-[12.5px] tabular-nums">
                   <span className="font-medium text-fg">{count}</span>
                   <span className="text-subtle">({pct}%)</span>
+                  {!disabled && (
+                    <ArrowRight
+                      className="ml-1 h-3 w-3 -translate-x-0.5 text-subtle opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-info"
+                      strokeWidth={1.95}
+                    />
+                  )}
                 </dd>
-              </div>
+              </>
+            );
+            if (disabled) {
+              return (
+                <div
+                  key={seg.key}
+                  className="flex items-center justify-between gap-3 rounded-md px-2 py-1.5 opacity-60"
+                >
+                  {inner}
+                </div>
+              );
+            }
+            return (
+              <Link
+                key={seg.key}
+                href={`/workflows/${workflowId}?view=run-history&status=${seg.key}`}
+                className="group flex items-center justify-between gap-3 rounded-md px-2 py-1.5 transition-colors hover:bg-panel-2"
+              >
+                {inner}
+              </Link>
             );
           })}
         </dl>
-
-        <div className="mt-5 flex h-[10px] w-full overflow-hidden rounded-sm bg-panel-2">
-          {RUN_SEGMENTS.map((seg) => {
-            const count = counts[seg.key];
-            if (count === 0) return null;
-            const pct = (count / total) * 100;
-            return (
-              <div
-                key={seg.key}
-                style={{ width: `${pct}%` }}
-                className={cn("h-full", seg.bar)}
-                title={`${seg.label}: ${count}`}
-              />
-            );
-          })}
-        </div>
 
         {interpretation && (
           <p className="mt-3 text-[12.5px] leading-[1.55] text-muted">
@@ -695,6 +771,103 @@ function RunComposition({ workflowId }: { workflowId: string }) {
         )}
       </div>
     </section>
+  );
+}
+
+function RunStatusChart({ data }: { data: HourBucket[] }) {
+  return (
+    <div className="h-[160px] w-full">
+      <ResponsiveContainer width="100%" height="100%">
+        <BarChart
+          data={data}
+          margin={{ top: 8, right: 8, left: 0, bottom: 0 }}
+          barCategoryGap="20%"
+        >
+          <CartesianGrid
+            stroke="hsl(var(--border) / 0.6)"
+            strokeDasharray="3 3"
+            vertical={false}
+          />
+          <XAxis
+            dataKey="hour"
+            stroke="hsl(var(--subtle))"
+            tick={{ fill: "hsl(var(--subtle))", fontSize: 10 }}
+            tickLine={false}
+            axisLine={{ stroke: "hsl(var(--border))" }}
+            minTickGap={8}
+          />
+          <YAxis
+            stroke="hsl(var(--subtle))"
+            tick={{ fill: "hsl(var(--subtle))", fontSize: 10 }}
+            tickLine={false}
+            axisLine={false}
+            allowDecimals={false}
+            width={28}
+          />
+          <Tooltip
+            cursor={{ fill: "hsl(var(--panel-2) / 0.5)" }}
+            content={<RunStatusTooltip />}
+          />
+          <Bar
+            dataKey="success"
+            name="Successful"
+            stackId="a"
+            fill="hsl(var(--ok) / 0.75)"
+            isAnimationActive={false}
+          />
+          <Bar
+            dataKey="silent"
+            name="Silent failure"
+            stackId="a"
+            fill="hsl(var(--warning) / 0.75)"
+            isAnimationActive={false}
+          />
+          <Bar
+            dataKey="failed"
+            name="Failed"
+            stackId="a"
+            fill="hsl(var(--critical) / 0.75)"
+            isAnimationActive={false}
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+function RunStatusTooltip({
+  active,
+  payload,
+  label,
+}: {
+  active?: boolean;
+  payload?: { name?: string; value?: number; color?: string }[];
+  label?: string;
+}) {
+  if (!active || !payload || payload.length === 0) return null;
+  return (
+    <div className="rounded-md border border-border bg-bg px-3 py-2 text-[11px] shadow-lg">
+      <div className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-subtle">
+        {label}
+      </div>
+      <ul className="mt-1.5 space-y-0.5">
+        {payload.map((entry, i) => (
+          <li
+            key={i}
+            className="flex items-center justify-between gap-4 tabular-nums"
+          >
+            <span className="flex items-center gap-1.5">
+              <span
+                className="h-1.5 w-1.5 rounded-full"
+                style={{ background: entry.color }}
+              />
+              <span className="text-muted">{entry.name}</span>
+            </span>
+            <span className="font-medium text-fg">{entry.value ?? 0}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
 

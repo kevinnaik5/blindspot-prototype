@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { X } from "lucide-react";
 import type { Workflow } from "@/data/workflows";
+import type { RunStatus } from "@/data/runs";
 import { ViewToggleBar, type FlowView as FlowViewKey } from "./view-toggle-bar";
 import { GraphView } from "./views/graph-view";
 import { StepView } from "./views/step-view";
@@ -11,11 +12,45 @@ import { RunHistoryView } from "./views/run-history-view";
 import { WorkflowInspectDrawer } from "./workflow-inspect-drawer";
 import { cn } from "@/lib/utils";
 
+const FLOW_VIEW_KEYS: readonly FlowViewKey[] = [
+  "step",
+  "graph",
+  "timeline",
+  "run-history",
+];
+
+const RUN_STATUSES: readonly RunStatus[] = [
+  "success",
+  "silent-failure",
+  "failed",
+];
+
 const DRAWER_WIDTH = 420;
 const HEADER_HEIGHT = 40; // matches the view toggle bar's h-10
 
-export function FlowView({ workflow }: { workflow: Workflow }) {
-  const [view, setView] = useState<FlowViewKey>("step");
+export function FlowView({
+  workflow,
+  initialView,
+  initialRunStatus,
+}: {
+  workflow: Workflow;
+  // Optional sub-view to land on (e.g. when crosslinked from Health's
+  // run-composition into a status-scoped run history)
+  initialView?: string;
+  initialRunStatus?: string;
+}) {
+  const initialViewKey = (FLOW_VIEW_KEYS as readonly string[]).includes(
+    initialView ?? "",
+  )
+    ? (initialView as FlowViewKey)
+    : "step";
+  const initialStatus = (RUN_STATUSES as readonly string[]).includes(
+    initialRunStatus ?? "",
+  )
+    ? (initialRunStatus as RunStatus)
+    : undefined;
+
+  const [view, setView] = useState<FlowViewKey>(initialViewKey);
   const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
@@ -40,7 +75,12 @@ export function FlowView({ workflow }: { workflow: Workflow }) {
             <GraphView workflow={workflow} onInspect={openDrawer} />
           )}
           {view === "timeline" && <TimelineView workflow={workflow} />}
-          {view === "run-history" && <RunHistoryView workflow={workflow} />}
+          {view === "run-history" && (
+            <RunHistoryView
+              workflow={workflow}
+              initialStatus={initialStatus}
+            />
+          )}
         </div>
       </div>
 

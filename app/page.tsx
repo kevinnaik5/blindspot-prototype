@@ -1,7 +1,5 @@
 import Link from "next/link";
 import {
-  ArrowUpRight,
-  ChevronRight,
   Workflow,
   Activity,
   AlertTriangle,
@@ -9,63 +7,73 @@ import {
   AlertCircle,
   Info,
   ArrowRight,
-  Plug,
-  Upload,
-  Play,
-  Users,
-  Bell,
+  History,
   type LucideIcon,
 } from "lucide-react";
-import { ALERTS, type IndicatorTone } from "@/data/alerts";
-import { WORKFLOWS } from "@/data/workflows";
+import { ALERTS, type Alert, type IndicatorTone } from "@/data/alerts";
+import { WORKFLOWS, type WorkflowChange } from "@/data/workflows";
 import { NOW, relativeFromNow } from "@/lib/time";
-import { Eyebrow, SectionHeading } from "@/components/section-label";
+import { SectionHeading } from "@/components/section-label";
 import { SeverityBar, SeverityIcon } from "@/components/severity-bar";
+import { WorkflowList } from "@/components/workflow-list";
+import { QuickStart } from "@/components/quick-start";
 import { cn } from "@/lib/utils";
 
-const ONBOARDING: {
-  title: string;
-  description: string;
-  href: string;
-  icon: LucideIcon;
-}[] = [
-  {
-    title: "Connect a platform",
-    description: "Sync workflows from Zapier, n8n, Make, and more.",
-    href: "/connections",
-    icon: Plug,
-  },
-  {
-    title: "Import a workflow",
-    description: "Add a workflow manually with YAML or JSON.",
-    href: "/connections",
-    icon: Upload,
-  },
-  {
-    title: "Walk through a demo",
-    description: "See how Blindspot reads an automation.",
-    href: "/workflows/customer-onboarding",
-    icon: Play,
-  },
-  {
-    title: "Invite your team",
-    description: "Add ops staff to this workspace.",
-    href: "/settings",
-    icon: Users,
-  },
-  {
-    title: "Set up alert routing",
-    description: "Send critical alerts to Slack or PagerDuty.",
-    href: "/settings",
-    icon: Bell,
-  },
-];
+// A workflow change enriched with the originating workflow's name + id
+// so the Recent activity feed can link to the right detail page.
+type ActivityEntry = WorkflowChange & {
+  workflowId: string;
+  workflowShortName: string;
+};
+
+function shortenWorkflowName(name: string): string {
+  // "Customer Onboarding → Welcome Email + CRM sync" → "Customer Onboarding"
+  return name.split(/\s+(?:→|->)\s+/)[0];
+}
 
 const TONE_TEXT: Record<IndicatorTone, string> = {
   critical: "text-critical",
   warning: "text-warning",
   info: "text-info",
   muted: "text-muted",
+};
+
+// Critical-only hero treatment. Severity-keyed visuals so the card
+// reads loud against the rest of the page.
+const SEVERITY_CARD: Record<
+  Alert["severity"],
+  {
+    border: string;
+    bg: string;
+    accent: string;
+    button: string;
+    divider: string;
+  }
+> = {
+  critical: {
+    border: "border-critical/40",
+    bg: "bg-critical/6",
+    accent: "ring-1 ring-critical/15",
+    button:
+      "border-critical/55 bg-critical/15 hover:bg-critical/25 hover:border-critical/70",
+    divider: "border-critical/15",
+  },
+  warning: {
+    border: "border-warning/40",
+    bg: "bg-warning/6",
+    accent: "ring-1 ring-warning/15",
+    button:
+      "border-warning/55 bg-warning/15 hover:bg-warning/25 hover:border-warning/70",
+    divider: "border-warning/15",
+  },
+  notice: {
+    border: "border-info/35",
+    bg: "bg-info/4",
+    accent: "",
+    button:
+      "border-info/45 bg-info/15 hover:bg-info/25 hover:border-info/60",
+    divider: "border-info/15",
+  },
 };
 
 export default function HomePage() {
@@ -81,6 +89,23 @@ export default function HomePage() {
     notice: ALERTS.filter((a) => a.severity === "notice").length,
   };
   const needsAttention = WORKFLOWS.length - counts.healthy;
+  const hasCritical = counts.critical > 0;
+
+  // Only critical alerts get the hero band — notices stay in the
+  // sidebar's "Heads up" panel so they're visible without being loud.
+  const criticalAlerts = ALERTS.filter((a) => a.severity === "critical");
+  const nonCriticalAlerts = ALERTS.filter((a) => a.severity !== "critical");
+
+  // Cross-workflow change feed for the sidebar's Recent activity panel.
+  const recentActivity: ActivityEntry[] = WORKFLOWS.flatMap((w) =>
+    w.changes.map((c) => ({
+      ...c,
+      workflowId: w.id,
+      workflowShortName: shortenWorkflowName(w.name),
+    })),
+  )
+    .sort((a, b) => new Date(b.at).getTime() - new Date(a.at).getTime())
+    .slice(0, 4);
 
   return (
     <div className="grid min-h-screen grid-cols-1 xl:grid-cols-[minmax(0,1fr)_360px]">
@@ -91,51 +116,36 @@ export default function HomePage() {
           Home
         </div>
 
-        {/* Welcome / quick start */}
-        <section className="mt-8">
-          <Eyebrow>Let&apos;s get started</Eyebrow>
-          <h1 className="mt-3 text-[32px] font-medium leading-[1.1] tracking-tightish text-fg">
-            Welcome to Blindspot
-          </h1>
+        {/* Quick start — onboarding panel, dismissible */}
+        <QuickStart />
 
-          {/* Side-scrolling onboarding cards */}
-          <div className="-mx-8 mt-7 flex gap-3 overflow-x-auto px-8 pb-3 [scrollbar-width:thin]">
-            {ONBOARDING.map((card) => {
-              const Icon = card.icon;
-              return (
-                <Link
-                  key={card.title}
-                  href={card.href}
-                  className="group flex h-[164px] w-[260px] shrink-0 flex-col rounded-[6px] border border-border bg-panel p-4 transition-colors hover:border-border-strong hover:bg-panel-2"
-                >
-                  <div className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-panel-2 text-muted transition-colors group-hover:border-border-strong group-hover:text-fg">
-                    <Icon className="h-3.5 w-3.5" strokeWidth={1.75} />
-                  </div>
-
-                  <div className="mt-3.5">
-                    <div className="text-[14px] font-medium tracking-tightish text-fg">
-                      {card.title}
-                    </div>
-                    <div className="mt-1 text-[12.5px] leading-[1.5] text-muted">
-                      {card.description}
-                    </div>
-                  </div>
-
-                  <div className="mt-auto flex justify-end">
-                    <ArrowUpRight
-                      className="h-4 w-4 text-subtle transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg"
-                      strokeWidth={1.75}
-                    />
-                  </div>
-                </Link>
-              );
-            })}
-            <div className="w-2 shrink-0" />
-          </div>
-        </section>
+        {/* Needs attention — critical only */}
+        {criticalAlerts.length > 0 && (
+          <section className="mt-12">
+            <SectionHeading
+              icon={AlertTriangle}
+              trailing={
+                <span className="tabular-nums">
+                  {criticalAlerts.length}{" "}
+                  {criticalAlerts.length === 1
+                    ? "workflow needs"
+                    : "workflows need"}{" "}
+                  attention
+                </span>
+              }
+            >
+              Needs attention
+            </SectionHeading>
+            <div className="mt-4 space-y-3">
+              {criticalAlerts.map((alert) => (
+                <AlertHeroCard key={alert.id} alert={alert} />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* All workflows */}
-        <section className="mt-14">
+        <section className="mt-12">
           <SectionHeading
             icon={Workflow}
             trailing={
@@ -150,57 +160,24 @@ export default function HomePage() {
             All workflows
           </SectionHeading>
 
-          <div className="mt-3 overflow-hidden rounded-[6px] border border-border bg-panel">
-            <div className="grid grid-cols-[minmax(0,1fr)_180px_120px_140px_18px] items-center gap-4 border-b border-border px-5 py-2.5 text-[10.5px] font-medium uppercase tracking-[0.08em] text-subtle">
-              <div>Workflow</div>
-              <div>Status</div>
-              <div>Last run</div>
-              <div>Owner</div>
-              <div />
-            </div>
-
-            <ul className="divide-y divide-border">
-              {WORKFLOWS.map((w) => {
-                const failing = w.status !== "healthy";
-                return (
-                  <li key={w.id}>
-                    <Link
-                      href={`/workflows/${w.id}`}
-                      className="group grid grid-cols-[minmax(0,1fr)_180px_120px_140px_18px] items-center gap-4 px-5 py-3 text-[13px] transition-colors hover:bg-panel-2"
-                    >
-                      <div className="min-w-0 truncate text-fg">{w.name}</div>
-                      <div
-                        className={cn(
-                          "truncate",
-                          failing ? "text-critical" : "text-muted",
-                        )}
-                      >
-                        {w.statusLine}
-                      </div>
-                      <div className="tabular-nums text-muted">
-                        {relativeFromNow(w.lastRunAt)}
-                      </div>
-                      <div className="truncate text-muted">{w.owner.name}</div>
-                      <div className="text-subtle opacity-0 transition-opacity group-hover:opacity-100">
-                        <ChevronRight
-                          className="h-3.5 w-3.5"
-                          strokeWidth={1.75}
-                        />
-                      </div>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+          <div className="mt-3">
+            <WorkflowList workflows={WORKFLOWS} />
           </div>
         </section>
       </div>
 
       {/* Side panel */}
       <aside className="border-t border-border bg-panel xl:sticky xl:top-0 xl:h-screen xl:overflow-y-auto xl:border-l xl:border-t-0">
-        <div className="space-y-6 px-6 py-8">
+        <div className="space-y-7 px-6 py-8">
           {/* Status card */}
-          <div className="overflow-hidden rounded-[6px] border border-border bg-panel-2">
+          <div
+            className={cn(
+              "overflow-hidden rounded-[6px] border bg-panel-2 transition-colors",
+              hasCritical
+                ? "border-critical/45 ring-1 ring-critical/15"
+                : "border-border",
+            )}
+          >
             <div className="flex items-center justify-between border-b border-border px-4 py-3">
               <h3 className="flex items-center gap-2 text-[13.5px] font-medium tracking-tightish text-fg">
                 <Activity
@@ -214,11 +191,17 @@ export default function HomePage() {
             <div className="px-4 pt-4 pb-3">
               <p className="text-[13.5px] leading-[1.55] text-fg">
                 {WORKFLOWS.length} workflows are connected.{" "}
-                <span className="text-critical">
-                  {needsAttention}{" "}
-                  {needsAttention === 1 ? "needs" : "need"} attention
-                </span>
-                ; the other {counts.healthy} are running normally.
+                {needsAttention > 0 ? (
+                  <>
+                    <span className="text-critical">
+                      {needsAttention}{" "}
+                      {needsAttention === 1 ? "needs" : "need"} attention
+                    </span>
+                    ; the other {counts.healthy} are running normally.
+                  </>
+                ) : (
+                  <span className="text-ok">All healthy.</span>
+                )}
               </p>
             </div>
             <div className="border-t border-border">
@@ -233,6 +216,7 @@ export default function HomePage() {
                 count={counts.critical}
                 Icon={AlertCircle}
                 tone="text-critical"
+                emphasized={counts.critical > 0}
               />
               <Indicator
                 label="Notice"
@@ -243,76 +227,198 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Attention cards */}
-          <section>
-            <SectionHeading icon={AlertTriangle}>Needs attention</SectionHeading>
+          {/* Heads up — non-critical alerts (deprecations, drift, etc.) */}
+          {nonCriticalAlerts.length > 0 && (
+            <section>
+              <div className="flex items-center justify-between">
+                <h3 className="flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.1em] text-subtle">
+                  <Info className="h-3 w-3" strokeWidth={1.95} />
+                  Heads up
+                </h3>
+                <span className="text-[10.5px] tabular-nums text-subtle">
+                  {nonCriticalAlerts.length}
+                </span>
+              </div>
+              <ul className="mt-2.5 space-y-2">
+                {nonCriticalAlerts.map((alert) => (
+                  <li key={alert.id}>
+                    <Link
+                      href={`/workflows/${alert.workflowId}`}
+                      className="group block overflow-hidden rounded-[6px] border border-info/35 bg-info/8 transition-colors hover:border-info/55 hover:bg-info/12"
+                    >
+                      <div className="px-3 py-2.5">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="truncate text-[12.5px] font-medium text-fg">
+                            {alert.workflowShortName}
+                          </span>
+                          <span className="shrink-0 text-[10.5px] text-subtle">
+                            {relativeFromNow(alert.detectedAt)}
+                          </span>
+                        </div>
+                        <p className="mt-1 text-[11.5px] leading-[1.5] text-muted">
+                          {alert.title}
+                        </p>
+                        {alert.indicators[0] && (
+                          <div className="mt-1.5 flex items-baseline gap-1.5 text-[11px]">
+                            <span className="text-subtle">
+                              {alert.indicators[0].label}:
+                            </span>
+                            <span
+                              className={cn(
+                                "font-medium tabular-nums",
+                                alert.indicators[0].tone
+                                  ? TONE_TEXT[alert.indicators[0].tone]
+                                  : "text-fg",
+                              )}
+                            >
+                              {alert.indicators[0].value}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
-            <div className="mt-3 space-y-3">
-              {ALERTS.map((alert) => (
-                <Link
-                  key={alert.id}
-                  href={`/workflows/${alert.workflowId}`}
-                  className="group relative block overflow-hidden rounded-[6px] border border-border bg-panel-2 transition-colors hover:border-border-strong"
-                >
-                  <SeverityBar severity={alert.severity} />
-
-                  {/* Header */}
-                  <div className="flex items-center justify-between gap-2 px-4 pt-3.5 pb-2 pl-5">
-                    <div className="flex min-w-0 items-center gap-2">
-                      <SeverityIcon severity={alert.severity} />
-                      <span className="truncate text-[13px] font-medium text-fg">
-                        {alert.workflowShortName}
-                      </span>
-                    </div>
-                    <span className="shrink-0 text-[11px] text-subtle">
-                      {relativeFromNow(alert.detectedAt)}
-                    </span>
-                  </div>
-
-                  {/* Insight (one line) */}
-                  <p className="px-4 pb-3 pl-5 text-[12.5px] leading-[1.5] text-muted">
-                    {alert.title}
-                  </p>
-
-                  {/* Indicator rows */}
-                  <dl className="border-t border-border">
-                    {alert.indicators.map((ind) => (
-                      <div
-                        key={ind.label}
-                        className="flex items-center justify-between border-b border-border/60 px-4 py-2 pl-5 last:border-b-0"
-                      >
-                        <dt className="text-[11.5px] text-muted">
-                          {ind.label}
-                        </dt>
-                        <dd
+          {/* Recent activity — cross-workflow change feed */}
+          {recentActivity.length > 0 && (
+            <section>
+              <div className="flex items-center justify-between">
+                <h3 className="flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.1em] text-subtle">
+                  <History className="h-3 w-3" strokeWidth={1.95} />
+                  Recent activity
+                </h3>
+                <span className="text-[10.5px] tabular-nums text-subtle">
+                  {recentActivity.length}
+                </span>
+              </div>
+              <ul className="mt-2.5 space-y-2">
+                {recentActivity.map((entry, i) => (
+                  <li key={i}>
+                    <Link
+                      href={`/workflows/${entry.workflowId}`}
+                      className="group flex items-start gap-2.5 rounded-md px-1 py-1.5 transition-colors hover:bg-panel-2/60"
+                    >
+                      <span
+                        className={cn(
+                          "mt-[5px] inline-flex h-1.5 w-1.5 shrink-0 rounded-full",
+                          entry.significant
+                            ? "bg-critical"
+                            : "bg-subtle",
+                        )}
+                        aria-hidden
+                      />
+                      <span className="min-w-0 flex-1">
+                        <span
                           className={cn(
-                            "text-[12px] font-medium tabular-nums",
-                            ind.tone ? TONE_TEXT[ind.tone] : "text-fg",
+                            "block truncate text-[12px] leading-[1.4]",
+                            entry.significant
+                              ? "font-medium text-fg"
+                              : "text-fg/85",
                           )}
                         >
-                          {ind.value}
-                        </dd>
-                      </div>
-                    ))}
-                  </dl>
-
-                  {/* Action footer styled as a real button */}
-                  <div className="flex justify-end border-t border-border px-3 py-3 pl-4">
-                    <span className="inline-flex items-center gap-1.5 rounded-md border border-border-strong bg-panel px-3 py-1.5 text-[12px] font-medium text-fg transition-colors group-hover:bg-bg group-hover:border-muted/40">
-                      {alert.action}
-                      <ArrowRight
-                        className="h-3 w-3 transition-transform group-hover:translate-x-0.5"
-                        strokeWidth={2}
-                      />
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
+                          {entry.summary}
+                        </span>
+                        <span className="mt-0.5 flex items-center gap-1.5 text-[10.5px] text-subtle">
+                          <span className="truncate">
+                            {entry.workflowShortName}
+                          </span>
+                          <span className="shrink-0 text-border-strong">·</span>
+                          <span className="shrink-0 tabular-nums">
+                            {relativeFromNow(entry.at)}
+                          </span>
+                        </span>
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </div>
       </aside>
     </div>
+  );
+}
+
+function AlertHeroCard({ alert }: { alert: Alert }) {
+  const sev = SEVERITY_CARD[alert.severity];
+  return (
+    <Link
+      href={`/workflows/${alert.workflowId}`}
+      className={cn(
+        "group relative block overflow-hidden rounded-[6px] border transition-colors",
+        sev.border,
+        sev.bg,
+        sev.accent,
+      )}
+    >
+      <SeverityBar severity={alert.severity} />
+
+      <div className="px-6 py-4 pl-7">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex min-w-0 items-center gap-2.5">
+            <SeverityIcon severity={alert.severity} />
+            <span className="truncate text-[15px] font-medium tracking-tightish text-fg">
+              {alert.workflowShortName}
+            </span>
+          </div>
+          <span className="shrink-0 text-[11.5px] text-subtle">
+            {relativeFromNow(alert.detectedAt)}
+          </span>
+        </div>
+
+        <p className="mt-1.5 max-w-[700px] text-[13.5px] leading-[1.55] text-fg/85">
+          {alert.title}
+        </p>
+
+        {alert.indicators.length > 0 && (
+          <div
+            className={cn(
+              "mt-3.5 flex flex-wrap items-baseline gap-x-5 gap-y-1.5 border-t pt-3",
+              sev.divider,
+            )}
+          >
+            {alert.indicators.map((ind) => (
+              <span
+                key={ind.label}
+                className="flex items-baseline gap-2 text-[12px]"
+              >
+                <span className="text-[10.5px] uppercase tracking-[0.08em] text-subtle">
+                  {ind.label}
+                </span>
+                <span
+                  className={cn(
+                    "font-medium tabular-nums",
+                    ind.tone ? TONE_TEXT[ind.tone] : "text-fg",
+                  )}
+                >
+                  {ind.value}
+                </span>
+              </span>
+            ))}
+          </div>
+        )}
+
+        <div className="mt-4 flex justify-end">
+          <span
+            className={cn(
+              "inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-[12.5px] font-medium text-fg transition-colors",
+              sev.button,
+            )}
+          >
+            {alert.action}
+            <ArrowRight
+              className="h-3 w-3 transition-transform group-hover:translate-x-0.5"
+              strokeWidth={2}
+            />
+          </span>
+        </div>
+      </div>
+    </Link>
   );
 }
 
@@ -321,11 +427,13 @@ function Indicator({
   count,
   Icon,
   tone,
+  emphasized = false,
 }: {
   label: string;
   count: number;
   Icon: LucideIcon;
   tone: string;
+  emphasized?: boolean;
 }) {
   return (
     <div className="flex items-center justify-between border-b border-border px-4 py-2.5 last:border-b-0">
@@ -333,7 +441,12 @@ function Indicator({
         <Icon className={cn("h-3.5 w-3.5", tone)} strokeWidth={1.85} />
         <span className="text-[12.5px] text-muted">{label}</span>
       </div>
-      <span className="text-[13px] font-medium tabular-nums text-fg">
+      <span
+        className={cn(
+          "font-medium tabular-nums",
+          emphasized ? cn("text-[18px]", tone) : "text-[13px] text-fg",
+        )}
+      >
         {count}
       </span>
     </div>

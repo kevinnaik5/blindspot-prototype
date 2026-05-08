@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   AlertCircle,
   AlertTriangle,
@@ -57,9 +57,77 @@ const BAR_COLOR: Record<StepBarStatus, string> = {
   skipped: "bg-subtle/50",
 };
 
-export function RunHistoryView({ workflow }: { workflow: Workflow }) {
+type StatusFilter = RunStatus | "all";
+type TimeFilter = "all" | "last-hour" | "today" | "last-24h";
+
+const TIME_FILTERS: { key: TimeFilter; label: string }[] = [
+  { key: "all", label: "All time" },
+  { key: "last-hour", label: "Last hour" },
+  { key: "today", label: "Today" },
+  { key: "last-24h", label: "Last 24h" },
+];
+
+export function RunHistoryView({
+  workflow,
+  initialStatus,
+}: {
+  workflow: Workflow;
+  // Optional starting filter, e.g. when navigating in from a run-composition
+  // crosslink in Health that scopes the list to a particular status.
+  initialStatus?: RunStatus;
+}) {
   const runs = getRuns(workflow.id);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState<StatusFilter>(
+    initialStatus ?? "all",
+  );
+  const [timeFilter, setTimeFilter] = useState<TimeFilter>("all");
+
+  const counts = useMemo(
+    () =>
+      runs.reduce(
+        (acc, r) => {
+          acc[r.status] = (acc[r.status] ?? 0) + 1;
+          return acc;
+        },
+        { success: 0, "silent-failure": 0, failed: 0 } as Record<
+          RunStatus,
+          number
+        >,
+      ),
+    [runs],
+  );
+
+  // Anchor "now" to the latest run timestamp so time filters stay
+  // meaningful regardless of when the demo is viewed.
+  const latestMs = useMemo(
+    () => (runs[0] ? new Date(runs[0].startedAt).getTime() : Date.now()),
+    [runs],
+  );
+
+  const filtered = useMemo(() => {
+    let result = runs;
+    if (statusFilter !== "all") {
+      result = result.filter((r) => r.status === statusFilter);
+    }
+    if (timeFilter !== "all") {
+      let cutoffMs: number;
+      if (timeFilter === "last-hour") {
+        cutoffMs = latestMs - 60 * 60 * 1000;
+      } else if (timeFilter === "last-24h") {
+        cutoffMs = latestMs - 24 * 60 * 60 * 1000;
+      } else {
+        // "today" — start of the calendar day of the latest run
+        const day = new Date(latestMs);
+        day.setHours(0, 0, 0, 0);
+        cutoffMs = day.getTime();
+      }
+      result = result.filter(
+        (r) => new Date(r.startedAt).getTime() >= cutoffMs,
+      );
+    }
+    return result;
+  }, [runs, statusFilter, timeFilter, latestMs]);
 
   if (runs.length === 0) {
     return (
@@ -79,13 +147,6 @@ export function RunHistoryView({ workflow }: { workflow: Workflow }) {
   // Pattern bar reads left-to-right as oldest-to-newest, the natural
   // direction for time. The list below reads newest-on-top.
   const oldestToNewest = [...runs].reverse();
-  const counts = runs.reduce(
-    (acc, r) => {
-      acc[r.status] = (acc[r.status] ?? 0) + 1;
-      return acc;
-    },
-    {} as Record<RunStatus, number>,
-  );
 
   const summary: string[] = [];
   if (counts["success"]) summary.push(`${counts["success"]} successful`);
@@ -125,6 +186,57 @@ export function RunHistoryView({ workflow }: { workflow: Workflow }) {
             {shortDateTime(newest.startedAt)}
           </span>
         </div>
+
+        {/* Filter row */}
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-1.5">
+            <StatusChip
+              label="All"
+              count={runs.length}
+              active={statusFilter === "all"}
+              tone="neutral"
+              onClick={() => setStatusFilter("all")}
+            />
+            <StatusChip
+              label="Silent failures"
+              count={counts["silent-failure"]}
+              active={statusFilter === "silent-failure"}
+              tone="warning"
+              onClick={() => setStatusFilter("silent-failure")}
+            />
+            <StatusChip
+              label="Failed"
+              count={counts["failed"]}
+              active={statusFilter === "failed"}
+              tone="critical"
+              onClick={() => setStatusFilter("failed")}
+            />
+            <StatusChip
+              label="Successful"
+              count={counts["success"]}
+              active={statusFilter === "success"}
+              tone="ok"
+              onClick={() => setStatusFilter("success")}
+            />
+          </div>
+          <div className="ml-auto flex items-center gap-1">
+            {TIME_FILTERS.map((tf) => (
+              <button
+                key={tf.key}
+                type="button"
+                onClick={() => setTimeFilter(tf.key)}
+                className={cn(
+                  "rounded-md px-2 py-0.5 text-[11px] transition-colors",
+                  timeFilter === tf.key
+                    ? "bg-panel-2 text-fg"
+                    : "text-subtle hover:text-fg",
+                )}
+              >
+                {tf.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* List */}
@@ -138,21 +250,96 @@ export function RunHistoryView({ workflow }: { workflow: Workflow }) {
           <div />
         </div>
 
-        <ul className="divide-y divide-border">
-          {runs.map((run) => (
-            <RunHistoryRow
-              key={run.id}
-              run={run}
-              workflow={workflow}
-              expanded={expandedId === run.id}
-              onToggle={() =>
-                setExpandedId(expandedId === run.id ? null : run.id)
-              }
-            />
-          ))}
-        </ul>
+        {filtered.length === 0 ? (
+          <div className="flex h-full items-center justify-center px-6 py-12">
+            <div className="max-w-[360px] text-center">
+              <div className="text-[12.5px] text-muted">
+                No runs match the current filters.
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setStatusFilter("all");
+                  setTimeFilter("all");
+                }}
+                className="mt-2 text-[12px] font-medium text-info hover:text-fg"
+              >
+                Clear filters
+              </button>
+            </div>
+          </div>
+        ) : (
+          <ul className="divide-y divide-border">
+            {filtered.map((run) => (
+              <RunHistoryRow
+                key={run.id}
+                run={run}
+                workflow={workflow}
+                expanded={expandedId === run.id}
+                onToggle={() =>
+                  setExpandedId(expandedId === run.id ? null : run.id)
+                }
+              />
+            ))}
+          </ul>
+        )}
       </div>
     </div>
+  );
+}
+
+function StatusChip({
+  label,
+  count,
+  active,
+  tone,
+  onClick,
+}: {
+  label: string;
+  count: number;
+  active: boolean;
+  tone: "neutral" | "ok" | "warning" | "critical";
+  onClick: () => void;
+}) {
+  const activeClass =
+    tone === "warning"
+      ? "border-warning/45 bg-warning/12 text-fg"
+      : tone === "critical"
+      ? "border-critical/45 bg-critical/12 text-fg"
+      : tone === "ok"
+      ? "border-ok/40 bg-ok/12 text-fg"
+      : "border-border-strong bg-panel-2 text-fg";
+
+  const countActive =
+    tone === "warning"
+      ? "text-warning"
+      : tone === "critical"
+      ? "text-critical"
+      : tone === "ok"
+      ? "text-ok"
+      : "text-subtle";
+
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-[12px] font-medium transition-colors",
+        active
+          ? activeClass
+          : "border-border bg-panel text-muted hover:bg-panel-2 hover:text-fg",
+      )}
+    >
+      <span>{label}</span>
+      <span
+        className={cn(
+          "tabular-nums",
+          active ? countActive : "text-subtle",
+        )}
+      >
+        {count}
+      </span>
+    </button>
   );
 }
 

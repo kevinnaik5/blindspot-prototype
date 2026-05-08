@@ -111,64 +111,76 @@ export function WorkflowInspectDrawer({
             No modifications in the last 30 days.
           </p>
         ) : (
-          <ul className="mt-3 space-y-3.5">
-            {workflow.changes.map((change, idx) => (
-              <li
-                key={idx}
-                className={cn(
-                  "grid grid-cols-[110px_minmax(0,1fr)] gap-3 rounded-[6px] border p-3 transition-colors",
-                  change.significant
-                    ? "border-critical/35 bg-critical/8"
-                    : "border-transparent",
-                )}
-              >
-                <div className="text-[11.5px] tabular-nums text-subtle">
-                  <div>{shortDateTime(change.at)}</div>
-                  <div className="mt-0.5 text-[11px] text-subtle/80">
-                    {relativeFromNow(change.at)}
+          <ul className="mt-3 space-y-3">
+            {workflow.changes.map((change, idx) =>
+              change.significant ? (
+                <li
+                  key={idx}
+                  className="rounded-[6px] border border-critical/35 bg-critical/8 p-4"
+                >
+                  {/* Eyebrow */}
+                  <div className="flex items-center gap-1.5 text-[10.5px] font-medium uppercase tracking-[0.1em] text-critical">
+                    <AlertCircle className="h-3 w-3" strokeWidth={2.2} />
+                    Likely cause
                   </div>
-                </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2">
-                    {change.who && (
-                      <span
-                        className={cn(
-                          "text-[12.5px] font-medium",
-                          change.significant ? "text-critical" : "text-fg",
-                        )}
-                      >
-                        {change.who}
+
+                  {/* Attribution */}
+                  {(change.who ||
+                    change.at) && (
+                    <div className="mt-2.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                      {change.who && (
+                        <span className="text-[13px] font-medium text-fg">
+                          {change.who}
+                        </span>
+                      )}
+                      <span className="text-[11.5px] tabular-nums text-subtle">
+                        {shortDateTime(change.at)} ·{" "}
+                        {relativeFromNow(change.at)}
                       </span>
-                    )}
-                    {change.significant && (
-                      <span className="inline-flex items-center gap-1 rounded-sm border border-critical/40 bg-critical/15 px-1.5 py-px text-[10px] font-medium uppercase tracking-[0.08em] text-critical">
-                        <AlertCircle
-                          className="h-2.5 w-2.5"
-                          strokeWidth={2}
-                        />
-                        Likely cause
-                      </span>
-                    )}
-                  </div>
-                  <p
-                    className={cn(
-                      "mt-1 text-[13px] leading-[1.55]",
-                      change.significant ? "text-fg" : "text-muted",
-                    )}
-                  >
+                    </div>
+                  )}
+
+                  {/* Summary */}
+                  <p className="mt-2 text-[13px] leading-[1.6] text-fg">
                     {change.summary}
                   </p>
+
+                  {/* Action button */}
                   {change.suggestedActionId && (
-                    <div className="mt-2 flex justify-end">
+                    <div className="mt-4">
                       <HandoffLink
                         workflowId={workflow.id}
                         actionId={change.suggestedActionId}
+                        tone="critical"
+                        size="md"
                       />
                     </div>
                   )}
-                </div>
-              </li>
-            ))}
+                </li>
+              ) : (
+                <li
+                  key={idx}
+                  className="grid grid-cols-[100px_minmax(0,1fr)] gap-3 px-1 py-1"
+                >
+                  <div className="text-[11.5px] tabular-nums text-subtle">
+                    <div>{shortDateTime(change.at)}</div>
+                    <div className="mt-0.5 text-[11px] text-subtle/80">
+                      {relativeFromNow(change.at)}
+                    </div>
+                  </div>
+                  <div className="min-w-0">
+                    {change.who && (
+                      <div className="text-[12.5px] font-medium text-fg">
+                        {change.who}
+                      </div>
+                    )}
+                    <p className="mt-0.5 text-[12.5px] leading-[1.55] text-muted">
+                      {change.summary}
+                    </p>
+                  </div>
+                </li>
+              ),
+            )}
           </ul>
         )}
       </section>

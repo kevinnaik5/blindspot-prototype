@@ -2,7 +2,7 @@
 
 **Observability for workflow automations that fail silently.**
 
-A design prototype for a monitoring product that reframes visibility into Zapier, n8n, Make, and agentic workflows around four lenses — so when a workflow silently breaks, ops staff can see it, understand it, and act on it without losing context.
+A design prototype for a monitoring product that reframes visibility into Zapier, n8n, Make, and agentic workflows around four lenses, so when a workflow silently breaks, ops staff can see it, understand it, and act on it without losing context.
 
 **Live demo:** [blindspot-prototype.vercel.app](https://blindspot-prototype.vercel.app/)
 
@@ -12,7 +12,7 @@ A design prototype for a monitoring product that reframes visibility into Zapier
 
 Workflow automations fail in a particular way: every run reports success, but no real work happens downstream. The webhook returns a 200 with an empty payload. The "send email" step skips silently because there's no address to send to. The CRM gets an empty record. From the outside, the platform looks healthy. From the inside, customers are slipping through the cracks.
 
-Existing monitoring tools surface failed runs. They don't surface *successful runs that did nothing*. And even when something is detected, ops staff have to manually correlate it across dashboards, runbooks, and tickets to figure out what to do — losing context at every step.
+Existing monitoring tools surface failed runs. They don't surface *successful runs that did nothing*. And even when something is detected, ops staff have to manually correlate it across dashboards, runbooks, and tickets to figure out what to do, losing context at every step.
 
 Blindspot is built around a different framing.
 
@@ -43,20 +43,20 @@ Walk it like this:
 
 1. **Land on home** ([/](https://blindspot-prototype.vercel.app/)). The "Needs attention" hero band shows Customer Onboarding marked critical. Sidebar's Status card has a critical-toned ring; "Heads up" carries a separate Notion deprecation notice; "Recent activity" shows the Clerk webhook event as the most recent significant change.
 
-2. **Click into Customer Onboarding → Intent.** Read the goal ("Every new customer feels welcomed within minutes…"). Three SLOs are marked **Violated**, one **Drifting**. Four dependency contracts — Clerk reads **Drifting** with the broken expectation. The contract framing makes the silent failure feel grounded, not abstract.
+2. **Click into Customer Onboarding → Intent.** Read the goal ("Every new customer feels welcomed within minutes…"). Three SLOs are marked **Violated**, one **Drifting**. Four dependency contracts, Clerk reads **Drifting** with the broken expectation. The contract framing makes the silent failure feel grounded, not abstract.
 
 3. **Switch to Health.** Score 42/100. The Run composition card shows a stacked bar chart: green bars for 16 hours, then a sharp wall of yellow starting at 8:32 AM. Anomalies list four issues. Each anomaly has a **View suggested action** button.
 
-4. **Click "View suggested action" on the auth-drop anomaly.** Lands on the Actions tab with the Pause card pulsing — focus deep-link via `?focus=pause`.
+4. **Click "View suggested action" on the auth-drop anomaly.** Lands on the Actions tab with the Pause card pulsing, focus deep-link via `?focus=pause`.
 
 5. **Click Pause workflow.** A side sheet slides in from the right, exposing the three STEER properties:
-   - **Scope** (Fine-Grained Control) — pause this workflow only / + dependents; until Clerk healthy / manually resumed / 1h / 4h
-   - **Components** (Swappable Components) — queue strategy: replay, drop, or route to fallback
-   - **Guardrails** (Human Guardrails) — blast radius (12 in-flight runs · 240 queued signups · 3 downstream workflows), reversibility note, checkbox confirm gate
+   - **Scope** (Fine-Grained Control), pause this workflow only / + dependents; until Clerk healthy / manually resumed / 1h / 4h
+   - **Components** (Swappable Components), queue strategy: replay, drop, or route to fallback
+   - **Guardrails** (Human Guardrails), blast radius (12 in-flight runs · 240 queued signups · 3 downstream workflows), reversibility note, checkbox confirm gate
 
-6. **Tick the confirmation, click Pause.** Sheet closes. The hero card transitions in-place to a "Paused — Just now" state showing the chosen config (*This workflow only · Until Clerk healthy · Replay incoming when resumed*) and a Resume button. The right-rail checklist marks Pause complete with a green check; the connector line above it turns ok-toned; the next step (Notify the workflow owner) becomes the new hero.
+6. **Tick the confirmation, click Pause.** Sheet closes. The hero card transitions in-place to a "Paused, Just now" state showing the chosen config (*This workflow only · Until Clerk healthy · Replay incoming when resumed*) and a Resume button. The right-rail checklist marks Pause complete with a green check; the connector line above it turns ok-toned; the next step (Notify the workflow owner) becomes the new hero.
 
-The scenario continues — Notify uses a preview-style guardrail, Rollback uses a typed-name confirm — until the checklist is fully ticked.
+The scenario continues, Notify uses a preview-style guardrail, Rollback uses a typed-name confirm, until the checklist is fully ticked.
 
 ---
 
@@ -64,13 +64,13 @@ The scenario continues — Notify uses a preview-style guardrail, Rollback uses 
 
 **Per-pillar coverage:**
 
-- **Intent** — Purpose (goal + mission), Service-level objectives with violation tones, Stakeholders by role, Dependency contracts with expectations
-- **Flow** — Step view (chevron breadcrumb), Node view (interactive graph via @xyflow/react), Timeline view (waterfall), Run history (filterable by status + time range), inspect drawer with current state, recent changes, dependencies
-- **Health** — Health score card, learned baselines (numeric + text-diff), run composition (stacked bar chart bucketed by hour, with crosslink to filtered run history), 7-day score timeline, detected anomalies
-- **Actions** — Hero progression (advances to next uncommitted action), configurable side sheet exposing all three STEER properties, risk-tier-aware confirm gates (none / checkbox / typed / preview), right-rail checklist with timeline connector, post-commit shows operator's chosen config
-- **Cross-tab handoffs** — anomaly→action linkage in fixtures, `<HandoffLink>` button (tone- and size-aware), `?focus=<id>` deep-link with smooth scroll + pulse, action count badge on the Actions tab, lens strip per tab for orientation
+- **Intent**, Purpose (goal + mission), Service-level objectives with violation tones, Stakeholders by role, Dependency contracts with expectations
+- **Flow**, Step view (chevron breadcrumb), Node view (interactive graph via @xyflow/react), Timeline view (waterfall), Run history (filterable by status + time range), inspect drawer with current state, recent changes, dependencies
+- **Health**, Health score card, learned baselines (numeric + text-diff), run composition (stacked bar chart bucketed by hour, with crosslink to filtered run history), 7-day score timeline, detected anomalies
+- **Actions**, Hero progression (advances to next uncommitted action), configurable side sheet exposing all three STEER properties, risk-tier-aware confirm gates (none / checkbox / typed / preview), right-rail checklist with timeline connector, post-commit shows operator's chosen config
+- **Cross-tab handoffs**, anomaly→action linkage in fixtures, `<HandoffLink>` button (tone- and size-aware), `?focus=<id>` deep-link with smooth scroll + pulse, action count badge on the Actions tab, lens strip per tab for orientation
 
-**Home page** — Quick start (dismissible), critical-only "Needs attention" hero band, full workflow list with Status + Platform filter chips. Sidebar: Status card (tone-aware ring), Heads up (non-critical alerts), Recent activity (cross-workflow change feed).
+**Home page**, Quick start (dismissible), critical-only "Needs attention" hero band, full workflow list with Status + Platform filter chips. Sidebar: Status card (tone-aware ring), Heads up (non-critical alerts), Recent activity (cross-workflow change feed).
 
 ---
 
@@ -78,7 +78,7 @@ The scenario continues — Notify uses a preview-style guardrail, Rollback uses 
 
 - **Next.js 15** (App Router) + **React 19**
 - **TypeScript** strict
-- **Tailwind 3** with custom CSS variable tokens (`--ok`, `--warning`, `--critical`, `--info`, `--panel`, etc.) — themable color system
+- **Tailwind 3** with custom CSS variable tokens (`--ok`, `--warning`, `--critical`, `--info`, `--panel`, etc.), themable color system
 - **Recharts** for the timeline + run-composition charts
 - **@xyflow/react** for the workflow node graph
 - **lucide-react** for icons
@@ -153,7 +153,7 @@ This is a prototype, not a product. Honest list of what's in and what isn't:
 - **Browser interactions not exhaustively tested.** Routes return 200 and HTML sentinels match expected structure; the picker-open, typed-confirm, and focus-pulse interactions were verified by code review and types only.
 - **Mobile / narrow widths.** The layout reflows below `lg` (right rail hides on Actions, sidebar reflows on home), but it's optimized for desktop.
 
-The point of the prototype is to demonstrate the framework — what each pillar actually looks like in the UI, how they connect, what decisions a designed observability tool would make. Treat it as that, not as production code.
+The point of the prototype is to demonstrate the framework, what each pillar actually looks like in the UI, how they connect, what decisions a designed observability tool would make. Treat it as that, not as production code.
 
 ---
 

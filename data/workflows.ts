@@ -38,7 +38,7 @@ export type Dependency = {
   health: DependencyHealth;
   note?: string;
   // What this workflow expects from this dependency. Pairs with `health`
-  // — when the dep drifts, the contract is what's broken.
+  //, when the dep drifts, the contract is what's broken.
   expectation?: string;
 };
 
@@ -96,7 +96,7 @@ export type Workflow = {
   lastRunAt: string;
   cadence: Cadence;
   intent: string;
-  // One-line business outcome — the "north star" the workflow exists for.
+  // One-line business outcome, the "north star" the workflow exists for.
   // Read by the Intent tab as the primary headline.
   goal?: string;
   currentState: CurrentState;
@@ -242,7 +242,7 @@ export const WORKFLOWS: Workflow[] = [
       {
         metric: "Welcome email delivered",
         target: "100% of signups receive a welcome email within 5 minutes",
-        current: "0% — 240 emails skipped silently since 8:32 AM",
+        current: "0%, 240 emails skipped silently since 8:32 AM",
         tone: "critical",
         consequence:
           "240 customers are waiting for an email that will never arrive.",
@@ -250,7 +250,7 @@ export const WORKFLOWS: Workflow[] = [
       {
         metric: "HubSpot contact created",
         target: "100% of signups land in HubSpot within 5 minutes",
-        current: "0% — 240 contacts missing since 8:32 AM",
+        current: "0%, 240 contacts missing since 8:32 AM",
         tone: "critical",
         consequence:
           "Sales has no record of these signups; same-day follow-up is blocked.",
@@ -277,7 +277,7 @@ export const WORKFLOWS: Workflow[] = [
         detail: "Paged when an SLO breaches for more than 30 minutes.",
       },
       {
-        name: "Theo Brandt — Sales",
+        name: "Theo Brandt, Sales",
         role: "consumer",
         detail:
           "Relies on the HubSpot record landing within the day to follow up.",
@@ -441,7 +441,7 @@ export const WORKFLOWS: Workflow[] = [
         metric: "Endpoint compatibility",
         target: "Workflow uses a non-deprecated Notion API",
         current:
-          "Using legacy database append endpoint — removed on May 26 (30 days)",
+          "Using legacy database append endpoint, removed on May 26 (30 days)",
         tone: "warning",
         consequence:
           "If not migrated by May 26, all submissions will fail without warning.",

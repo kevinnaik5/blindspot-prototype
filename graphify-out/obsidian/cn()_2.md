@@ -1,8 +1,8 @@
 ---
-source_file: "components/flow-view.tsx"
+source_file: "components/workflow-inspect-drawer.tsx"
 type: "code"
 community: "Community None"
-location: "L51"
+location: "L92"
 tags:
   - graphify/code
   - graphify/EXTRACTED
@@ -12,6 +12,6 @@ tags:
 # cn()
 
 ## Connections
-- [[flow-view.tsx]] - `contains` [EXTRACTED]
+- [[workflow-inspect-drawer.tsx]] - `contains` [EXTRACTED]
 
 #graphify/code #graphify/EXTRACTED #community/Community_None

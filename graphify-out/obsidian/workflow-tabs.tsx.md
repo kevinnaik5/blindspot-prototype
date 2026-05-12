@@ -12,7 +12,7 @@ tags:
 # workflow-tabs.tsx
 
 ## Connections
-- [[cn()_8]] - `imports` [EXTRACTED]
+- [[cn()_10]] - `imports` [EXTRACTED]
 - [[layout.tsx_1]] - `imports_from` [EXTRACTED]
 - [[utils.ts]] - `imports_from` [EXTRACTED]
 

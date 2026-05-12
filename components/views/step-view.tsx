@@ -102,7 +102,7 @@ export function StepView({ workflow }: { workflow: Workflow }) {
 
   return (
     <div className="flex h-full flex-col">
-      {/* Step picker — chevron breadcrumb strip */}
+      {/* Step picker, chevron breadcrumb strip */}
       <div className="shrink-0 border-b border-border bg-bg">
         <div className="flex px-3 py-4">
           {workflow.steps.map((step, idx) => {

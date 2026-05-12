@@ -1,8 +1,8 @@
 ---
-source_file: "components/views/step-view.tsx"
+source_file: "components/workflow-list.tsx"
 type: "code"
 community: "Community None"
-location: "L244"
+location: "L181"
 tags:
   - graphify/code
   - graphify/EXTRACTED
@@ -12,6 +12,6 @@ tags:
 # cn()
 
 ## Connections
-- [[step-view.tsx]] - `contains` [EXTRACTED]
+- [[workflow-list.tsx]] - `contains` [EXTRACTED]
 
 #graphify/code #graphify/EXTRACTED #community/Community_None

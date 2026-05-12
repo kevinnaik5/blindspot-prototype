@@ -12,8 +12,8 @@ tags:
 # intent-view.tsx
 
 ## Connections
-- [[cn()_8]] - `imports` [EXTRACTED]
-- [[cn()_7]] - `contains` [EXTRACTED]
+- [[cn()_10]] - `imports` [EXTRACTED]
+- [[cn()_9]] - `contains` [EXTRACTED]
 - [[page.tsx_3]] - `imports_from` [EXTRACTED]
 - [[section-label.tsx]] - `imports_from` [EXTRACTED]
 - [[utils.ts]] - `imports_from` [EXTRACTED]

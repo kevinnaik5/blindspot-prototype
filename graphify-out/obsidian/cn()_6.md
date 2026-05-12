@@ -1,8 +1,8 @@
 ---
-source_file: "components/views/health-view.tsx"
+source_file: "components/views/step-view.tsx"
 type: "code"
 community: "Community None"
-location: "L283"
+location: "L244"
 tags:
   - graphify/code
   - graphify/EXTRACTED
@@ -12,6 +12,6 @@ tags:
 # cn()
 
 ## Connections
-- [[health-view.tsx]] - `contains` [EXTRACTED]
+- [[step-view.tsx]] - `contains` [EXTRACTED]
 
 #graphify/code #graphify/EXTRACTED #community/Community_None

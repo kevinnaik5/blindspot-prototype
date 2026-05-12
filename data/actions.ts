@@ -60,7 +60,7 @@ export type ActionRiskTier = "none" | "checkbox" | "typed" | "preview";
 export type ActionGuardrails = {
   // Plain-language items describing blast radius
   affected: GuardrailImpact[];
-  // One sentence about reversibility — anchors the human to the safety net
+  // One sentence about reversibility, anchors the human to the safety net
   reversibility: string;
   riskTier: ActionRiskTier;
   // For "checkbox" risk tier: label of the box
@@ -265,7 +265,7 @@ const ACTIONS: Record<string, ActionRecommendation[]> = {
           reversibility: "Notifications cannot be unsent.",
           riskTier: "preview",
           previewBody:
-            "Hi Mira — Customer Onboarding has been silently failing since 8:32 AM. Health is 42/100; 240 signups affected. Suggested first step: pause the workflow until Clerk is restored.\n\n— Acme Blindspot",
+            "Hi Mira, Customer Onboarding has been silently failing since 8:32 AM. Health is 42/100; 240 signups affected. Suggested first step: pause the workflow until Clerk is restored.\n\nAcme Blindspot",
         },
         commitLabel: "Send notification",
         committedLabel: "Sent",
@@ -296,17 +296,17 @@ const ACTIONS: Record<string, ActionRecommendation[]> = {
             options: [
               {
                 key: "apr-23",
-                label: "Apr 23, 2:02 PM — Mira Chen",
+                label: "Apr 23, 2:02 PM, Mira Chen",
                 detail: "Last version before the template wording change.",
               },
               {
                 key: "apr-22",
-                label: "Apr 22, 9:14 AM — Mira Chen",
+                label: "Apr 22, 9:14 AM, Mira Chen",
                 detail: "Two changes back. No known issues.",
               },
               {
                 key: "mar-31",
-                label: "Mar 31, 10:14 AM — Theo Brandt",
+                label: "Mar 31, 10:14 AM, Theo Brandt",
                 detail: "Before the HubSpot signup_source mapping. Older.",
               },
             ],
@@ -335,7 +335,7 @@ const ACTIONS: Record<string, ActionRecommendation[]> = {
                 key: "all-since",
                 label: "Replay all runs since the rollback point",
                 detail:
-                  "All 30 runs since Apr 23 replay. Most aggressive — risks duplicate downstream effects.",
+                  "All 30 runs since Apr 23 replay. Most aggressive, risks duplicate downstream effects.",
               },
             ],
           },

@@ -57,7 +57,7 @@ const CARDS: QuickStartCard[] = [
 ];
 
 export function QuickStart() {
-  // In-memory dismissal only — refresh brings the panel back. Best for
+  // In-memory dismissal only, refresh brings the panel back. Best for
   // running the demo repeatedly without devtools clears.
   const [dismissed, setDismissed] = useState(false);
 

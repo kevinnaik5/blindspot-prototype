@@ -61,7 +61,7 @@ type CommittedState = {
   at: number;
   // The exact scope + swap selections the operator chose at commit time.
   // Surfacing these in the committed UI honors the Fine-Grained Control
-  // and Swappable Components properties — the choices are visible, not
+  // and Swappable Components properties, the choices are visible, not
   // discarded once the action moves out of the configure sheet.
   selections: Record<string, string>;
 };
@@ -602,7 +602,7 @@ function StepsChecklist({
   heroId: string | null;
   onJumpTo: (actionId: string) => void;
 }) {
-  // Only count interactive actions toward "complete" — externals like
+  // Only count interactive actions toward "complete", externals like
   // Open-in-Zapier never resolve in this app.
   const trackable = actions.filter((a) => a.interactive !== undefined);
   const total = trackable.length;
@@ -643,7 +643,7 @@ function StepsChecklist({
                   Anchored to circle edges (top-6 = this circle bottom,
                   -bottom-2 = next circle top), so the line lives purely
                   in the gap and never overlaps the circle itself.
-                  Coloured ok when the segment is "behind" us — i.e. this
+                  Coloured ok when the segment is "behind" us, i.e. this
                   step is done. */}
               {!isLast && (
                 <span

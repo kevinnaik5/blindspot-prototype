@@ -16,7 +16,7 @@ tags:
 - [[SeverityIcon()]] - `contains` [EXTRACTED]
 - [[SeverityLabel()]] - `contains` [EXTRACTED]
 - [[alerts.ts]] - `imports_from` [EXTRACTED]
-- [[cn()_8]] - `imports` [EXTRACTED]
+- [[cn()_10]] - `imports` [EXTRACTED]
 - [[page.tsx]] - `imports_from` [EXTRACTED]
 - [[utils.ts]] - `imports_from` [EXTRACTED]
 

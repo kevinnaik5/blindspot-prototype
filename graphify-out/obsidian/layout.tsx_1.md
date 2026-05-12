@@ -14,7 +14,7 @@ tags:
 ## Connections
 - [[LensHeader()]] - `imports` [EXTRACTED]
 - [[actions.ts]] - `imports_from` [EXTRACTED]
-- [[cn()_8]] - `imports` [EXTRACTED]
+- [[cn()_10]] - `imports` [EXTRACTED]
 - [[getActions()]] - `imports` [EXTRACTED]
 - [[getWorkflow()]] - `imports` [EXTRACTED]
 - [[lens-header.tsx]] - `imports_from` [EXTRACTED]

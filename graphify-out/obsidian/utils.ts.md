@@ -14,7 +14,7 @@ tags:
 ## Connections
 - [[action-sheet.tsx]] - `imports_from` [EXTRACTED]
 - [[actions-view.tsx]] - `imports_from` [EXTRACTED]
-- [[cn()_8]] - `contains` [EXTRACTED]
+- [[cn()_10]] - `contains` [EXTRACTED]
 - [[flow-view.tsx]] - `imports_from` [EXTRACTED]
 - [[focusable-action-item.tsx]] - `imports_from` [EXTRACTED]
 - [[handoff-link.tsx]] - `imports_from` [EXTRACTED]
@@ -32,6 +32,7 @@ tags:
 - [[view-toggle-bar.tsx]] - `imports_from` [EXTRACTED]
 - [[workflow-graph.tsx]] - `imports_from` [EXTRACTED]
 - [[workflow-inspect-drawer.tsx]] - `imports_from` [EXTRACTED]
+- [[workflow-list.tsx]] - `imports_from` [EXTRACTED]
 - [[workflow-tabs.tsx]] - `imports_from` [EXTRACTED]
 
 #graphify/code #graphify/EXTRACTED #community/Community_None

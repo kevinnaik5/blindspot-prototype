@@ -91,7 +91,7 @@ export default function HomePage() {
   const needsAttention = WORKFLOWS.length - counts.healthy;
   const hasCritical = counts.critical > 0;
 
-  // Only critical alerts get the hero band — notices stay in the
+  // Only critical alerts get the hero band, notices stay in the
   // sidebar's "Heads up" panel so they're visible without being loud.
   const criticalAlerts = ALERTS.filter((a) => a.severity === "critical");
   const nonCriticalAlerts = ALERTS.filter((a) => a.severity !== "critical");
@@ -116,10 +116,10 @@ export default function HomePage() {
           Home
         </div>
 
-        {/* Quick start — onboarding panel, dismissible */}
+        {/* Quick start, onboarding panel, dismissible */}
         <QuickStart />
 
-        {/* Needs attention — critical only */}
+        {/* Needs attention, critical only */}
         {criticalAlerts.length > 0 && (
           <section className="mt-12">
             <SectionHeading
@@ -227,7 +227,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Heads up — non-critical alerts (deprecations, drift, etc.) */}
+          {/* Heads up, non-critical alerts (deprecations, drift, etc.) */}
           {nonCriticalAlerts.length > 0 && (
             <section>
               <div className="flex items-center justify-between">
@@ -283,7 +283,7 @@ export default function HomePage() {
             </section>
           )}
 
-          {/* Recent activity — cross-workflow change feed */}
+          {/* Recent activity, cross-workflow change feed */}
           {recentActivity.length > 0 && (
             <section>
               <div className="flex items-center justify-between">

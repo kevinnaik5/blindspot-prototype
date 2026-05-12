@@ -9,7 +9,7 @@
       "source_file": "postcss.config.mjs",
       "source_location": "L1",
       "id": "postcss_config_mjs",
-      "community": 7,
+      "community": 9,
       "norm_label": "postcss.config.mjs"
     },
     {
@@ -18,7 +18,7 @@
       "source_file": "next-env.d.ts",
       "source_location": "L1",
       "id": "next_env_d_ts",
-      "community": 8,
+      "community": 10,
       "norm_label": "next-env.d.ts"
     },
     {
@@ -27,7 +27,7 @@
       "source_file": "tailwind.config.ts",
       "source_location": "L1",
       "id": "tailwind_config_ts",
-      "community": 9,
+      "community": 11,
       "norm_label": "tailwind.config.ts"
     },
     {
@@ -36,7 +36,7 @@
       "source_file": "next.config.ts",
       "source_location": "L1",
       "id": "next_config_ts",
-      "community": 10,
+      "community": 12,
       "norm_label": "next.config.ts"
     },
     {
@@ -45,7 +45,7 @@
       "source_file": "app/layout.tsx",
       "source_location": "L1",
       "id": "app_layout_tsx",
-      "community": 3,
+      "community": 7,
       "norm_label": "layout.tsx"
     },
     {
@@ -58,10 +58,19 @@
       "norm_label": "page.tsx"
     },
     {
+      "label": "shortenWorkflowName()",
+      "file_type": "code",
+      "source_file": "app/page.tsx",
+      "source_location": "L29",
+      "id": "app_page_shortenworkflowname",
+      "community": 5,
+      "norm_label": "shortenworkflowname()"
+    },
+    {
       "label": "cn()",
       "file_type": "code",
       "source_file": "app/page.tsx",
-      "source_location": "L173",
+      "source_location": "L267",
       "id": "app_page_cn",
       "community": 5,
       "norm_label": "cn()"
@@ -153,7 +162,7 @@
       "source_file": "components/service-icon.tsx",
       "source_location": "L1",
       "id": "components_service_icon_tsx",
-      "community": 2,
+      "community": 3,
       "norm_label": "service-icon.tsx"
     },
     {
@@ -162,7 +171,7 @@
       "source_file": "components/service-icon.tsx",
       "source_location": "L50",
       "id": "components_service_icon_servicelabel",
-      "community": 2,
+      "community": 3,
       "norm_label": "servicelabel()"
     },
     {
@@ -171,7 +180,7 @@
       "source_file": "components/service-icon.tsx",
       "source_location": "L54",
       "id": "components_service_icon_serviceicon",
-      "community": 2,
+      "community": 3,
       "norm_label": "serviceicon()"
     },
     {
@@ -180,7 +189,7 @@
       "source_file": "components/workflow-graph.tsx",
       "source_location": "L1",
       "id": "components_workflow_graph_tsx",
-      "community": 2,
+      "community": 3,
       "norm_label": "workflow-graph.tsx"
     },
     {
@@ -196,10 +205,19 @@
       "label": "HandoffLink()",
       "file_type": "code",
       "source_file": "components/handoff-link.tsx",
-      "source_location": "L5",
+      "source_location": "L26",
       "id": "components_handoff_link_handofflink",
       "community": 0,
       "norm_label": "handofflink()"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/handoff-link.tsx",
+      "source_location": "L44",
+      "id": "components_handoff_link_cn",
+      "community": 0,
+      "norm_label": "cn()"
     },
     {
       "label": "view-toggle-bar.tsx",
@@ -207,7 +225,7 @@
       "source_file": "components/view-toggle-bar.tsx",
       "source_location": "L1",
       "id": "components_view_toggle_bar_tsx",
-      "community": 3,
+      "community": 6,
       "norm_label": "view-toggle-bar.tsx"
     },
     {
@@ -227,6 +245,24 @@
       "id": "components_workflow_inspect_drawer_cn",
       "community": 0,
       "norm_label": "cn()"
+    },
+    {
+      "label": "shortDateTime()",
+      "file_type": "code",
+      "source_file": "components/workflow-inspect-drawer.tsx",
+      "source_location": "L137",
+      "id": "components_workflow_inspect_drawer_shortdatetime",
+      "community": 0,
+      "norm_label": "shortdatetime()"
+    },
+    {
+      "label": "quick-start.tsx",
+      "file_type": "code",
+      "source_file": "components/quick-start.tsx",
+      "source_location": "L1",
+      "id": "components_quick_start_tsx",
+      "community": 5,
+      "norm_label": "quick-start.tsx"
     },
     {
       "label": "lens-header.tsx",
@@ -252,7 +288,7 @@
       "source_file": "components/section-label.tsx",
       "source_location": "L1",
       "id": "components_section_label_tsx",
-      "community": 3,
+      "community": 5,
       "norm_label": "section-label.tsx"
     },
     {
@@ -268,7 +304,7 @@
       "label": "openDrawer()",
       "file_type": "code",
       "source_file": "components/flow-view.tsx",
-      "source_location": "L20",
+      "source_location": "L55",
       "id": "components_flow_view_opendrawer",
       "community": 6,
       "norm_label": "opendrawer()"
@@ -277,7 +313,7 @@
       "label": "closeDrawer()",
       "file_type": "code",
       "source_file": "components/flow-view.tsx",
-      "source_location": "L21",
+      "source_location": "L56",
       "id": "components_flow_view_closedrawer",
       "community": 6,
       "norm_label": "closedrawer()"
@@ -286,9 +322,45 @@
       "label": "cn()",
       "file_type": "code",
       "source_file": "components/flow-view.tsx",
-      "source_location": "L51",
+      "source_location": "L91",
       "id": "components_flow_view_cn",
       "community": 6,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "workflow-list.tsx",
+      "file_type": "code",
+      "source_file": "components/workflow-list.tsx",
+      "source_location": "L1",
+      "id": "components_workflow_list_tsx",
+      "community": 8,
+      "norm_label": "workflow-list.tsx"
+    },
+    {
+      "label": "statusToGroup()",
+      "file_type": "code",
+      "source_file": "components/workflow-list.tsx",
+      "source_location": "L19",
+      "id": "components_workflow_list_statustogroup",
+      "community": 8,
+      "norm_label": "statustogroup()"
+    },
+    {
+      "label": "clearAll()",
+      "file_type": "code",
+      "source_file": "components/workflow-list.tsx",
+      "source_location": "L112",
+      "id": "components_workflow_list_clearall",
+      "community": 8,
+      "norm_label": "clearall()"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "components/workflow-list.tsx",
+      "source_location": "L181",
+      "id": "components_workflow_list_cn",
+      "community": 8,
       "norm_label": "cn()"
     },
     {
@@ -297,7 +369,7 @@
       "source_file": "components/sidebar.tsx",
       "source_location": "L1",
       "id": "components_sidebar_tsx",
-      "community": 3,
+      "community": 7,
       "norm_label": "sidebar.tsx"
     },
     {
@@ -306,7 +378,7 @@
       "source_file": "components/sidebar.tsx",
       "source_location": "L37",
       "id": "components_sidebar_blindspotmark",
-      "community": 3,
+      "community": 7,
       "norm_label": "blindspotmark()"
     },
     {
@@ -351,7 +423,7 @@
       "source_file": "components/app-shell.tsx",
       "source_location": "L1",
       "id": "components_app_shell_tsx",
-      "community": 3,
+      "community": 7,
       "norm_label": "app-shell.tsx"
     },
     {
@@ -360,7 +432,7 @@
       "source_file": "components/workflow-tabs.tsx",
       "source_location": "L1",
       "id": "components_workflow_tabs_tsx",
-      "community": 3,
+      "community": 1,
       "norm_label": "workflow-tabs.tsx"
     },
     {
@@ -396,7 +468,7 @@
       "source_file": "components/views/step-view.tsx",
       "source_location": "L1",
       "id": "components_views_step_view_tsx",
-      "community": 2,
+      "community": 3,
       "norm_label": "step-view.tsx"
     },
     {
@@ -405,7 +477,7 @@
       "source_file": "components/views/step-view.tsx",
       "source_location": "L48",
       "id": "views_step_view_defaultstepid",
-      "community": 2,
+      "community": 3,
       "norm_label": "defaultstepid()"
     },
     {
@@ -414,7 +486,7 @@
       "source_file": "components/views/step-view.tsx",
       "source_location": "L59",
       "id": "views_step_view_chevronclip",
-      "community": 2,
+      "community": 3,
       "norm_label": "chevronclip()"
     },
     {
@@ -423,7 +495,7 @@
       "source_file": "components/views/step-view.tsx",
       "source_location": "L74",
       "id": "views_step_view_steptone",
-      "community": 2,
+      "community": 3,
       "norm_label": "steptone()"
     },
     {
@@ -432,7 +504,7 @@
       "source_file": "components/views/step-view.tsx",
       "source_location": "L244",
       "id": "views_step_view_cn",
-      "community": 2,
+      "community": 3,
       "norm_label": "cn()"
     },
     {
@@ -457,7 +529,7 @@
       "label": "cn()",
       "file_type": "code",
       "source_file": "components/views/run-history-view.tsx",
-      "source_location": "L201",
+      "source_location": "L228",
       "id": "views_run_history_view_cn",
       "community": 0,
       "norm_label": "cn()"
@@ -475,7 +547,7 @@
       "label": "scoreTone()",
       "file_type": "code",
       "source_file": "components/views/health-view.tsx",
-      "source_location": "L57",
+      "source_location": "L62",
       "id": "views_health_view_scoretone",
       "community": 0,
       "norm_label": "scoretone()"
@@ -484,7 +556,7 @@
       "label": "cn()",
       "file_type": "code",
       "source_file": "components/views/health-view.tsx",
-      "source_location": "L283",
+      "source_location": "L295",
       "id": "views_health_view_cn",
       "community": 0,
       "norm_label": "cn()"
@@ -513,7 +585,7 @@
       "source_file": "components/views/intent-view.tsx",
       "source_location": "L1",
       "id": "components_views_intent_view_tsx",
-      "community": 3,
+      "community": 4,
       "norm_label": "intent-view.tsx"
     },
     {
@@ -522,7 +594,7 @@
       "source_file": "components/views/intent-view.tsx",
       "source_location": "L164",
       "id": "views_intent_view_cn",
-      "community": 3,
+      "community": 4,
       "norm_label": "cn()"
     },
     {
@@ -612,7 +684,7 @@
       "source_file": "lib/utils.ts",
       "source_location": "L4",
       "id": "lib_utils_cn",
-      "community": 3,
+      "community": 1,
       "norm_label": "cn()"
     },
     {
@@ -702,7 +774,7 @@
       "source_file": "data/step-details.ts",
       "source_location": "L1",
       "id": "data_step_details_ts",
-      "community": 2,
+      "community": 3,
       "norm_label": "step-details.ts"
     },
     {
@@ -711,7 +783,7 @@
       "source_file": "data/step-details.ts",
       "source_location": "L297",
       "id": "data_step_details_getstepdetails",
-      "community": 2,
+      "community": 3,
       "norm_label": "getstepdetails()"
     },
     {
@@ -767,6 +839,123 @@
       "id": "data_alerts_ts",
       "community": 5,
       "norm_label": "alerts.ts"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "id": "readme_md",
+      "community": 2,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "Blindspot",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "id": "blindspot_prototype_readme_blindspot",
+      "community": 2,
+      "norm_label": "blindspot"
+    },
+    {
+      "label": "The problem",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L11",
+      "id": "blindspot_prototype_readme_the_problem",
+      "community": 2,
+      "norm_label": "the problem"
+    },
+    {
+      "label": "The framework",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L21",
+      "id": "blindspot_prototype_readme_the_framework",
+      "community": 2,
+      "norm_label": "the framework"
+    },
+    {
+      "label": "Demo walkthrough",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L38",
+      "id": "blindspot_prototype_readme_demo_walkthrough",
+      "community": 2,
+      "norm_label": "demo walkthrough"
+    },
+    {
+      "label": "What's in the prototype",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L63",
+      "id": "blindspot_prototype_readme_what_s_in_the_prototype",
+      "community": 2,
+      "norm_label": "what's in the prototype"
+    },
+    {
+      "label": "Tech stack",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L77",
+      "id": "blindspot_prototype_readme_tech_stack",
+      "community": 2,
+      "norm_label": "tech stack"
+    },
+    {
+      "label": "Local development",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L91",
+      "id": "blindspot_prototype_readme_local_development",
+      "community": 2,
+      "norm_label": "local development"
+    },
+    {
+      "label": "code:bash (git clone https://github.com/kevinnaik5/blindspot-prototype.)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L93",
+      "id": "blindspot_prototype_readme_codeblock_1",
+      "community": 2,
+      "norm_label": "code:bash (git clone https://github.com/kevinnaik5/blindspot-prototype.)"
+    },
+    {
+      "label": "Project structure",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L106",
+      "id": "blindspot_prototype_readme_project_structure",
+      "community": 2,
+      "norm_label": "project structure"
+    },
+    {
+      "label": "code:block2 (app/)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L108",
+      "id": "blindspot_prototype_readme_codeblock_2",
+      "community": 2,
+      "norm_label": "code:block2 (app/)"
+    },
+    {
+      "label": "Scope and limitations",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L146",
+      "id": "blindspot_prototype_readme_scope_and_limitations",
+      "community": 2,
+      "norm_label": "scope and limitations"
+    },
+    {
+      "label": "Credits",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L160",
+      "id": "blindspot_prototype_readme_credits",
+      "community": 2,
+      "norm_label": "credits"
     }
   ],
   "links": [
@@ -874,6 +1063,28 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "app/page.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_page_tsx",
+      "target": "components_workflow_list_tsx"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/page.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_page_tsx",
+      "target": "components_quick_start_tsx"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "app/page.tsx",
       "source_location": "L24",
       "weight": 1.0,
       "confidence_score": 1.0,
@@ -890,6 +1101,16 @@
       "confidence_score": 1.0,
       "source": "app_page_tsx",
       "target": "lib_utils_cn"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/page.tsx",
+      "source_location": "L29",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "app_page_tsx",
+      "target": "app_page_shortenworkflowname"
     },
     {
       "relation": "contains",
@@ -985,9 +1206,9 @@
       "source_file": "app/workflows/[id]/layout.tsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_workflows_id_layout_tsx",
-      "target": "components_lens_header_tsx",
-      "confidence_score": 1.0
+      "target": "components_lens_header_tsx"
     },
     {
       "relation": "imports",
@@ -996,9 +1217,9 @@
       "source_file": "app/workflows/[id]/layout.tsx",
       "source_location": "L8",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_workflows_id_layout_tsx",
-      "target": "components_lens_header_lensheader",
-      "confidence_score": 1.0
+      "target": "components_lens_header_lensheader"
     },
     {
       "relation": "imports_from",
@@ -1137,9 +1358,9 @@
       "source_file": "app/workflows/[id]/intent/page.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_workflows_id_intent_page_tsx",
-      "target": "data_workflows_ts",
-      "confidence_score": 1.0
+      "target": "data_workflows_ts"
     },
     {
       "relation": "imports",
@@ -1148,9 +1369,9 @@
       "source_file": "app/workflows/[id]/intent/page.tsx",
       "source_location": "L2",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_workflows_id_intent_page_tsx",
-      "target": "data_workflows_getworkflow",
-      "confidence_score": 1.0
+      "target": "data_workflows_getworkflow"
     },
     {
       "relation": "imports_from",
@@ -1159,9 +1380,9 @@
       "source_file": "app/workflows/[id]/intent/page.tsx",
       "source_location": "L3",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_workflows_id_intent_page_tsx",
-      "target": "components_views_intent_view_tsx",
-      "confidence_score": 1.0
+      "target": "components_views_intent_view_tsx"
     },
     {
       "relation": "contains",
@@ -1169,9 +1390,9 @@
       "source_file": "app/workflows/[id]/intent/page.tsx",
       "source_location": "L5",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "app_workflows_id_intent_page_tsx",
-      "target": "intent_page_intentpage",
-      "confidence_score": 1.0
+      "target": "intent_page_intentpage"
     },
     {
       "relation": "calls",
@@ -1423,6 +1644,16 @@
       "target": "components_handoff_link_handofflink"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/handoff-link.tsx",
+      "source_location": "L44",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_handoff_link_tsx",
+      "target": "components_handoff_link_cn"
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -1587,6 +1818,16 @@
       "target": "components_workflow_inspect_drawer_cn"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/workflow-inspect-drawer.tsx",
+      "source_location": "L137",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_workflow_inspect_drawer_tsx",
+      "target": "components_workflow_inspect_drawer_shortdatetime"
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -1598,14 +1839,25 @@
       "target": "components_workflow_inspect_drawer_tsx"
     },
     {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/quick-start.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_quick_start_tsx",
+      "target": "components_section_label_tsx"
+    },
+    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "components/lens-header.tsx",
       "source_location": "L26",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_lens_header_tsx",
-      "target": "components_lens_header_lensheader",
-      "confidence_score": 1.0
+      "target": "components_lens_header_lensheader"
     },
     {
       "relation": "imports_from",
@@ -1658,9 +1910,9 @@
       "source_file": "components/views/intent-view.tsx",
       "source_location": "L19",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_views_intent_view_tsx",
-      "target": "components_section_label_tsx",
-      "confidence_score": 1.0
+      "target": "components_section_label_tsx"
     },
     {
       "relation": "imports_from",
@@ -1683,6 +1935,17 @@
       "confidence_score": 1.0,
       "source": "components_flow_view_tsx",
       "target": "data_workflows_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/flow-view.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_flow_view_tsx",
+      "target": "data_runs_ts"
     },
     {
       "relation": "imports_from",
@@ -1790,6 +2053,91 @@
       "confidence_score": 1.0,
       "source": "components_flow_view_tsx",
       "target": "components_flow_view_cn"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/workflow-list.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_workflow_list_tsx",
+      "target": "data_workflows_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/workflow-list.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_workflow_list_tsx",
+      "target": "lib_time_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/workflow-list.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_workflow_list_tsx",
+      "target": "lib_time_relativefromnow"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/workflow-list.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_workflow_list_tsx",
+      "target": "lib_utils_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "components/workflow-list.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_workflow_list_tsx",
+      "target": "lib_utils_cn"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/workflow-list.tsx",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_workflow_list_tsx",
+      "target": "components_workflow_list_statustogroup"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/workflow-list.tsx",
+      "source_location": "L112",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_workflow_list_tsx",
+      "target": "components_workflow_list_clearall"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/workflow-list.tsx",
+      "source_location": "L181",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "components_workflow_list_tsx",
+      "target": "components_workflow_list_cn"
     },
     {
       "relation": "imports_from",
@@ -2477,9 +2825,9 @@
       "source_file": "components/views/intent-view.tsx",
       "source_location": "L10",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_views_intent_view_tsx",
-      "target": "data_workflows_ts",
-      "confidence_score": 1.0
+      "target": "data_workflows_ts"
     },
     {
       "relation": "imports_from",
@@ -2488,9 +2836,9 @@
       "source_file": "components/views/intent-view.tsx",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_views_intent_view_tsx",
-      "target": "lib_utils_ts",
-      "confidence_score": 1.0
+      "target": "lib_utils_ts"
     },
     {
       "relation": "imports",
@@ -2499,9 +2847,9 @@
       "source_file": "components/views/intent-view.tsx",
       "source_location": "L20",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_views_intent_view_tsx",
-      "target": "lib_utils_cn",
-      "confidence_score": 1.0
+      "target": "lib_utils_cn"
     },
     {
       "relation": "contains",
@@ -2509,9 +2857,9 @@
       "source_file": "components/views/intent-view.tsx",
       "source_location": "L164",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_views_intent_view_tsx",
-      "target": "views_intent_view_cn",
-      "confidence_score": 1.0
+      "target": "views_intent_view_cn"
     },
     {
       "relation": "imports_from",
@@ -2595,9 +2943,9 @@
       "source_file": "components/views/actions-view.tsx",
       "source_location": "L69",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_views_actions_view_tsx",
-      "target": "views_actions_view_buildconfigsummary",
-      "confidence_score": 1.0
+      "target": "views_actions_view_buildconfigsummary"
     },
     {
       "relation": "contains",
@@ -2625,9 +2973,9 @@
       "source_file": "components/views/actions-view.tsx",
       "source_location": "L123",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_views_actions_view_tsx",
-      "target": "views_actions_view_handlejumpto",
-      "confidence_score": 1.0
+      "target": "views_actions_view_handlejumpto"
     },
     {
       "relation": "contains",
@@ -2635,9 +2983,9 @@
       "source_file": "components/views/actions-view.tsx",
       "source_location": "L425",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "components_views_actions_view_tsx",
-      "target": "views_actions_view_toggle",
-      "confidence_score": 1.0
+      "target": "views_actions_view_toggle"
     },
     {
       "relation": "contains",
@@ -2748,8 +3096,128 @@
       "confidence_score": 1.0,
       "source": "data_health_ts",
       "target": "data_health_gethealth"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "readme_md",
+      "target": "blindspot_prototype_readme_blindspot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "blindspot_prototype_readme_blindspot",
+      "target": "blindspot_prototype_readme_the_problem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "blindspot_prototype_readme_blindspot",
+      "target": "blindspot_prototype_readme_the_framework",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L38",
+      "weight": 1.0,
+      "source": "blindspot_prototype_readme_blindspot",
+      "target": "blindspot_prototype_readme_demo_walkthrough",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "blindspot_prototype_readme_blindspot",
+      "target": "blindspot_prototype_readme_what_s_in_the_prototype",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "blindspot_prototype_readme_blindspot",
+      "target": "blindspot_prototype_readme_tech_stack",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L91",
+      "weight": 1.0,
+      "source": "blindspot_prototype_readme_blindspot",
+      "target": "blindspot_prototype_readme_local_development",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L106",
+      "weight": 1.0,
+      "source": "blindspot_prototype_readme_blindspot",
+      "target": "blindspot_prototype_readme_project_structure",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L146",
+      "weight": 1.0,
+      "source": "blindspot_prototype_readme_blindspot",
+      "target": "blindspot_prototype_readme_scope_and_limitations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L160",
+      "weight": 1.0,
+      "source": "blindspot_prototype_readme_blindspot",
+      "target": "blindspot_prototype_readme_credits",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "blindspot_prototype_readme_local_development",
+      "target": "blindspot_prototype_readme_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L108",
+      "weight": 1.0,
+      "source": "blindspot_prototype_readme_project_structure",
+      "target": "blindspot_prototype_readme_codeblock_2",
+      "confidence_score": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "744751d754f1f62c4208764d18fca4b4f10bf191"
+  "built_at_commit": "95c6e1df51cca9fcd034ae7d907778e8d765795a"
 }

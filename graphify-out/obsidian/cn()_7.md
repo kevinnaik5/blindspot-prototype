@@ -1,8 +1,8 @@
 ---
-source_file: "components/views/intent-view.tsx"
+source_file: "components/views/run-history-view.tsx"
 type: "code"
 community: "Community None"
-location: "L164"
+location: "L228"
 tags:
   - graphify/code
   - graphify/EXTRACTED
@@ -12,6 +12,6 @@ tags:
 # cn()
 
 ## Connections
-- [[intent-view.tsx]] - `contains` [EXTRACTED]
+- [[run-history-view.tsx]] - `contains` [EXTRACTED]
 
 #graphify/code #graphify/EXTRACTED #community/Community_None

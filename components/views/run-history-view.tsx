@@ -117,7 +117,7 @@ export function RunHistoryView({
       } else if (timeFilter === "last-24h") {
         cutoffMs = latestMs - 24 * 60 * 60 * 1000;
       } else {
-        // "today" — start of the calendar day of the latest run
+        // "today", start of the calendar day of the latest run
         const day = new Date(latestMs);
         day.setHours(0, 0, 0, 0);
         cutoffMs = day.getTime();

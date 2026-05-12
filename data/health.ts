@@ -75,6 +75,24 @@ export type LearnedProfile = {
   baselines: LearnedBaseline[];
 };
 
+// The learning runtime that produced this workflow's learned baselines
+// and anomaly signals. Names the SENSE pillar's "Continuous Learning"
+// property so the AI loop is visible to the operator instead of implicit.
+export type LearningSystem = {
+  // Display name of the learning runtime
+  name: string;
+  version?: string;
+  // ISO timestamp of the most recent retraining / refresh
+  lastRefreshedAt?: string;
+  // Count of historical runs the loop has reviewed
+  runsAnalyzed?: number;
+  // Confidence in normal behavior, on a 0 to 1 scale. Prior and latest.
+  confidencePrior?: number;
+  confidenceLatest?: number;
+  // Plain-language description of what the loop noticed
+  insight?: string;
+};
+
 export type WorkflowHealth = {
   // Current score (0 to 100)
   score: number;
@@ -84,6 +102,8 @@ export type WorkflowHealth = {
   annotation: string;
   // Footer stats shown inside the score card
   keyStats: HealthStat[];
+  // Optional, the learning runtime behind this workflow's calibration
+  learningSystem?: LearningSystem;
   // Baselines learned from prior behaviour, plus today's deviation
   learned: LearnedProfile;
   // Time series for the chart (oldest first)
@@ -99,6 +119,15 @@ const HEALTH: Record<string, WorkflowHealth> = {
     deltaSinceYesterday: -57,
     annotation:
       "Critical. The workflow has reported success but produced no real output for 6 hours.",
+    learningSystem: {
+      name: "Continuous learning",
+      lastRefreshedAt: "2026-04-24T18:00:00Z",
+      runsAnalyzed: 1847,
+      confidencePrior: 0.92,
+      confidenceLatest: 0.12,
+      insight:
+        "Confidence in normal behavior dropped sharply when Clerk started sending empty user data. We flagged the change hours before the health score moved.",
+    },
     keyStats: [
       {
         label: "Last healthy",

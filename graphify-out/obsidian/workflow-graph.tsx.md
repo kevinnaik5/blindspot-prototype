@@ -13,7 +13,7 @@ tags:
 
 ## Connections
 - [[ServiceIcon()]] - `imports` [EXTRACTED]
-- [[cn()_8]] - `imports` [EXTRACTED]
+- [[cn()_10]] - `imports` [EXTRACTED]
 - [[graph-view.tsx]] - `imports_from` [EXTRACTED]
 - [[service-icon.tsx]] - `imports_from` [EXTRACTED]
 - [[serviceLabel()]] - `imports` [EXTRACTED]

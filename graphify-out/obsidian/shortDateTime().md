@@ -1,8 +1,8 @@
 ---
-source_file: "lib/time.ts"
+source_file: "components/workflow-inspect-drawer.tsx"
 type: "code"
 community: "Community None"
-location: "L23"
+location: "L137"
 tags:
   - graphify/code
   - graphify/EXTRACTED
@@ -12,11 +12,6 @@ tags:
 # shortDateTime()
 
 ## Connections
-- [[health-view.tsx]] - `imports` [EXTRACTED]
-- [[run-history-view.tsx]] - `imports` [EXTRACTED]
-- [[step-view.tsx]] - `imports` [EXTRACTED]
-- [[time.ts]] - `contains` [EXTRACTED]
-- [[timeline-view.tsx]] - `imports` [EXTRACTED]
-- [[workflow-inspect-drawer.tsx]] - `imports` [EXTRACTED]
+- [[workflow-inspect-drawer.tsx]] - `contains` [EXTRACTED]
 
 #graphify/code #graphify/EXTRACTED #community/Community_None

@@ -94,7 +94,7 @@ export function FlowView({
         )}
         style={{ width: DRAWER_WIDTH }}
       >
-        {/* Drawer header — matches the bar's height so the strip reads as one. */}
+        {/* Drawer header, matches the bar's height so the strip reads as one. */}
         <div
           className="flex shrink-0 items-center justify-between border-b border-border bg-bg pl-5 pr-2"
           style={{ height: HEADER_HEIGHT }}

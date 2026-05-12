@@ -2,7 +2,7 @@
 source_file: "app/page.tsx"
 type: "code"
 community: "Community None"
-location: "L173"
+location: "L267"
 tags:
   - graphify/code
   - graphify/EXTRACTED

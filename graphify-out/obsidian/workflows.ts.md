@@ -29,5 +29,6 @@ tags:
 - [[timeline-view.tsx]] - `imports_from` [EXTRACTED]
 - [[workflow-graph.tsx]] - `imports_from` [EXTRACTED]
 - [[workflow-inspect-drawer.tsx]] - `imports_from` [EXTRACTED]
+- [[workflow-list.tsx]] - `imports_from` [EXTRACTED]
 
 #graphify/code #graphify/EXTRACTED #community/Community_None

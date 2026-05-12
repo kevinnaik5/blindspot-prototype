@@ -12,6 +12,7 @@ import {
   ReferenceLine,
   ResponsiveContainer,
 } from "recharts";
+import { Sparkles } from "lucide-react";
 import Link from "next/link";
 import {
   Activity,
@@ -31,6 +32,7 @@ import {
   type WorkflowHealth,
   type HealthStat,
   type LearnedBaseline,
+  type LearningSystem,
 } from "@/data/health";
 import { getRuns, type Run, type RunStatus } from "@/data/runs";
 import { SectionHeading } from "@/components/section-label";
@@ -150,9 +152,14 @@ export function HealthView({ workflow }: { workflow: Workflow }) {
           </div>
         </section>
 
-        {/* Designed stat cards — replace the divided footer. */}
+        {/* Designed stat cards, replace the divided footer. */}
         {health.keyStats.length > 0 && (
           <StatCardsRow stats={health.keyStats} />
+        )}
+
+        {/* Learning system, names the runtime behind the baselines. */}
+        {health.learningSystem && (
+          <LearningSystemSection system={health.learningSystem} />
         )}
 
         {/* What we've learned. Now a 2-column story-card grid. */}
@@ -392,6 +399,137 @@ function PeopleStack({ total }: { total: number }) {
       )}
     </div>
   );
+}
+
+// --- Learning system ---
+
+function LearningSystemSection({ system }: { system: LearningSystem }) {
+  const confidence = formatConfidence(
+    system.confidencePrior,
+    system.confidenceLatest,
+  );
+  return (
+    <section>
+      <SectionHeading
+        icon={Sparkles}
+        trailing={
+          <span>
+            {system.name}
+            {system.version ? ` · ${system.version}` : ""}
+          </span>
+        }
+      >
+        Learning system
+      </SectionHeading>
+
+      <div className="mt-3 rounded-[6px] border border-border bg-panel p-5">
+        <dl className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <Stat
+            label="Last refreshed"
+            value={
+              system.lastRefreshedAt
+                ? relativeFromNow(system.lastRefreshedAt)
+                : "Not yet"
+            }
+            caption={
+              system.lastRefreshedAt
+                ? shortDateTime(system.lastRefreshedAt)
+                : undefined
+            }
+          />
+          <Stat
+            label="Runs analyzed"
+            value={
+              system.runsAnalyzed !== undefined
+                ? system.runsAnalyzed.toLocaleString()
+                : "0"
+            }
+            caption={system.runsAnalyzed !== undefined ? "historical" : undefined}
+          />
+          <Stat
+            label="Confidence"
+            value={confidence.text}
+            valueClass={confidence.toneClass}
+            caption={confidence.caption}
+          />
+        </dl>
+
+        {system.insight && (
+          <p className="mt-5 border-t border-border pt-3.5 text-[12.5px] leading-[1.6] text-muted">
+            {system.insight}
+          </p>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function Stat({
+  label,
+  value,
+  caption,
+  valueClass,
+}: {
+  label: string;
+  value: string;
+  caption?: string;
+  valueClass?: string;
+}) {
+  return (
+    <div>
+      <div className="text-[10.5px] font-medium uppercase tracking-[0.1em] text-subtle">
+        {label}
+      </div>
+      <div
+        className={cn(
+          "mt-1.5 text-[18px] font-medium leading-none tabular-nums tracking-tightish",
+          valueClass ?? "text-fg",
+        )}
+      >
+        {value}
+      </div>
+      {caption && (
+        <div className="mt-1 text-[11px] tabular-nums text-subtle">
+          {caption}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function formatConfidence(
+  prior?: number,
+  latest?: number,
+): { text: string; toneClass: string; caption?: string } {
+  const pct = (n: number) => `${Math.round(n * 100)}%`;
+  if (prior === undefined && latest === undefined) {
+    return { text: "Not measured", toneClass: "text-fg" };
+  }
+  if (prior !== undefined && latest !== undefined) {
+    const delta = latest - prior;
+    const degrading = delta < 0;
+    const nowLow = latest < 0.4;
+    const toneClass =
+      degrading && nowLow
+        ? "text-critical"
+        : degrading
+        ? "text-warning"
+        : "text-ok";
+    const dropPct = Math.round(Math.abs(delta) * 100);
+    const caption = degrading
+      ? `Dropped ${dropPct} points`
+      : `Up ${dropPct} points`;
+    return {
+      text: `${pct(prior)} to ${pct(latest)}`,
+      toneClass,
+      caption,
+    };
+  }
+  const v = latest ?? prior!;
+  return {
+    text: pct(v),
+    toneClass: v < 0.4 ? "text-warning" : "text-ok",
+  };
 }
 
 // --- Learned baselines ---
@@ -715,7 +853,7 @@ function RunComposition({ workflowId }: { workflowId: string }) {
         Run composition
       </SectionHeading>
       <div className="mt-3 rounded-[6px] border border-border bg-panel p-5">
-        {/* Stacked bars by hour — shows when the failure pattern emerged */}
+        {/* Stacked bars by hour, shows when the failure pattern emerged */}
         <RunStatusChart data={buckets} />
 
         {/* Legend rows with crosslinks to status-filtered run history */}

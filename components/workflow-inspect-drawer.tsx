@@ -41,7 +41,7 @@ export function WorkflowInspectDrawer({
       {/* Purpose */}
       <section>
         <SectionHeading icon={BookOpen}>Purpose</SectionHeading>
-        <p className="mt-3 text-[13.5px] leading-[1.6] text-muted">
+        <p className="mt-3 text-[12px] leading-[1.6] text-muted">
           {workflow.intent}
         </p>
       </section>
@@ -71,11 +71,11 @@ export function WorkflowInspectDrawer({
                 failing ? "bg-critical" : "bg-ok",
               )}
             />
-            <p className="text-[13.5px] font-medium leading-[1.5] text-fg">
+            <p className="text-[12px] font-medium leading-[1.5] text-fg">
               {workflow.currentState.headline}
             </p>
             {workflow.currentState.detail && (
-              <p className="mt-1.5 text-[12.5px] leading-[1.55] text-muted">
+              <p className="mt-1.5 text-[12px] leading-[1.55] text-muted">
                 {workflow.currentState.detail}
               </p>
             )}
@@ -87,7 +87,7 @@ export function WorkflowInspectDrawer({
                   key={ind.label}
                   className="flex items-center justify-between border-b border-border/60 px-4 py-2 last:border-b-0"
                 >
-                  <dt className="text-[11.5px] text-muted">{ind.label}</dt>
+                  <dt className="text-[12px] text-muted">{ind.label}</dt>
                   <dd
                     className={cn(
                       "text-[12px] font-medium tabular-nums",
@@ -107,7 +107,7 @@ export function WorkflowInspectDrawer({
       <section>
         <SectionHeading icon={History}>What changed</SectionHeading>
         {workflow.changes.length === 0 ? (
-          <p className="mt-3 text-[12.5px] text-subtle">
+          <p className="mt-3 text-[12px] text-subtle">
             No modifications in the last 30 days.
           </p>
         ) : (
@@ -119,7 +119,7 @@ export function WorkflowInspectDrawer({
                   className="rounded-[6px] border border-critical/35 bg-critical/8 p-4"
                 >
                   {/* Eyebrow */}
-                  <div className="flex items-center gap-1.5 text-[10.5px] font-medium uppercase tracking-[0.1em] text-critical">
+                  <div className="flex items-center gap-1.5 text-[12px] font-medium uppercase tracking-[0.1em] text-critical">
                     <AlertCircle className="h-3 w-3" strokeWidth={2.2} />
                     Likely cause
                   </div>
@@ -129,11 +129,11 @@ export function WorkflowInspectDrawer({
                     change.at) && (
                     <div className="mt-2.5 flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
                       {change.who && (
-                        <span className="text-[13px] font-medium text-fg">
+                        <span className="text-[12px] font-medium text-fg">
                           {change.who}
                         </span>
                       )}
-                      <span className="text-[11.5px] tabular-nums text-subtle">
+                      <span className="text-[12px] tabular-nums text-subtle">
                         {shortDateTime(change.at)} ·{" "}
                         {relativeFromNow(change.at)}
                       </span>
@@ -141,7 +141,7 @@ export function WorkflowInspectDrawer({
                   )}
 
                   {/* Summary */}
-                  <p className="mt-2 text-[13px] leading-[1.6] text-fg">
+                  <p className="mt-2 text-[12px] leading-[1.6] text-fg">
                     {change.summary}
                   </p>
 
@@ -152,7 +152,6 @@ export function WorkflowInspectDrawer({
                         workflowId={workflow.id}
                         actionId={change.suggestedActionId}
                         tone="critical"
-                        size="md"
                       />
                     </div>
                   )}
@@ -162,19 +161,19 @@ export function WorkflowInspectDrawer({
                   key={idx}
                   className="grid grid-cols-[100px_minmax(0,1fr)] gap-3 px-1 py-1"
                 >
-                  <div className="text-[11.5px] tabular-nums text-subtle">
+                  <div className="text-[12px] tabular-nums text-subtle">
                     <div>{shortDateTime(change.at)}</div>
-                    <div className="mt-0.5 text-[11px] text-subtle/80">
+                    <div className="mt-0.5 text-[12px] text-subtle/80">
                       {relativeFromNow(change.at)}
                     </div>
                   </div>
                   <div className="min-w-0">
                     {change.who && (
-                      <div className="text-[12.5px] font-medium text-fg">
+                      <div className="text-[12px] font-medium text-fg">
                         {change.who}
                       </div>
                     )}
-                    <p className="mt-0.5 text-[12.5px] leading-[1.55] text-muted">
+                    <p className="mt-0.5 text-[12px] leading-[1.55] text-muted">
                       {change.summary}
                     </p>
                   </div>
@@ -195,13 +194,13 @@ export function WorkflowInspectDrawer({
               className="border-b border-border last:border-b-0"
             >
               <div className="flex items-center justify-between px-4 py-2.5">
-                <span className="text-[13px] font-medium text-fg">
+                <span className="text-[12px] font-medium text-fg">
                   {dep.service}
                 </span>
                 <HealthLabel health={dep.health} />
               </div>
               {dep.note && (
-                <div className="border-t border-border/60 px-4 py-2 text-[11.5px] text-muted">
+                <div className="border-t border-border/60 px-4 py-2 text-[12px] text-muted">
                   {dep.note}
                 </div>
               )}
@@ -217,7 +216,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between border-b border-border px-4 py-2.5 last:border-b-0">
       <span className="text-[12px] text-muted">{label}</span>
-      <span className="text-[12.5px] font-medium text-fg">{value}</span>
+      <span className="text-[12px] font-medium text-fg">{value}</span>
     </div>
   );
 }

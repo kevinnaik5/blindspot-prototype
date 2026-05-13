@@ -22,6 +22,10 @@ const config: Config = {
         warning: "hsl(var(--warning) / <alpha-value>)",
         info: "hsl(var(--info) / <alpha-value>)",
         ok: "hsl(var(--ok) / <alpha-value>)",
+        "info-solid": "hsl(var(--info-solid) / <alpha-value>)",
+        "critical-solid": "hsl(var(--critical-solid) / <alpha-value>)",
+        "warning-solid": "hsl(var(--warning-solid) / <alpha-value>)",
+        "ok-solid": "hsl(var(--ok-solid) / <alpha-value>)",
       },
       fontFamily: {
         sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],

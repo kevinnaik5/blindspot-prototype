@@ -4,22 +4,29 @@
 
 :root {
   /* Surfaces. Near-black, not pure. */
-  --bg: 240 6% 5%;
-  --panel: 240 6% 7%;
-  --panel-2: 240 6% 9%;
-  --border: 240 5% 14%;
-  --border-strong: 240 5% 20%;
+  --bg: 240 6% 4%;
+  --panel: 240 6% 10%;
+  --panel-2: 240 6% 17%;
+  --border: 240 5% 22%;
+  --border-strong: 240 5% 30%;
 
   /* Text */
   --fg: 0 0% 93%;
-  --muted: 240 4% 62%;
-  --subtle: 240 4% 42%;
+  --muted: 240 4% 70%;
+  --subtle: 240 4% 55%;
 
   /* Accents. Desaturated, used sparingly. */
   --critical: 6 64% 56%;
   --warning: 35 75% 55%;
   --info: 210 55% 60%;
   --ok: 145 30% 52%;
+
+  /* Solid button fills. Darker than the tonal accents above
+     so white text reads cleanly. */
+  --info-solid: 210 65% 44%;
+  --critical-solid: 6 68% 46%;
+  --warning-solid: 35 82% 44%;
+  --ok-solid: 145 40% 38%;
 }
 
 html,

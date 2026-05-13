@@ -30,7 +30,7 @@ export function SeverityLabel({ severity }: { severity: Severity }) {
   return (
     <span
       className={cn(
-        "text-[10.5px] font-medium uppercase tracking-[0.1em]",
+        "text-[12px] font-medium uppercase tracking-[0.1em]",
         severity === "critical" && "text-critical",
         severity === "warning" && "text-warning",
         severity === "notice" && "text-info",

@@ -45,13 +45,13 @@ const CARDS: QuickStartCard[] = [
   {
     title: "Invite your team",
     description: "Add ops staff to this workspace.",
-    href: "/settings",
+    href: "/manage",
     icon: Users,
   },
   {
     title: "Set up alert routing",
     description: "Send critical alerts to Slack or PagerDuty.",
-    href: "/settings",
+    href: "/manage",
     icon: Bell,
   },
 ];
@@ -64,22 +64,32 @@ export function QuickStart() {
   if (dismissed) return null;
 
   return (
-    <section className="relative mt-8">
-      <button
-        type="button"
-        onClick={() => setDismissed(true)}
-        aria-label="Skip setup guide"
-        title="Skip setup guide"
-        className="absolute right-0 top-0 inline-flex items-center gap-1 text-[12px] text-subtle transition-colors hover:text-fg"
-      >
-        Skip setup
-        <X className="h-3 w-3" strokeWidth={1.85} />
-      </button>
-
+    <section className="mt-8">
       <Eyebrow>Let&apos;s get started</Eyebrow>
-      <h1 className="mt-3 text-[32px] font-medium leading-[1.1] tracking-tightish text-fg">
-        Welcome to Blindspot
-      </h1>
+      <div className="mt-3 flex items-center justify-between gap-4">
+        <h1 className="text-[32px] font-medium leading-[1.1] tracking-tightish text-fg">
+          Welcome to Blindspot
+        </h1>
+        <button
+          type="button"
+          onClick={() => setDismissed(true)}
+          aria-label="Skip setup guide"
+          title="Skip setup guide"
+          className="inline-flex shrink-0 items-center gap-2 text-[12px] text-muted transition-colors hover:text-fg"
+        >
+          <span className="flex items-center gap-1">
+            {CARDS.map((_, i) => (
+              <span
+                key={i}
+                aria-hidden
+                className="h-3.5 w-3.5 rounded-[3px] border border-border-strong"
+              />
+            ))}
+          </span>
+          <span className="tabular-nums">0/{CARDS.length}</span>
+          <X className="h-3 w-3" strokeWidth={1.85} />
+        </button>
+      </div>
 
       <div className="-mx-8 mt-7 flex gap-3 overflow-x-auto px-8 pb-3 [scrollbar-width:thin]">
         {CARDS.map((card) => {
@@ -95,10 +105,10 @@ export function QuickStart() {
               </div>
 
               <div className="mt-3.5">
-                <div className="text-[14px] font-medium tracking-tightish text-fg">
+                <div className="text-[16px] font-medium tracking-tightish text-fg">
                   {card.title}
                 </div>
-                <div className="mt-1 text-[12.5px] leading-[1.5] text-muted">
+                <div className="mt-1 text-[12px] leading-[1.5] text-muted">
                   {card.description}
                 </div>
               </div>

@@ -96,17 +96,17 @@ export function FlowView({
       >
         {/* Drawer header, matches the bar's height so the strip reads as one. */}
         <div
-          className="flex shrink-0 items-center justify-between border-b border-border bg-bg pl-5 pr-2"
+          className="flex shrink-0 items-center justify-between bg-info-solid pl-5 pr-2"
           style={{ height: HEADER_HEIGHT }}
         >
-          <span className="text-[11px] font-medium uppercase tracking-[0.1em] text-muted">
+          <span className="text-[12px] font-medium uppercase tracking-[0.1em] text-fg">
             Inspect
           </span>
           <button
             type="button"
             onClick={closeDrawer}
             aria-label="Close inspect panel"
-            className="flex h-7 w-7 items-center justify-center rounded-md text-subtle transition-colors hover:bg-panel-2 hover:text-fg"
+            className="flex h-7 w-7 items-center justify-center rounded-md text-fg transition-colors hover:bg-info-solid/70"
           >
             <X className="h-4 w-4" strokeWidth={1.85} />
           </button>

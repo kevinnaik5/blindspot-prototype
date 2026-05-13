@@ -1,16 +1,16 @@
-# Graph Report - blindspot-prototype  (2026-05-09)
+# Graph Report - blindspot-prototype  (2026-05-13)
 
 ## Corpus Check
-- 43 files · ~214,026 words
+- 43 files · ~214,465 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 106 nodes · 211 edges · 13 communities (11 shown, 2 thin omitted)
+- 107 nodes · 212 edges · 13 communities (11 shown, 2 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 4 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `95c6e1df`
+- Built from commit: `83550372`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -48,24 +48,24 @@
 ## Communities (13 total, 2 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.16
+Cohesion: 0.15
 Nodes (5): HandoffLink(), getHealth(), getRuns(), relativeFromNow(), shortDateTime()
 
 ### Community 1 - "Community 1"
 Cohesion: 0.17
-Nodes (4): LensHeader(), getActions(), cn(), FocusableActionItem()
+Nodes (3): LensHeader(), getActions(), FocusableActionItem()
 
 ### Community 2 - "Community 2"
 Cohesion: 0.15
 Nodes (12): Blindspot, code:bash (git clone https://github.com/kevinnaik5/blindspot-prototype.), code:block2 (app/), Credits, Demo walkthrough, Local development, Project structure, Scope and limitations (+4 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.27
-Nodes (3): ServiceIcon(), serviceLabel(), getStepDetails()
-
-### Community 4 - "Community 4"
 Cohesion: 0.3
 Nodes (5): ActionsPage(), getWorkflow(), HealthPage(), FlowTabPage(), IntentPage()
+
+### Community 4 - "Community 4"
+Cohesion: 0.27
+Nodes (4): ServiceIcon(), serviceLabel(), getStepDetails(), cn()
 
 ## Knowledge Gaps
 - **9 isolated node(s):** `The problem`, `The framework`, `Demo walkthrough`, `What's in the prototype`, `Tech stack` (+4 more)
@@ -75,12 +75,12 @@ Nodes (5): ActionsPage(), getWorkflow(), HealthPage(), FlowTabPage(), IntentPage
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `cn()` connect `Community 1` to `Community 0`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`?**
+- **Why does `cn()` connect `Community 4` to `Community 0`, `Community 1`, `Community 3`, `Community 5`, `Community 6`, `Community 7`, `Community 8`?**
   _High betweenness centrality (0.147) - this node is a cross-community bridge._
-- **Why does `getWorkflow()` connect `Community 4` to `Community 1`?**
-  _High betweenness centrality (0.036) - this node is a cross-community bridge._
-- **Why does `relativeFromNow()` connect `Community 0` to `Community 8`, `Community 1`, `Community 3`, `Community 5`?**
-  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+- **Why does `getWorkflow()` connect `Community 3` to `Community 1`?**
+  _High betweenness centrality (0.035) - this node is a cross-community bridge._
+- **Why does `relativeFromNow()` connect `Community 0` to `Community 8`, `Community 1`, `Community 4`, `Community 5`?**
+  _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **Are the 4 inferred relationships involving `getWorkflow()` (e.g. with `FlowTabPage()` and `HealthPage()`) actually correct?**
   _`getWorkflow()` has 4 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `The problem`, `The framework`, `Demo walkthrough` to the rest of the system?**

@@ -2,14 +2,14 @@
 source_file: "components/views/health-view.tsx"
 type: "code"
 community: "Community None"
-location: "L302"
+location: "L504"
 tags:
   - graphify/code
   - graphify/EXTRACTED
   - community/Community_None
 ---
 
-# cn()
+# pct()
 
 ## Connections
 - [[health-view.tsx]] - `contains` [EXTRACTED]

@@ -6,9 +6,12 @@ import {
   Home,
   GitBranch,
   Plug,
+  SlidersHorizontal,
+  HelpCircle,
   Settings,
   PanelLeftClose,
   PanelLeft,
+  type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -25,6 +28,26 @@ const NAV = [
     label: "Connections",
     icon: Plug,
     match: (p: string) => p.startsWith("/connections"),
+  },
+  {
+    href: "/manage",
+    label: "Manage",
+    icon: SlidersHorizontal,
+    match: (p: string) => p.startsWith("/manage"),
+  },
+];
+
+const FOOTER_NAV: {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+  match: (p: string) => boolean;
+}[] = [
+  {
+    href: "/help",
+    label: "Help",
+    icon: HelpCircle,
+    match: (p: string) => p.startsWith("/help"),
   },
   {
     href: "/settings",
@@ -81,7 +104,7 @@ export function Sidebar({
         <div className={cn("flex items-center gap-2", collapsed && "px-0")}>
           <BlindspotMark className="text-fg" />
           {!collapsed && (
-            <span className="text-[14px] font-medium tracking-tightish text-fg">
+            <span className="text-[16px] font-medium tracking-tightish text-fg">
               Blindspot
             </span>
           )}
@@ -100,13 +123,6 @@ export function Sidebar({
         </button>
       </div>
 
-      {/* Section label */}
-      {!collapsed && (
-        <div className="px-4 pb-2 text-[10.5px] font-medium uppercase tracking-[0.08em] text-subtle">
-          Workspace
-        </div>
-      )}
-
       <nav className={cn("flex flex-col gap-px", collapsed ? "px-2" : "px-2")}>
         {NAV.map((item) => {
           const active = item.match(pathname);
@@ -117,7 +133,7 @@ export function Sidebar({
               href={item.href}
               title={collapsed ? item.label : undefined}
               className={cn(
-                "group flex items-center rounded-md text-[13.5px] transition-colors",
+                "group flex items-center rounded-md text-[12px] transition-colors",
                 collapsed
                   ? "h-8 justify-center"
                   : "gap-2.5 px-3 py-1.5",
@@ -142,17 +158,50 @@ export function Sidebar({
       {/* Workspace selector */}
       {!collapsed && (
         <div className="mt-8 px-4">
-          <div className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-subtle">
+          <div className="text-[12px] font-medium uppercase tracking-[0.08em] text-subtle">
             Workspace
           </div>
           <div className="mt-2 flex items-center justify-between">
-            <span className="text-[13px] text-fg">Acme Operations</span>
-            <span className="text-[11px] text-subtle">free</span>
+            <span className="text-[12px] text-fg">Acme Operations</span>
+            <span className="text-[12px] text-subtle">free</span>
           </div>
         </div>
       )}
 
       <div className="mt-auto" />
+
+      {/* Footer utility nav: Help + Settings, same shape as main nav */}
+      <nav className={cn("flex flex-col gap-px border-t border-border py-2", collapsed ? "px-2" : "px-2")}>
+        {FOOTER_NAV.map((item) => {
+          const active = item.match(pathname);
+          const Icon = item.icon;
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              title={collapsed ? item.label : undefined}
+              className={cn(
+                "group flex items-center rounded-md text-[12px] transition-colors",
+                collapsed
+                  ? "h-8 justify-center"
+                  : "gap-2.5 px-3 py-1.5",
+                active
+                  ? "bg-panel-2 text-fg"
+                  : "text-muted hover:bg-panel-2/60 hover:text-fg",
+              )}
+            >
+              <Icon
+                className={cn(
+                  "h-3.5 w-3.5 shrink-0 transition-colors",
+                  active ? "text-fg" : "text-subtle group-hover:text-muted",
+                )}
+                strokeWidth={1.75}
+              />
+              {!collapsed && <span>{item.label}</span>}
+            </Link>
+          );
+        })}
+      </nav>
 
       {/* User */}
       <div
@@ -167,13 +216,13 @@ export function Sidebar({
             collapsed ? "" : "gap-2.5",
           )}
         >
-          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-panel-2 text-[11px] font-medium text-fg ring-1 ring-border-strong">
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-panel-2 text-[12px] font-medium text-fg ring-1 ring-border-strong">
             KN
           </div>
           {!collapsed && (
             <div className="min-w-0 leading-tight">
-              <div className="truncate text-[12.5px] text-fg">Kevin Naik</div>
-              <div className="truncate text-[11px] text-subtle">
+              <div className="truncate text-[12px] text-fg">Kevin Naik</div>
+              <div className="truncate text-[12px] text-subtle">
                 kevin@acme.co
               </div>
             </div>

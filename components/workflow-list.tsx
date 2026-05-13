@@ -136,7 +136,7 @@ export function WorkflowList({ workflows }: { workflows: Workflow[] }) {
           <button
             type="button"
             onClick={clearAll}
-            className="ml-auto text-[11.5px] font-medium text-info hover:text-fg"
+            className="ml-auto text-[12px] font-medium text-info hover:text-fg"
           >
             Clear filters
           </button>
@@ -145,7 +145,7 @@ export function WorkflowList({ workflows }: { workflows: Workflow[] }) {
 
       {/* Table */}
       <div className="overflow-hidden rounded-[6px] border border-border bg-panel">
-        <div className="grid grid-cols-[minmax(0,1fr)_180px_120px_140px_18px] items-center gap-4 border-b border-border px-5 py-2.5 text-[10.5px] font-medium uppercase tracking-[0.08em] text-subtle">
+        <div className="grid grid-cols-[minmax(0,1fr)_180px_120px_140px_18px] items-center gap-4 border-b border-border bg-panel-2 px-5 py-2.5 text-[12px] font-medium uppercase tracking-[0.08em] text-muted">
           <div>Workflow</div>
           <div>Status</div>
           <div>Last run</div>
@@ -155,7 +155,7 @@ export function WorkflowList({ workflows }: { workflows: Workflow[] }) {
 
         {filtered.length === 0 ? (
           <div className="px-5 py-10 text-center">
-            <div className="text-[12.5px] text-muted">
+            <div className="text-[12px] text-muted">
               No workflows match the current filters.
             </div>
             <button
@@ -174,7 +174,7 @@ export function WorkflowList({ workflows }: { workflows: Workflow[] }) {
                 <li key={w.id}>
                   <Link
                     href={`/workflows/${w.id}`}
-                    className="group grid grid-cols-[minmax(0,1fr)_180px_120px_140px_18px] items-center gap-4 px-5 py-3 text-[13px] transition-colors hover:bg-panel-2"
+                    className="group grid grid-cols-[minmax(0,1fr)_180px_120px_140px_18px] items-center gap-4 px-5 py-3 text-[12px] transition-colors hover:bg-panel-2"
                   >
                     <div className="min-w-0 truncate text-fg">{w.name}</div>
                     <div
@@ -219,7 +219,7 @@ function FilterChipRow({
 }) {
   return (
     <div className="flex flex-wrap items-center gap-1.5">
-      <span className="mr-1 text-[10.5px] font-medium uppercase tracking-[0.08em] text-subtle">
+      <span className="mr-1 text-[12px] font-medium uppercase tracking-[0.08em] text-subtle">
         {label}
       </span>
       {chips.map((c) => (
@@ -272,7 +272,7 @@ function FilterChip({
       type="button"
       onClick={onClick}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-[11.5px] font-medium transition-colors",
+        "inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-[12px] font-medium transition-colors",
         active
           ? activeClass
           : "border-border bg-panel text-muted hover:bg-panel-2 hover:text-fg",

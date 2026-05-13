@@ -37,11 +37,11 @@ export function LensHeader({ id }: { id: string }) {
   return (
     <div className="bg-panel-2/40 px-8 py-2.5">
       <div className="flex items-baseline gap-2.5">
-        <span className="text-[10.5px] font-medium uppercase tracking-[0.14em] text-fg">
+        <span className="text-[12px] font-medium uppercase tracking-[0.14em] text-fg">
           {label}
         </span>
         <span className="text-border-strong">·</span>
-        <span className="text-[11.5px] leading-[1.5] text-muted">
+        <span className="text-[12px] leading-[1.5] text-muted">
           {tagline}
         </span>
       </div>

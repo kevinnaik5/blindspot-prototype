@@ -55,12 +55,6 @@ const TONE_TEXT = {
   info: "text-info",
 };
 
-const TONE_BG = {
-  critical: "bg-critical/12 border-critical/30",
-  warning: "bg-warning/12 border-warning/30",
-  info: "bg-info/12 border-info/30",
-};
-
 function scoreTone(score: number): {
   text: string;
   ring: string;
@@ -93,10 +87,10 @@ export function HealthView({ workflow }: { workflow: Workflow }) {
     return (
       <div className="flex h-full items-center justify-center">
         <div className="max-w-[320px] text-center">
-          <div className="text-[11px] font-medium uppercase tracking-[0.1em] text-subtle">
+          <div className="text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
             Health
           </div>
-          <div className="mt-2 text-[13px] text-muted">
+          <div className="mt-2 text-[12px] text-muted">
             No health data available for this workflow yet.
           </div>
         </div>
@@ -113,7 +107,7 @@ export function HealthView({ workflow }: { workflow: Workflow }) {
         {/* Health score card. No more 4-column stats footer. */}
         <section className="overflow-hidden rounded-[8px] border border-border bg-panel">
           <div className="px-6 pt-5 pb-6">
-            <div className="text-[10.5px] font-medium uppercase tracking-[0.1em] text-subtle">
+            <div className="text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
               Health score
             </div>
 
@@ -126,10 +120,10 @@ export function HealthView({ workflow }: { workflow: Workflow }) {
               >
                 {health.score}
               </span>
-              <span className="text-[15px] text-subtle">/ 100</span>
+              <span className="text-[16px] text-subtle">/ 100</span>
               <span
                 className={cn(
-                  "ml-1 inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-[11px] font-medium",
+                  "ml-1 inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-[12px] font-medium",
                   tone.ring,
                   tone.text,
                 )}
@@ -146,7 +140,7 @@ export function HealthView({ workflow }: { workflow: Workflow }) {
               scoreText={tone.text}
             />
 
-            <p className="mt-4 max-w-[760px] text-[14px] leading-[1.6] text-fg">
+            <p className="mt-4 max-w-[760px] text-[16px] leading-[1.6] text-fg">
               {health.annotation}
             </p>
           </div>
@@ -180,21 +174,18 @@ export function HealthView({ workflow }: { workflow: Workflow }) {
         <section>
           <SectionHeading icon={AlertTriangle}>Detected anomalies</SectionHeading>
           {health.anomalies.length === 0 ? (
-            <p className="mt-3 text-[13px] text-subtle">
+            <p className="mt-3 text-[12px] text-subtle">
               No anomalies in the last 7 days.
             </p>
           ) : (
-            <ul className="mt-3 space-y-2.5">
+            <ul className="mt-3 overflow-hidden rounded-[6px] border border-border bg-panel">
               {health.anomalies.map((a) => {
                 const sm = SEVERITY_META[a.severity];
                 const Icon = sm.Icon;
                 return (
                   <li
                     key={a.id}
-                    className={cn(
-                      "rounded-[6px] border bg-panel p-4",
-                      TONE_BG[sm.tone],
-                    )}
+                    className="border-b border-border p-4 last:border-b-0"
                   >
                     <div className="flex items-start gap-3">
                       <Icon
@@ -206,29 +197,29 @@ export function HealthView({ workflow }: { workflow: Workflow }) {
                       />
                       <div className="min-w-0 flex-1">
                         <div className="flex items-baseline justify-between gap-3">
-                          <p className="text-[13.5px] leading-[1.5] text-fg">
+                          <p className="text-[12px] leading-[1.5] text-fg">
                             {a.summary}
                           </p>
-                          <span className="shrink-0 text-[11px] tabular-nums text-subtle">
+                          <span className="shrink-0 text-[12px] tabular-nums text-subtle">
                             {shortDateTime(a.at)}
                           </span>
                         </div>
                         {a.detail && (
-                          <p className="mt-1.5 text-[12.5px] leading-[1.55] text-muted">
+                          <p className="mt-1.5 text-[12px] leading-[1.55] text-muted">
                             {a.detail}
                           </p>
                         )}
-                        <div className="mt-2 flex items-center justify-between gap-3 text-[11px] text-subtle">
+                        <div className="mt-2 flex items-center justify-between gap-3 text-[12px] text-subtle">
                           <div className="flex items-center gap-2">
                             <span
                               className={cn(
-                                "inline-flex items-center gap-1 rounded-sm border px-1.5 py-px text-[10px] font-medium uppercase tracking-[0.08em]",
-                                TONE_BG[sm.tone],
+                                "text-[12px] font-medium uppercase tracking-[0.08em]",
                                 TONE_TEXT[sm.tone],
                               )}
                             >
                               {sm.label}
                             </span>
+                            <span>·</span>
                             <span>{relativeFromNow(a.at)}</span>
                           </div>
                           {a.suggestedActionId && (
@@ -284,7 +275,7 @@ function StatCard({ stat }: { stat: HealthStat }) {
   return (
     <div className="rounded-[6px] border border-border bg-panel p-4">
       <div className="flex items-start justify-between gap-3">
-        <div className="text-[10.5px] font-medium uppercase tracking-[0.1em] text-subtle">
+        <div className="text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
           {stat.label}
         </div>
         {stat.visual?.kind === "clock" && (
@@ -300,7 +291,7 @@ function StatCard({ stat }: { stat: HealthStat }) {
 
       <div
         className={cn(
-          "mt-2.5 text-[26px] font-medium leading-none tabular-nums tracking-tightish",
+          "mt-2.5 text-[28px] font-medium leading-none tabular-nums tracking-tightish",
           valueTone,
         )}
       >
@@ -308,7 +299,7 @@ function StatCard({ stat }: { stat: HealthStat }) {
       </div>
 
       {stat.caption && (
-        <div className="mt-1 text-[11.5px] text-subtle">{stat.caption}</div>
+        <div className="mt-1 text-[12px] text-subtle">{stat.caption}</div>
       )}
 
       {stat.visual && stat.visual.kind !== "clock" && (
@@ -355,7 +346,7 @@ function CompareBars({
   return (
     <div className="space-y-1">
       <div className="flex items-center gap-2">
-        <span className="w-12 shrink-0 text-[9.5px] uppercase tracking-[0.06em] text-subtle">
+        <span className="w-12 shrink-0 text-[12px] uppercase tracking-[0.06em] text-subtle">
           today
         </span>
         <div className="h-1.5 flex-1 overflow-hidden rounded-sm bg-panel-2">
@@ -366,7 +357,7 @@ function CompareBars({
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <span className="w-12 shrink-0 text-[9.5px] uppercase tracking-[0.06em] text-subtle">
+        <span className="w-12 shrink-0 text-[12px] uppercase tracking-[0.06em] text-subtle">
           typical
         </span>
         <div className="h-1.5 flex-1 overflow-hidden rounded-sm bg-panel-2">
@@ -393,7 +384,7 @@ function PeopleStack({ total }: { total: number }) {
         />
       ))}
       {rest > 0 && (
-        <span className="ml-1 text-[10px] tabular-nums text-subtle">
+        <span className="ml-1 text-[12px] tabular-nums text-subtle">
           +{rest}
         </span>
       )}
@@ -455,7 +446,7 @@ function LearningSystemSection({ system }: { system: LearningSystem }) {
         </dl>
 
         {system.insight && (
-          <p className="mt-5 border-t border-border pt-3.5 text-[12.5px] leading-[1.6] text-muted">
+          <p className="mt-5 border-t border-border pt-3.5 text-[12px] leading-[1.6] text-muted">
             {system.insight}
           </p>
         )}
@@ -477,19 +468,19 @@ function Stat({
 }) {
   return (
     <div>
-      <div className="text-[10.5px] font-medium uppercase tracking-[0.1em] text-subtle">
+      <div className="text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
         {label}
       </div>
       <div
         className={cn(
-          "mt-1.5 text-[18px] font-medium leading-none tabular-nums tracking-tightish",
+          "mt-1.5 text-[20px] font-medium leading-none tabular-nums tracking-tightish",
           valueClass ?? "text-fg",
         )}
       >
         {value}
       </div>
       {caption && (
-        <div className="mt-1 text-[11px] tabular-nums text-subtle">
+        <div className="mt-1 text-[12px] tabular-nums text-subtle">
           {caption}
         </div>
       )}
@@ -583,7 +574,7 @@ function LearnedSection({
         What we&apos;ve learned
       </SectionHeading>
 
-      <p className="mt-2 text-[12.5px] leading-[1.55] text-muted">
+      <p className="mt-2 text-[12px] leading-[1.55] text-muted">
         {health.learned.observationWindow}
       </p>
 
@@ -611,11 +602,11 @@ function LearnedCard({
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <span className={cn("h-1.5 w-1.5 rounded-full", tone.dot)} />
-          <span className="text-[12.5px] font-medium text-fg">{b.metric}</span>
+          <span className="text-[12px] font-medium text-fg">{b.metric}</span>
         </div>
         <span
           className={cn(
-            "rounded-sm border border-transparent px-1.5 py-px text-[10px] font-medium uppercase tracking-[0.08em]",
+            "rounded-sm border border-transparent px-1.5 py-px text-[12px] font-medium uppercase tracking-[0.08em]",
             tone.chip,
             tone.chipText,
           )}
@@ -625,7 +616,7 @@ function LearnedCard({
       </div>
 
       {/* Comparison line */}
-      <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[12.5px] tabular-nums">
+      <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-[12px] tabular-nums">
         <span className="text-subtle">Was</span>
         <span className="text-muted">{b.baseline}</span>
         <span className="text-subtle">→ Now</span>
@@ -719,7 +710,7 @@ function MiniRangeBar({
           aria-hidden
         />
       </div>
-      <div className="mt-1.5 flex items-center justify-between text-[10px] tabular-nums text-subtle">
+      <div className="mt-1.5 flex items-center justify-between text-[12px] tabular-nums text-subtle">
         <span>0{numeric.unit ?? ""}</span>
         <span>
           {max}
@@ -736,18 +727,20 @@ function TextDiff({
   diff: NonNullable<LearnedBaseline["textDiff"]>;
 }) {
   return (
-    <div className="space-y-1.5 rounded-sm bg-panel-2 p-2.5">
-      <div className="flex items-baseline gap-2">
-        <span className="w-[60px] shrink-0 text-[9.5px] font-medium uppercase tracking-[0.08em] text-subtle">
-          expected
-        </span>
-        <code className="font-mono text-[11px] text-muted">{diff.expected}</code>
+    <div className="space-y-2.5 rounded-sm bg-panel-2 p-3">
+      <div>
+        <div className="text-[12px] font-medium uppercase tracking-[0.08em] text-subtle">
+          Expected
+        </div>
+        <code className="mt-1 block break-all font-mono text-[12px] leading-[1.55] text-muted">
+          {diff.expected}
+        </code>
       </div>
-      <div className="flex items-baseline gap-2">
-        <span className="w-[60px] shrink-0 text-[9.5px] font-medium uppercase tracking-[0.08em] text-subtle">
-          received
-        </span>
-        <code className="font-mono text-[11px] text-critical">
+      <div>
+        <div className="text-[12px] font-medium uppercase tracking-[0.08em] text-subtle">
+          Received
+        </div>
+        <code className="mt-1 block break-all font-mono text-[12px] leading-[1.55] text-critical">
           {diff.received}
         </code>
       </div>
@@ -866,9 +859,9 @@ function RunComposition({ workflowId }: { workflowId: string }) {
               <>
                 <dt className="flex items-center gap-2">
                   <span className={cn("h-2 w-2 rounded-full", seg.dot)} />
-                  <span className="text-[12.5px] text-muted">{seg.label}</span>
+                  <span className="text-[12px] text-muted">{seg.label}</span>
                 </dt>
-                <dd className="flex items-baseline gap-1.5 text-[12.5px] tabular-nums">
+                <dd className="flex items-baseline gap-1.5 text-[12px] tabular-nums">
                   <span className="font-medium text-fg">{count}</span>
                   <span className="text-subtle">({pct}%)</span>
                   {!disabled && (
@@ -903,7 +896,7 @@ function RunComposition({ workflowId }: { workflowId: string }) {
         </dl>
 
         {interpretation && (
-          <p className="mt-3 text-[12.5px] leading-[1.55] text-muted">
+          <p className="mt-3 text-[12px] leading-[1.55] text-muted">
             {interpretation}
           </p>
         )}
@@ -984,8 +977,8 @@ function RunStatusTooltip({
 }) {
   if (!active || !payload || payload.length === 0) return null;
   return (
-    <div className="rounded-md border border-border bg-bg px-3 py-2 text-[11px] shadow-lg">
-      <div className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-subtle">
+    <div className="rounded-md border border-border bg-bg px-3 py-2 text-[12px] shadow-lg">
+      <div className="text-[12px] font-medium uppercase tracking-[0.08em] text-subtle">
         {label}
       </div>
       <ul className="mt-1.5 space-y-0.5">
@@ -1051,7 +1044,7 @@ function HealthBar({
         )}
       </div>
 
-      <div className="relative mt-1.5 h-3 text-[10px] tabular-nums">
+      <div className="relative mt-1.5 h-3 text-[12px] tabular-nums">
         <span
           className={cn(
             "absolute -translate-x-1/2 whitespace-nowrap font-medium uppercase tracking-[0.06em]",

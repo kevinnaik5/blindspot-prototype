@@ -64,11 +64,11 @@ export function ViewToggleBar({
       <button
         type="button"
         onClick={onOpenInspect}
-        className="group flex items-stretch border-l border-border bg-info/6 text-info transition-colors hover:bg-info/12"
+        className="group flex items-stretch bg-info-solid text-fg transition-colors hover:bg-info-solid/85"
       >
         <div className="flex items-center gap-1.5 px-4 text-[12px] font-medium">
           <ChevronLeft
-            className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5"
+            className="h-3 w-3 transition-transform group-hover:-translate-x-0.5"
             strokeWidth={1.85}
           />
           <span className="lowercase tracking-tight">inspect</span>

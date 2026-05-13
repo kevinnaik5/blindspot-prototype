@@ -1,11 +1,11 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, AlertTriangle, CheckCircle2 } from "lucide-react";
+import { AlertTriangle, CheckCircle2 } from "lucide-react";
 import { getWorkflow, PLATFORM_LABEL } from "@/data/workflows";
 import { getActions } from "@/data/actions";
 import { relativeFromNow } from "@/lib/time";
 import { WorkflowTabs } from "@/components/workflow-tabs";
 import { LensHeader } from "@/components/lens-header";
+import { WorkflowBackLink } from "@/components/workflow-back-link";
 import { cn } from "@/lib/utils";
 
 export default async function WorkflowLayout({
@@ -28,19 +28,13 @@ export default async function WorkflowLayout({
       {/* Top chrome */}
       <div className="shrink-0 border-b border-border">
         <div className="px-8 pt-7 pb-5">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 text-[11.5px] font-medium uppercase tracking-[0.08em] text-muted transition-colors hover:text-fg"
-          >
-            <ArrowLeft className="h-3 w-3" strokeWidth={1.85} />
-            All workflows
-          </Link>
+          <WorkflowBackLink />
 
-          <h1 className="mt-4 text-[22px] font-medium leading-tight tracking-tightish text-fg">
+          <h1 className="mt-4 text-[20px] font-medium leading-tight tracking-tightish text-fg">
             {workflow.name}
           </h1>
 
-          <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[12.5px] text-muted">
+          <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[12px] text-muted">
             <span>
               Owned by <span className="text-fg">{workflow.owner.name}</span>
             </span>

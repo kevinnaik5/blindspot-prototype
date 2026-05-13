@@ -24,7 +24,7 @@ export function SectionHeading({
         className,
       )}
     >
-      <h2 className="flex items-center gap-2 text-[14px] font-medium tracking-tightish text-fg">
+      <h2 className="flex items-center gap-2 text-[16px] font-medium tracking-tightish text-fg">
         {Icon && (
           <Icon
             className="h-3.5 w-3.5 shrink-0 text-muted"
@@ -34,7 +34,7 @@ export function SectionHeading({
         <span>{children}</span>
       </h2>
       {trailing && (
-        <div className="text-[11.5px] text-subtle">{trailing}</div>
+        <div className="text-[12px] text-subtle">{trailing}</div>
       )}
     </div>
   );
@@ -51,7 +51,7 @@ export function Eyebrow({
   return (
     <div
       className={cn(
-        "text-[10.5px] font-medium uppercase tracking-[0.1em] text-subtle",
+        "text-[12px] font-medium uppercase tracking-[0.1em] text-subtle",
         className,
       )}
     >

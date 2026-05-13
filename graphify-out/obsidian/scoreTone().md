@@ -2,7 +2,7 @@
 source_file: "components/views/health-view.tsx"
 type: "code"
 community: "Community None"
-location: "L62"
+location: "L64"
 tags:
   - graphify/code
   - graphify/EXTRACTED

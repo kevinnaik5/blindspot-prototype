@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import {
   Workflow,
@@ -8,6 +11,8 @@ import {
   Info,
   ArrowRight,
   History,
+  PanelRightClose,
+  PanelRightOpen,
   type LucideIcon,
 } from "lucide-react";
 import { ALERTS, type Alert, type IndicatorTone } from "@/data/alerts";
@@ -54,29 +59,28 @@ const SEVERITY_CARD: Record<
     border: "border-critical/40",
     bg: "bg-critical/6",
     accent: "ring-1 ring-critical/15",
-    button:
-      "border-critical/55 bg-critical/15 hover:bg-critical/25 hover:border-critical/70",
+    button: "bg-critical-solid text-fg hover:bg-critical-solid/85",
     divider: "border-critical/15",
   },
   warning: {
     border: "border-warning/40",
     bg: "bg-warning/6",
     accent: "ring-1 ring-warning/15",
-    button:
-      "border-warning/55 bg-warning/15 hover:bg-warning/25 hover:border-warning/70",
+    button: "bg-warning-solid text-fg hover:bg-warning-solid/85",
     divider: "border-warning/15",
   },
   notice: {
     border: "border-info/35",
     bg: "bg-info/4",
     accent: "",
-    button:
-      "border-info/45 bg-info/15 hover:bg-info/25 hover:border-info/60",
+    button: "bg-info-solid text-fg hover:bg-info-solid/85",
     divider: "border-info/15",
   },
 };
 
 export default function HomePage() {
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
   const today = NOW.toLocaleDateString("en-US", {
     weekday: "short",
     month: "short",
@@ -89,7 +93,6 @@ export default function HomePage() {
     notice: ALERTS.filter((a) => a.severity === "notice").length,
   };
   const needsAttention = WORKFLOWS.length - counts.healthy;
-  const hasCritical = counts.critical > 0;
 
   // Only critical alerts get the hero band, notices stay in the
   // sidebar's "Heads up" panel so they're visible without being loud.
@@ -108,11 +111,18 @@ export default function HomePage() {
     .slice(0, 4);
 
   return (
-    <div className="grid min-h-screen grid-cols-1 xl:grid-cols-[minmax(0,1fr)_360px]">
+    <div
+      className={cn(
+        "grid min-h-screen grid-cols-1 transition-[grid-template-columns] duration-200",
+        sidebarCollapsed
+          ? "xl:grid-cols-[minmax(0,1fr)_52px]"
+          : "xl:grid-cols-[minmax(0,1fr)_360px]",
+      )}
+    >
       {/* Main column */}
       <div className="min-w-0 px-8 pt-8 pb-16">
         {/* Eyebrow */}
-        <div className="text-[11px] font-medium uppercase tracking-[0.1em] text-muted">
+        <div className="text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
           Home
         </div>
 
@@ -168,28 +178,99 @@ export default function HomePage() {
 
       {/* Side panel */}
       <aside className="border-t border-border bg-panel xl:sticky xl:top-0 xl:h-screen xl:overflow-y-auto xl:border-l xl:border-t-0">
-        <div className="space-y-7 px-6 py-8">
-          {/* Status card */}
-          <div
-            className={cn(
-              "overflow-hidden rounded-[6px] border bg-panel-2 transition-colors",
-              hasCritical
-                ? "border-critical/45 ring-1 ring-critical/15"
-                : "border-border",
-            )}
+        {/* Collapse toggle, always at top */}
+        <div
+          className={cn(
+            "flex shrink-0",
+            sidebarCollapsed
+              ? "justify-center pt-4 pb-3"
+              : "justify-start px-6 pt-6 pb-1",
+          )}
+        >
+          <button
+            type="button"
+            onClick={() => setSidebarCollapsed((v) => !v)}
+            aria-label={sidebarCollapsed ? "Expand panel" : "Collapse panel"}
+            title={sidebarCollapsed ? "Expand panel" : "Collapse panel"}
+            className="inline-flex h-7 w-7 items-center justify-center rounded-md text-subtle transition-colors hover:bg-panel-2 hover:text-fg"
           >
+            {sidebarCollapsed ? (
+              <PanelRightOpen className="h-4 w-4" strokeWidth={1.85} />
+            ) : (
+              <PanelRightClose className="h-4 w-4" strokeWidth={1.85} />
+            )}
+          </button>
+        </div>
+
+        {sidebarCollapsed ? (
+          <div className="flex flex-col items-stretch gap-1.5 px-1.5 pb-6">
+            <RailChip
+              Icon={CheckCircle2}
+              count={counts.healthy}
+              toneBg="bg-ok/25"
+              toneText="text-ok"
+              title="Healthy"
+              onClick={() => setSidebarCollapsed(false)}
+            />
+            <RailChip
+              Icon={AlertCircle}
+              count={counts.critical}
+              toneBg="bg-critical/25"
+              toneText="text-critical"
+              title="Critical"
+              onClick={() => setSidebarCollapsed(false)}
+            />
+            <RailChip
+              Icon={Info}
+              count={counts.notice}
+              toneBg="bg-info/25"
+              toneText="text-info"
+              title="Notice"
+              onClick={() => setSidebarCollapsed(false)}
+            />
+
+            {(nonCriticalAlerts.length > 0 || recentActivity.length > 0) && (
+              <div className="my-1.5 border-t border-border" />
+            )}
+
+            {nonCriticalAlerts.length > 0 && (
+              <RailChip
+                Icon={Info}
+                count={nonCriticalAlerts.length}
+                toneBg="bg-panel-2"
+                toneText="text-muted"
+                title="Heads up"
+                onClick={() => setSidebarCollapsed(false)}
+              />
+            )}
+
+            {recentActivity.length > 0 && (
+              <RailChip
+                Icon={History}
+                count={recentActivity.length}
+                toneBg="bg-panel-2"
+                toneText="text-muted"
+                title="Recent activity"
+                onClick={() => setSidebarCollapsed(false)}
+              />
+            )}
+          </div>
+        ) : (
+        <div className="space-y-7 px-6 pt-2 pb-8">
+          {/* Status card */}
+          <div className="overflow-hidden rounded-[6px] border border-border bg-bg">
             <div className="flex items-center justify-between border-b border-border px-4 py-3">
-              <h3 className="flex items-center gap-2 text-[13.5px] font-medium tracking-tightish text-fg">
+              <h3 className="flex items-center gap-2 text-[12px] font-medium tracking-tightish text-fg">
                 <Activity
                   className="h-3.5 w-3.5 text-muted"
                   strokeWidth={1.75}
                 />
                 <span>Status</span>
               </h3>
-              <span className="text-[11px] text-subtle">{today}</span>
+              <span className="text-[12px] text-subtle">{today}</span>
             </div>
             <div className="px-4 pt-4 pb-3">
-              <p className="text-[13.5px] leading-[1.55] text-fg">
+              <p className="text-[12px] leading-[1.55] text-fg">
                 {WORKFLOWS.length} workflows are connected.{" "}
                 {needsAttention > 0 ? (
                   <>
@@ -210,19 +291,21 @@ export default function HomePage() {
                 count={counts.healthy}
                 Icon={CheckCircle2}
                 tone="text-ok"
+                toneBg="bg-ok/25"
               />
               <Indicator
                 label="Critical"
                 count={counts.critical}
                 Icon={AlertCircle}
                 tone="text-critical"
-                emphasized={counts.critical > 0}
+                toneBg="bg-critical/25"
               />
               <Indicator
                 label="Notice"
                 count={counts.notice}
                 Icon={Info}
                 tone="text-info"
+                toneBg="bg-info/25"
               />
             </div>
           </div>
@@ -230,12 +313,12 @@ export default function HomePage() {
           {/* Heads up, non-critical alerts (deprecations, drift, etc.) */}
           {nonCriticalAlerts.length > 0 && (
             <section>
-              <div className="flex items-center justify-between">
-                <h3 className="flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.1em] text-subtle">
+              <div className="flex items-center justify-between border-b border-border pb-2.5">
+                <h3 className="flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.1em] text-fg">
                   <Info className="h-3 w-3" strokeWidth={1.95} />
                   Heads up
                 </h3>
-                <span className="text-[10.5px] tabular-nums text-subtle">
+                <span className="text-[12px] tabular-nums text-subtle">
                   {nonCriticalAlerts.length}
                 </span>
               </div>
@@ -248,18 +331,18 @@ export default function HomePage() {
                     >
                       <div className="px-3 py-2.5">
                         <div className="flex items-center justify-between gap-2">
-                          <span className="truncate text-[12.5px] font-medium text-fg">
+                          <span className="truncate text-[12px] font-medium text-fg">
                             {alert.workflowShortName}
                           </span>
-                          <span className="shrink-0 text-[10.5px] text-subtle">
+                          <span className="shrink-0 text-[12px] text-subtle">
                             {relativeFromNow(alert.detectedAt)}
                           </span>
                         </div>
-                        <p className="mt-1 text-[11.5px] leading-[1.5] text-muted">
+                        <p className="mt-1 text-[12px] leading-[1.5] text-muted">
                           {alert.title}
                         </p>
                         {alert.indicators[0] && (
-                          <div className="mt-1.5 flex items-baseline gap-1.5 text-[11px]">
+                          <div className="mt-1.5 flex items-baseline gap-1.5 text-[12px]">
                             <span className="text-subtle">
                               {alert.indicators[0].label}:
                             </span>
@@ -286,12 +369,12 @@ export default function HomePage() {
           {/* Recent activity, cross-workflow change feed */}
           {recentActivity.length > 0 && (
             <section>
-              <div className="flex items-center justify-between">
-                <h3 className="flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.1em] text-subtle">
+              <div className="flex items-center justify-between border-b border-border pb-2.5">
+                <h3 className="flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.1em] text-fg">
                   <History className="h-3 w-3" strokeWidth={1.95} />
                   Recent activity
                 </h3>
-                <span className="text-[10.5px] tabular-nums text-subtle">
+                <span className="text-[12px] tabular-nums text-subtle">
                   {recentActivity.length}
                 </span>
               </div>
@@ -300,7 +383,7 @@ export default function HomePage() {
                   <li key={i}>
                     <Link
                       href={`/workflows/${entry.workflowId}`}
-                      className="group flex items-start gap-2.5 rounded-md px-1 py-1.5 transition-colors hover:bg-panel-2/60"
+                      className="group -mx-2 flex items-start gap-2.5 rounded-md px-2 py-2 transition-colors hover:bg-panel-2/60"
                     >
                       <span
                         className={cn(
@@ -322,7 +405,7 @@ export default function HomePage() {
                         >
                           {entry.summary}
                         </span>
-                        <span className="mt-0.5 flex items-center gap-1.5 text-[10.5px] text-subtle">
+                        <span className="mt-0.5 flex items-center gap-1.5 text-[12px] text-subtle">
                           <span className="truncate">
                             {entry.workflowShortName}
                           </span>
@@ -339,6 +422,7 @@ export default function HomePage() {
             </section>
           )}
         </div>
+        )}
       </aside>
     </div>
   );
@@ -362,16 +446,16 @@ function AlertHeroCard({ alert }: { alert: Alert }) {
         <div className="flex items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-2.5">
             <SeverityIcon severity={alert.severity} />
-            <span className="truncate text-[15px] font-medium tracking-tightish text-fg">
+            <span className="truncate text-[16px] font-medium tracking-tightish text-fg">
               {alert.workflowShortName}
             </span>
           </div>
-          <span className="shrink-0 text-[11.5px] text-subtle">
+          <span className="shrink-0 text-[12px] text-subtle">
             {relativeFromNow(alert.detectedAt)}
           </span>
         </div>
 
-        <p className="mt-1.5 max-w-[700px] text-[13.5px] leading-[1.55] text-fg/85">
+        <p className="mt-1.5 max-w-[700px] text-[12px] leading-[1.55] text-fg/85">
           {alert.title}
         </p>
 
@@ -387,7 +471,7 @@ function AlertHeroCard({ alert }: { alert: Alert }) {
                 key={ind.label}
                 className="flex items-baseline gap-2 text-[12px]"
               >
-                <span className="text-[10.5px] uppercase tracking-[0.08em] text-subtle">
+                <span className="text-[12px] uppercase tracking-[0.08em] text-subtle">
                   {ind.label}
                 </span>
                 <span
@@ -406,7 +490,7 @@ function AlertHeroCard({ alert }: { alert: Alert }) {
         <div className="mt-4 flex justify-end">
           <span
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-md border px-3 py-1.5 text-[12.5px] font-medium text-fg transition-colors",
+              "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors",
               sev.button,
             )}
           >
@@ -427,28 +511,62 @@ function Indicator({
   count,
   Icon,
   tone,
-  emphasized = false,
+  toneBg,
 }: {
   label: string;
   count: number;
   Icon: LucideIcon;
   tone: string;
-  emphasized?: boolean;
+  toneBg: string;
 }) {
   return (
-    <div className="flex items-center justify-between border-b border-border px-4 py-2.5 last:border-b-0">
+    <div
+      className={cn(
+        "flex items-center justify-between border-b border-border px-4 py-2.5 last:border-b-0",
+        toneBg,
+      )}
+    >
       <div className="flex items-center gap-2">
         <Icon className={cn("h-3.5 w-3.5", tone)} strokeWidth={1.85} />
-        <span className="text-[12.5px] text-muted">{label}</span>
+        <span className="text-[12px] font-medium text-fg">{label}</span>
       </div>
-      <span
-        className={cn(
-          "font-medium tabular-nums",
-          emphasized ? cn("text-[18px]", tone) : "text-[13px] text-fg",
-        )}
-      >
+      <span className="text-[12px] font-medium tabular-nums text-fg">
         {count}
       </span>
     </div>
+  );
+}
+
+function RailChip({
+  Icon,
+  count,
+  toneBg,
+  toneText,
+  title,
+  onClick,
+}: {
+  Icon: LucideIcon;
+  count: number;
+  toneBg: string;
+  toneText: string;
+  title: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      title={title}
+      aria-label={title}
+      className={cn(
+        "flex w-full flex-col items-center gap-0.5 rounded-md px-1 py-2 transition-opacity hover:opacity-80",
+        toneBg,
+      )}
+    >
+      <Icon className={cn("h-3.5 w-3.5", toneText)} strokeWidth={1.95} />
+      <span className="text-[12px] font-medium tabular-nums text-fg">
+        {count}
+      </span>
+    </button>
   );
 }

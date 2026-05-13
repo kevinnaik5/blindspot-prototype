@@ -128,10 +128,10 @@ export function ActionsView({ workflow }: { workflow: Workflow }) {
     return (
       <div className="flex h-full items-center justify-center">
         <div className="max-w-[320px] text-center">
-          <div className="text-[11px] font-medium uppercase tracking-[0.1em] text-subtle">
+          <div className="text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
             Actions
           </div>
-          <div className="mt-2 text-[13px] text-muted">
+          <div className="mt-2 text-[12px] text-muted">
             No actions recommended for this workflow.
           </div>
         </div>
@@ -178,7 +178,7 @@ export function ActionsView({ workflow }: { workflow: Workflow }) {
             >
               Recommended actions
             </SectionHeading>
-            <p className="mt-2 max-w-[760px] text-[13px] leading-[1.6] text-muted">
+            <p className="mt-2 max-w-[760px] text-[12px] leading-[1.6] text-muted">
               {recap}
             </p>
           </header>
@@ -198,7 +198,7 @@ export function ActionsView({ workflow }: { workflow: Workflow }) {
             {others.length > 0 && (
               <section>
                 {heroAction && (
-                  <div className="mb-3 text-[10.5px] font-medium uppercase tracking-[0.1em] text-subtle">
+                  <div className="mb-3 text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
                     Other actions
                   </div>
                 )}
@@ -286,14 +286,14 @@ function NextStepHero({
       <div className="px-7 py-7">
         <div className="flex items-center gap-2">
           {isCommitted && interactive ? (
-            <span className="inline-flex items-center gap-1.5 text-[10.5px] font-medium uppercase tracking-[0.12em] text-ok">
+            <span className="inline-flex items-center gap-1.5 text-[12px] font-medium uppercase tracking-[0.12em] text-ok">
               <CheckCircle2 className="h-3 w-3" strokeWidth={2} />
               {interactive.committedLabel}
             </span>
           ) : (
             <span
               className={cn(
-                "inline-flex items-center gap-1.5 text-[10.5px] font-medium uppercase tracking-[0.12em]",
+                "inline-flex items-center gap-1.5 text-[12px] font-medium uppercase tracking-[0.12em]",
                 destructive ? "text-critical" : "text-info",
               )}
             >
@@ -301,7 +301,7 @@ function NextStepHero({
               Recommended next step
             </span>
           )}
-          <span className="text-[10.5px] uppercase tracking-[0.1em] text-subtle">
+          <span className="text-[12px] uppercase tracking-[0.1em] text-subtle">
             · {isCommitted ? "Just now" : "Start here"}
           </span>
         </div>
@@ -310,15 +310,15 @@ function NextStepHero({
           {action.title}
         </h3>
 
-        <p className="mt-2.5 max-w-[680px] text-[13.5px] leading-[1.6] text-muted">
+        <p className="mt-2.5 max-w-[680px] text-[12px] leading-[1.6] text-muted">
           {isCommitted && interactive?.committedDetail
             ? interactive.committedDetail
             : action.rationale}
         </p>
 
         {isCommitted && interactive && committed && (
-          <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-border pt-4 text-[11.5px]">
-            <span className="text-[10px] font-medium uppercase tracking-[0.1em] text-subtle">
+          <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-border pt-4 text-[12px]">
+            <span className="text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
               Configured
             </span>
             {buildConfigSummary(action, committed.selections).map(
@@ -340,8 +340,8 @@ function NextStepHero({
         {!isCommitted &&
           interactive &&
           interactive.guardrails.affected.length > 0 && (
-            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border pt-4 text-[11.5px]">
-              <span className="text-[10px] font-medium uppercase tracking-[0.1em] text-subtle">
+            <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border pt-4 text-[12px]">
+              <span className="text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
                 Impact
               </span>
               {interactive.guardrails.affected.map((item, idx) => (
@@ -374,9 +374,9 @@ function NextStepHero({
             <button
               type="button"
               onClick={onUndo}
-              className="inline-flex items-center gap-2 rounded-md border border-border-strong bg-panel-2 px-4 py-2 text-[13px] font-medium text-fg transition-colors hover:border-muted/40 hover:bg-panel"
+              className="inline-flex items-center gap-1.5 rounded-md bg-panel-2 px-3 py-1.5 text-[12px] font-medium text-fg transition-colors hover:bg-border-strong"
             >
-              <Undo2 className="h-3.5 w-3.5" strokeWidth={1.85} />
+              <Undo2 className="h-3 w-3" strokeWidth={1.85} />
               {interactive.undoLabel}
             </button>
           ) : (
@@ -384,13 +384,13 @@ function NextStepHero({
               type="button"
               onClick={onActivate}
               className={cn(
-                "inline-flex items-center gap-2 rounded-md border px-4 py-2 text-[13px] font-medium transition-colors",
+                "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[12px] font-medium text-fg transition-colors",
                 destructive
-                  ? "border-critical/55 bg-critical/15 text-fg hover:border-critical/70 hover:bg-critical/25"
-                  : "border-info/55 bg-info/15 text-fg hover:border-info/70 hover:bg-info/25",
+                  ? "bg-critical-solid hover:bg-critical-solid/85"
+                  : "bg-info-solid hover:bg-info-solid/85",
               )}
             >
-              <Icon className="h-4 w-4" strokeWidth={1.85} />
+              <Icon className="h-3 w-3" strokeWidth={1.85} />
               {action.actionLabel}
             </button>
           )}
@@ -459,14 +459,22 @@ function CompactActionRow({
             <div className="flex items-center gap-2">
               <h4
                 className={cn(
-                  "truncate text-[13px] font-medium",
+                  "truncate text-[12px] font-medium",
                   isCommitted ? "text-fg/85" : "text-fg",
                 )}
               >
                 {action.title}
               </h4>
+              <Info
+                className={cn(
+                  "h-3.5 w-3.5 shrink-0 transition-colors",
+                  expanded ? "text-fg" : "text-subtle",
+                )}
+                strokeWidth={1.85}
+                aria-label={expanded ? "Hide details" : "Show details"}
+              />
               {isCommitted && interactive && (
-                <span className="inline-flex shrink-0 items-center gap-1 rounded-sm bg-ok/15 px-1.5 py-px text-[10px] font-medium uppercase tracking-[0.06em] text-ok">
+                <span className="inline-flex shrink-0 items-center gap-1 rounded-sm bg-ok/15 px-1.5 py-px text-[12px] font-medium uppercase tracking-[0.06em] text-ok">
                   <CheckCircle2 className="h-2.5 w-2.5" strokeWidth={2.2} />
                   {interactive.committedLabel}
                 </span>
@@ -475,7 +483,7 @@ function CompactActionRow({
             {!expanded &&
               (meta ||
                 (isCommitted && (committed || interactive?.committedDetail))) && (
-                <div className="mt-0.5 truncate text-[11.5px] text-subtle">
+                <div className="mt-0.5 truncate text-[12px] text-subtle">
                   {isCommitted && committed
                     ? buildConfigSummary(action, committed.selections).join(
                         " · ",
@@ -484,15 +492,6 @@ function CompactActionRow({
                 </div>
               )}
           </div>
-
-          <Info
-            className={cn(
-              "h-3.5 w-3.5 shrink-0 transition-colors",
-              expanded ? "text-fg" : "text-subtle",
-            )}
-            strokeWidth={1.85}
-            aria-label={expanded ? "Hide details" : "Show details"}
-          />
         </button>
 
         <div className="flex shrink-0 items-center pr-4">
@@ -500,7 +499,7 @@ function CompactActionRow({
             <button
               type="button"
               onClick={onUndo}
-              className="inline-flex items-center gap-1.5 rounded-md border border-border-strong bg-panel-2 px-2.5 py-1 text-[12px] font-medium text-fg transition-colors hover:border-muted/40 hover:bg-panel"
+              className="inline-flex items-center gap-1.5 rounded-md bg-panel-2 px-3 py-1.5 text-[12px] font-medium text-fg transition-colors hover:bg-border-strong"
             >
               <Undo2 className="h-3 w-3" strokeWidth={1.85} />
               {interactive.undoLabel}
@@ -509,17 +508,17 @@ function CompactActionRow({
             <button
               type="button"
               onClick={onActivate}
-              className="inline-flex items-center gap-1.5 rounded-md border border-border bg-panel-2 px-2.5 py-1 text-[12px] font-medium text-muted transition-colors hover:bg-panel hover:text-fg"
+              className="inline-flex items-center gap-1.5 rounded-md bg-panel-2 px-3 py-1.5 text-[12px] font-medium text-muted transition-colors hover:bg-border-strong hover:text-fg"
             >
               <Icon className="h-3 w-3" strokeWidth={1.85} />
               {action.actionLabel}
-              <ExternalLink className="h-2.5 w-2.5" strokeWidth={1.85} />
+              <ExternalLink className="h-3 w-3" strokeWidth={1.85} />
             </button>
           ) : (
             <button
               type="button"
               onClick={onActivate}
-              className="inline-flex items-center gap-1.5 rounded-md border border-border-strong bg-panel-2 px-2.5 py-1 text-[12px] font-medium text-fg transition-colors hover:border-muted/40 hover:bg-panel"
+              className="inline-flex items-center gap-1.5 rounded-md bg-info-solid px-3 py-1.5 text-[12px] font-medium text-fg transition-colors hover:bg-info-solid/85"
             >
               <Icon className="h-3 w-3" strokeWidth={1.85} />
               {action.actionLabel}
@@ -530,7 +529,7 @@ function CompactActionRow({
 
       {expanded && (
         <div className="border-t border-border px-4 py-3.5">
-          <p className="max-w-[680px] text-[12.5px] leading-[1.6] text-muted">
+          <p className="max-w-[680px] text-[12px] leading-[1.6] text-muted">
             {action.rationale}
           </p>
 
@@ -539,7 +538,7 @@ function CompactActionRow({
               {action.context.map((c, i) => (
                 <span
                   key={i}
-                  className="inline-flex items-center rounded-sm border border-border bg-panel-2 px-2 py-0.5 text-[11px] text-muted"
+                  className="inline-flex items-center rounded-sm border border-border bg-panel-2 px-2 py-0.5 text-[12px] text-muted"
                 >
                   {c}
                 </span>
@@ -548,8 +547,8 @@ function CompactActionRow({
           )}
 
           {interactive && interactive.guardrails.affected.length > 0 && (
-            <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-border pt-3 text-[11.5px]">
-              <span className="text-[10px] font-medium uppercase tracking-[0.1em] text-subtle">
+            <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 border-t border-border pt-3 text-[12px]">
+              <span className="text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
                 Impact
               </span>
               {interactive.guardrails.affected.map((item, idx) => (
@@ -578,7 +577,7 @@ function CompactActionRow({
           )}
 
           {isExternal && (
-            <p className="mt-3 inline-flex items-center gap-1.5 text-[11.5px] text-subtle">
+            <p className="mt-3 inline-flex items-center gap-1.5 text-[12px] text-subtle">
               <ExternalLink className="h-3 w-3" strokeWidth={1.85} />
               Opens in Zapier
             </p>
@@ -611,14 +610,14 @@ function StepsChecklist({
 
   return (
     <div className="sticky top-0">
-      <div className="flex items-center gap-2 text-[10.5px] font-medium uppercase tracking-[0.1em] text-muted">
+      <div className="flex items-center gap-2 text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
         <ListChecks className="h-3.5 w-3.5" strokeWidth={1.85} />
         Steps
       </div>
 
       <div className="mt-2 flex items-baseline gap-2 tabular-nums">
-        <span className="text-[18px] font-medium text-fg">{done}</span>
-        <span className="text-[11.5px] text-subtle">
+        <span className="text-[20px] font-medium text-fg">{done}</span>
+        <span className="text-[12px] text-subtle">
           of {total} complete · {pct}%
         </span>
       </div>
@@ -694,7 +693,7 @@ function StepsChecklist({
                   >
                     {action.title}
                   </span>
-                  <span className="mt-0.5 flex items-center gap-1.5 text-[10px] uppercase tracking-[0.08em]">
+                  <span className="mt-0.5 flex items-center gap-1.5 text-[12px] uppercase tracking-[0.08em]">
                     <span
                       className={cn(
                         "tabular-nums",

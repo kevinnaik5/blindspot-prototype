@@ -90,7 +90,7 @@
       "source_file": "app/workflows/[id]/page.tsx",
       "source_location": "L1",
       "id": "app_workflows_id_page_tsx",
-      "community": 4,
+      "community": 3,
       "norm_label": "page.tsx"
     },
     {
@@ -99,7 +99,7 @@
       "source_file": "app/workflows/[id]/page.tsx",
       "source_location": "L5",
       "id": "id_page_flowtabpage",
-      "community": 4,
+      "community": 3,
       "norm_label": "flowtabpage()"
     },
     {
@@ -108,7 +108,7 @@
       "source_file": "app/workflows/[id]/health/page.tsx",
       "source_location": "L1",
       "id": "app_workflows_id_health_page_tsx",
-      "community": 4,
+      "community": 3,
       "norm_label": "page.tsx"
     },
     {
@@ -117,7 +117,7 @@
       "source_file": "app/workflows/[id]/health/page.tsx",
       "source_location": "L5",
       "id": "health_page_healthpage",
-      "community": 4,
+      "community": 3,
       "norm_label": "healthpage()"
     },
     {
@@ -126,7 +126,7 @@
       "source_file": "app/workflows/[id]/intent/page.tsx",
       "source_location": "L1",
       "id": "app_workflows_id_intent_page_tsx",
-      "community": 4,
+      "community": 3,
       "norm_label": "page.tsx"
     },
     {
@@ -135,7 +135,7 @@
       "source_file": "app/workflows/[id]/intent/page.tsx",
       "source_location": "L5",
       "id": "intent_page_intentpage",
-      "community": 4,
+      "community": 3,
       "norm_label": "intentpage()"
     },
     {
@@ -144,7 +144,7 @@
       "source_file": "app/workflows/[id]/actions/page.tsx",
       "source_location": "L1",
       "id": "app_workflows_id_actions_page_tsx",
-      "community": 4,
+      "community": 3,
       "norm_label": "page.tsx"
     },
     {
@@ -153,7 +153,7 @@
       "source_file": "app/workflows/[id]/actions/page.tsx",
       "source_location": "L5",
       "id": "actions_page_actionspage",
-      "community": 4,
+      "community": 3,
       "norm_label": "actionspage()"
     },
     {
@@ -162,7 +162,7 @@
       "source_file": "components/service-icon.tsx",
       "source_location": "L1",
       "id": "components_service_icon_tsx",
-      "community": 3,
+      "community": 4,
       "norm_label": "service-icon.tsx"
     },
     {
@@ -171,7 +171,7 @@
       "source_file": "components/service-icon.tsx",
       "source_location": "L50",
       "id": "components_service_icon_servicelabel",
-      "community": 3,
+      "community": 4,
       "norm_label": "servicelabel()"
     },
     {
@@ -180,7 +180,7 @@
       "source_file": "components/service-icon.tsx",
       "source_location": "L54",
       "id": "components_service_icon_serviceicon",
-      "community": 3,
+      "community": 4,
       "norm_label": "serviceicon()"
     },
     {
@@ -189,7 +189,7 @@
       "source_file": "components/workflow-graph.tsx",
       "source_location": "L1",
       "id": "components_workflow_graph_tsx",
-      "community": 3,
+      "community": 4,
       "norm_label": "workflow-graph.tsx"
     },
     {
@@ -468,7 +468,7 @@
       "source_file": "components/views/step-view.tsx",
       "source_location": "L1",
       "id": "components_views_step_view_tsx",
-      "community": 3,
+      "community": 4,
       "norm_label": "step-view.tsx"
     },
     {
@@ -477,7 +477,7 @@
       "source_file": "components/views/step-view.tsx",
       "source_location": "L48",
       "id": "views_step_view_defaultstepid",
-      "community": 3,
+      "community": 4,
       "norm_label": "defaultstepid()"
     },
     {
@@ -486,7 +486,7 @@
       "source_file": "components/views/step-view.tsx",
       "source_location": "L59",
       "id": "views_step_view_chevronclip",
-      "community": 3,
+      "community": 4,
       "norm_label": "chevronclip()"
     },
     {
@@ -495,7 +495,7 @@
       "source_file": "components/views/step-view.tsx",
       "source_location": "L74",
       "id": "views_step_view_steptone",
-      "community": 3,
+      "community": 4,
       "norm_label": "steptone()"
     },
     {
@@ -504,7 +504,7 @@
       "source_file": "components/views/step-view.tsx",
       "source_location": "L244",
       "id": "views_step_view_cn",
-      "community": 3,
+      "community": 4,
       "norm_label": "cn()"
     },
     {
@@ -547,7 +547,7 @@
       "label": "scoreTone()",
       "file_type": "code",
       "source_file": "components/views/health-view.tsx",
-      "source_location": "L62",
+      "source_location": "L64",
       "id": "views_health_view_scoretone",
       "community": 0,
       "norm_label": "scoretone()"
@@ -556,10 +556,19 @@
       "label": "cn()",
       "file_type": "code",
       "source_file": "components/views/health-view.tsx",
-      "source_location": "L295",
+      "source_location": "L302",
       "id": "views_health_view_cn",
       "community": 0,
       "norm_label": "cn()"
+    },
+    {
+      "label": "pct()",
+      "file_type": "code",
+      "source_file": "components/views/health-view.tsx",
+      "source_location": "L504",
+      "id": "views_health_view_pct",
+      "community": 0,
+      "norm_label": "pct()"
     },
     {
       "label": "focusable-action-item.tsx",
@@ -585,7 +594,7 @@
       "source_file": "components/views/intent-view.tsx",
       "source_location": "L1",
       "id": "components_views_intent_view_tsx",
-      "community": 4,
+      "community": 3,
       "norm_label": "intent-view.tsx"
     },
     {
@@ -594,7 +603,7 @@
       "source_file": "components/views/intent-view.tsx",
       "source_location": "L164",
       "id": "views_intent_view_cn",
-      "community": 4,
+      "community": 3,
       "norm_label": "cn()"
     },
     {
@@ -675,7 +684,7 @@
       "source_file": "lib/utils.ts",
       "source_location": "L1",
       "id": "lib_utils_ts",
-      "community": 3,
+      "community": 1,
       "norm_label": "utils.ts"
     },
     {
@@ -684,7 +693,7 @@
       "source_file": "lib/utils.ts",
       "source_location": "L4",
       "id": "lib_utils_cn",
-      "community": 1,
+      "community": 4,
       "norm_label": "cn()"
     },
     {
@@ -756,7 +765,7 @@
       "source_file": "data/workflows.ts",
       "source_location": "L1",
       "id": "data_workflows_ts",
-      "community": 4,
+      "community": 3,
       "norm_label": "workflows.ts"
     },
     {
@@ -765,7 +774,7 @@
       "source_file": "data/workflows.ts",
       "source_location": "L617",
       "id": "data_workflows_getworkflow",
-      "community": 4,
+      "community": 3,
       "norm_label": "getworkflow()"
     },
     {
@@ -774,7 +783,7 @@
       "source_file": "data/step-details.ts",
       "source_location": "L1",
       "id": "data_step_details_ts",
-      "community": 3,
+      "community": 4,
       "norm_label": "step-details.ts"
     },
     {
@@ -783,7 +792,7 @@
       "source_file": "data/step-details.ts",
       "source_location": "L297",
       "id": "data_step_details_getstepdetails",
-      "community": 3,
+      "community": 4,
       "norm_label": "getstepdetails()"
     },
     {
@@ -817,7 +826,7 @@
       "label": "generateHealthyTimeline()",
       "file_type": "code",
       "source_file": "data/health.ts",
-      "source_location": "L441",
+      "source_location": "L470",
       "id": "data_health_generatehealthytimeline",
       "community": 0,
       "norm_label": "generatehealthytimeline()"
@@ -826,7 +835,7 @@
       "label": "getHealth()",
       "file_type": "code",
       "source_file": "data/health.ts",
-      "source_location": "L458",
+      "source_location": "L487",
       "id": "data_health_gethealth",
       "community": 0,
       "norm_label": "gethealth()"
@@ -2765,6 +2774,16 @@
       "target": "views_health_view_cn"
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "components/views/health-view.tsx",
+      "source_location": "L504",
+      "weight": 1.0,
+      "source": "components_views_health_view_tsx",
+      "target": "views_health_view_pct",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -3103,9 +3122,9 @@
       "source_file": "README.md",
       "source_location": "L1",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "readme_md",
-      "target": "blindspot_prototype_readme_blindspot",
-      "confidence_score": 1.0
+      "target": "blindspot_prototype_readme_blindspot"
     },
     {
       "relation": "contains",
@@ -3113,9 +3132,9 @@
       "source_file": "README.md",
       "source_location": "L11",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "blindspot_prototype_readme_blindspot",
-      "target": "blindspot_prototype_readme_the_problem",
-      "confidence_score": 1.0
+      "target": "blindspot_prototype_readme_the_problem"
     },
     {
       "relation": "contains",
@@ -3123,9 +3142,9 @@
       "source_file": "README.md",
       "source_location": "L21",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "blindspot_prototype_readme_blindspot",
-      "target": "blindspot_prototype_readme_the_framework",
-      "confidence_score": 1.0
+      "target": "blindspot_prototype_readme_the_framework"
     },
     {
       "relation": "contains",
@@ -3133,9 +3152,9 @@
       "source_file": "README.md",
       "source_location": "L38",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "blindspot_prototype_readme_blindspot",
-      "target": "blindspot_prototype_readme_demo_walkthrough",
-      "confidence_score": 1.0
+      "target": "blindspot_prototype_readme_demo_walkthrough"
     },
     {
       "relation": "contains",
@@ -3143,9 +3162,9 @@
       "source_file": "README.md",
       "source_location": "L63",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "blindspot_prototype_readme_blindspot",
-      "target": "blindspot_prototype_readme_what_s_in_the_prototype",
-      "confidence_score": 1.0
+      "target": "blindspot_prototype_readme_what_s_in_the_prototype"
     },
     {
       "relation": "contains",
@@ -3153,9 +3172,9 @@
       "source_file": "README.md",
       "source_location": "L77",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "blindspot_prototype_readme_blindspot",
-      "target": "blindspot_prototype_readme_tech_stack",
-      "confidence_score": 1.0
+      "target": "blindspot_prototype_readme_tech_stack"
     },
     {
       "relation": "contains",
@@ -3163,9 +3182,9 @@
       "source_file": "README.md",
       "source_location": "L91",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "blindspot_prototype_readme_blindspot",
-      "target": "blindspot_prototype_readme_local_development",
-      "confidence_score": 1.0
+      "target": "blindspot_prototype_readme_local_development"
     },
     {
       "relation": "contains",
@@ -3173,9 +3192,9 @@
       "source_file": "README.md",
       "source_location": "L106",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "blindspot_prototype_readme_blindspot",
-      "target": "blindspot_prototype_readme_project_structure",
-      "confidence_score": 1.0
+      "target": "blindspot_prototype_readme_project_structure"
     },
     {
       "relation": "contains",
@@ -3183,9 +3202,9 @@
       "source_file": "README.md",
       "source_location": "L146",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "blindspot_prototype_readme_blindspot",
-      "target": "blindspot_prototype_readme_scope_and_limitations",
-      "confidence_score": 1.0
+      "target": "blindspot_prototype_readme_scope_and_limitations"
     },
     {
       "relation": "contains",
@@ -3193,9 +3212,9 @@
       "source_file": "README.md",
       "source_location": "L160",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "blindspot_prototype_readme_blindspot",
-      "target": "blindspot_prototype_readme_credits",
-      "confidence_score": 1.0
+      "target": "blindspot_prototype_readme_credits"
     },
     {
       "relation": "contains",
@@ -3203,9 +3222,9 @@
       "source_file": "README.md",
       "source_location": "L93",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "blindspot_prototype_readme_local_development",
-      "target": "blindspot_prototype_readme_codeblock_1",
-      "confidence_score": 1.0
+      "target": "blindspot_prototype_readme_codeblock_1"
     },
     {
       "relation": "contains",
@@ -3213,11 +3232,11 @@
       "source_file": "README.md",
       "source_location": "L108",
       "weight": 1.0,
+      "confidence_score": 1.0,
       "source": "blindspot_prototype_readme_project_structure",
-      "target": "blindspot_prototype_readme_codeblock_2",
-      "confidence_score": 1.0
+      "target": "blindspot_prototype_readme_codeblock_2"
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "95c6e1df51cca9fcd034ae7d907778e8d765795a"
+  "built_at_commit": "83550372f8e9baedd483feb028a8a0ba60665b38"
 }

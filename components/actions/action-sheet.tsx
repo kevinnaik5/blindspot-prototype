@@ -126,13 +126,13 @@ export function ActionSheet({
         {/* Header */}
         <div className="flex shrink-0 items-start justify-between gap-4 border-b border-border px-6 py-5">
           <div className="min-w-0 flex-1">
-            <div className="text-[10.5px] font-medium uppercase tracking-[0.1em] text-subtle">
+            <div className="text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
               Configure action
             </div>
             <h2 className="mt-1.5 text-[16px] font-medium leading-[1.35] text-fg">
               {lastAction.title}
             </h2>
-            <p className="mt-2 text-[12.5px] leading-[1.55] text-muted">
+            <p className="mt-2 text-[12px] leading-[1.55] text-muted">
               {lastAction.rationale}
             </p>
           </div>
@@ -210,7 +210,7 @@ export function ActionSheet({
             <button
               type="button"
               onClick={onClose}
-              className="rounded-md border border-border bg-panel px-3 py-1.5 text-[12.5px] font-medium text-muted transition-colors hover:bg-panel-2 hover:text-fg"
+              className="inline-flex items-center gap-1.5 rounded-md bg-panel-2 px-3 py-1.5 text-[12px] font-medium text-muted transition-colors hover:bg-border-strong hover:text-fg"
             >
               Cancel
             </button>
@@ -219,10 +219,10 @@ export function ActionSheet({
               disabled={!canCommit}
               onClick={() => onCommit(selections)}
               className={cn(
-                "inline-flex items-center gap-2 rounded-md border px-3.5 py-1.5 text-[12.5px] font-medium transition-colors",
+                "inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[12px] font-medium transition-colors",
                 canCommit
-                  ? "border-info/55 bg-info/20 text-fg hover:bg-info/25"
-                  : "cursor-not-allowed border-border bg-panel-2 text-subtle",
+                  ? "bg-info-solid text-fg hover:bg-info-solid/85"
+                  : "cursor-not-allowed bg-panel-2 text-subtle",
               )}
             >
               {interactive.commitLabel}
@@ -251,8 +251,8 @@ function Section({
     <section>
       <div className="flex items-center gap-2 text-fg">
         <Icon className="h-3.5 w-3.5 text-muted" strokeWidth={1.85} />
-        <span className="text-[13px] font-medium">{title}</span>
-        <span className="text-[10px] font-medium uppercase tracking-[0.1em] text-subtle">
+        <span className="text-[12px] font-medium">{title}</span>
+        <span className="text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
           · {eyebrow}
         </span>
       </div>
@@ -282,17 +282,17 @@ function PickerField({
   return (
     <div>
       <div className="flex items-baseline justify-between gap-3">
-        <label className="text-[11px] font-medium uppercase tracking-[0.08em] text-muted">
+        <label className="text-[12px] font-medium uppercase tracking-[0.08em] text-muted">
           {field.label}
         </label>
         {altsHint && altCount > 0 && (
-          <span className="text-[10.5px] uppercase tracking-[0.08em] text-subtle">
+          <span className="text-[12px] uppercase tracking-[0.08em] text-subtle">
             {altCount} alternative{altCount === 1 ? "" : "s"}
           </span>
         )}
       </div>
       {field.hint && (
-        <p className="mt-1 text-[11.5px] leading-[1.5] text-subtle">
+        <p className="mt-1 text-[12px] leading-[1.5] text-subtle">
           {field.hint}
         </p>
       )}
@@ -306,7 +306,7 @@ function PickerField({
         />
       </div>
       {selected.detail && (
-        <p className="mt-2 text-[11.5px] leading-[1.55] text-muted">
+        <p className="mt-2 text-[12px] leading-[1.55] text-muted">
           {selected.detail}
         </p>
       )}
@@ -345,7 +345,7 @@ function Picker({
         type="button"
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "flex w-full items-center justify-between rounded-md border bg-panel px-3 py-2 text-left text-[13px] text-fg transition-colors",
+          "flex w-full items-center justify-between rounded-md border bg-panel px-3 py-2 text-left text-[12px] text-fg transition-colors",
           open
             ? "border-info/45 bg-panel-2"
             : "border-border hover:border-muted/40",
@@ -379,14 +379,14 @@ function Picker({
               >
                 <div
                   className={cn(
-                    "text-[13px]",
+                    "text-[12px]",
                     isActive ? "font-medium text-fg" : "text-fg",
                   )}
                 >
                   {opt.label}
                 </div>
                 {opt.detail && (
-                  <div className="mt-0.5 text-[11.5px] leading-[1.5] text-muted">
+                  <div className="mt-0.5 text-[12px] leading-[1.5] text-muted">
                     {opt.detail}
                   </div>
                 )}
@@ -426,7 +426,7 @@ function GuardrailsBody({
               className="h-3 w-3 text-warning"
               strokeWidth={2}
             />
-            <span className="text-[10.5px] font-medium uppercase tracking-[0.1em] text-muted">
+            <span className="text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
               Before you confirm
             </span>
           </div>
@@ -434,7 +434,7 @@ function GuardrailsBody({
             {guardrails.affected.map((item, i) => (
               <li
                 key={i}
-                className="flex items-start gap-2 text-[12.5px] leading-[1.5] text-fg"
+                className="flex items-start gap-2 text-[12px] leading-[1.5] text-fg"
               >
                 <span
                   className={cn(
@@ -467,18 +467,18 @@ function GuardrailsBody({
         <div>
           <div className="flex items-center gap-1.5">
             <Eye className="h-3 w-3 text-muted" strokeWidth={2} />
-            <span className="text-[10.5px] font-medium uppercase tracking-[0.1em] text-muted">
+            <span className="text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
               Preview
             </span>
           </div>
-          <pre className="mt-2 whitespace-pre-wrap rounded-[6px] border border-border bg-panel p-3.5 font-sans text-[12.5px] leading-[1.6] text-fg">
+          <pre className="mt-2 whitespace-pre-wrap rounded-[6px] border border-border bg-panel p-3.5 font-sans text-[12px] leading-[1.6] text-fg">
             {guardrails.previewBody}
           </pre>
         </div>
       )}
 
       {tier === "checkbox" && guardrails.confirmCheckboxLabel && (
-        <label className="flex cursor-pointer items-start gap-2.5 rounded-[6px] border border-border bg-panel p-3 text-[12.5px] leading-[1.5] text-fg transition-colors hover:bg-panel-2">
+        <label className="flex cursor-pointer items-start gap-2.5 rounded-[6px] border border-border bg-panel p-3 text-[12px] leading-[1.5] text-fg transition-colors hover:bg-panel-2">
           <input
             type="checkbox"
             checked={confirmChecked}
@@ -491,9 +491,9 @@ function GuardrailsBody({
 
       {tier === "typed" && guardrails.confirmTypedValue && (
         <div className="space-y-2">
-          <label className="block text-[11.5px] leading-[1.5] text-muted">
+          <label className="block text-[12px] leading-[1.5] text-muted">
             Type{" "}
-            <code className="rounded-sm bg-panel-2 px-1 py-0.5 font-mono text-[11.5px] text-fg">
+            <code className="rounded-sm bg-panel-2 px-1 py-0.5 font-mono text-[12px] text-fg">
               {guardrails.confirmTypedValue}
             </code>{" "}
             to confirm.
@@ -504,7 +504,7 @@ function GuardrailsBody({
             onChange={(e) => setTypedValue(e.target.value)}
             spellCheck={false}
             autoComplete="off"
-            className="w-full rounded-md border border-border bg-panel px-3 py-2 font-mono text-[12.5px] text-fg placeholder:text-subtle focus:border-info/55 focus:outline-none"
+            className="w-full rounded-md border border-border bg-panel px-3 py-2 font-mono text-[12px] text-fg placeholder:text-subtle focus:border-info/55 focus:outline-none"
             placeholder={guardrails.confirmTypedValue}
           />
         </div>

@@ -89,10 +89,10 @@ function StepNode({ data }: NodeProps) {
               <ServiceIcon service={d.service} className="h-3.5 w-3.5" />
             </div>
             <div className="min-w-0 flex-1">
-              <div className="truncate text-[12.5px] font-medium leading-tight text-fg">
+              <div className="truncate text-[12px] font-medium leading-tight text-fg">
                 {d.label}
               </div>
-              <div className="truncate text-[11px] text-subtle">
+              <div className="truncate text-[12px] text-subtle">
                 {d.serviceName}
               </div>
             </div>
@@ -115,13 +115,10 @@ function StepNode({ data }: NodeProps) {
             <button
               onClick={d.onInspect}
               type="button"
-              className="inline-flex items-center gap-1.5 rounded-md border border-info/40 bg-info/10 px-2.5 py-1 text-[11.5px] font-medium text-fg transition-colors hover:bg-info/15 hover:border-info/60"
+              className="inline-flex items-center gap-1.5 rounded-md bg-info-solid px-3 py-1.5 text-[12px] font-medium text-fg transition-colors hover:bg-info-solid/85"
             >
               Inspect
-              <ArrowRight
-                className="h-3 w-3 text-info"
-                strokeWidth={2}
-              />
+              <ArrowRight className="h-3 w-3" strokeWidth={2} />
             </button>
           </div>
         </div>
@@ -147,10 +144,10 @@ function StepNode({ data }: NodeProps) {
             <ServiceIcon service={d.service} className="h-3.5 w-3.5" />
           </div>
           <div className="min-w-0 flex-1">
-            <div className="truncate text-[12.5px] font-medium leading-tight text-fg">
+            <div className="truncate text-[12px] font-medium leading-tight text-fg">
               {d.label}
             </div>
-            <div className="mt-0.5 truncate text-[10.5px] text-subtle">
+            <div className="mt-0.5 truncate text-[12px] text-subtle">
               {d.serviceName}
             </div>
           </div>
@@ -184,7 +181,7 @@ function Row({
 }) {
   return (
     <div className="flex items-start justify-between gap-3 px-3.5 py-2">
-      <dt className="text-[11px] uppercase tracking-[0.06em] text-subtle">
+      <dt className="text-[12px] uppercase tracking-[0.06em] text-subtle">
         {label}
       </dt>
       <dd className={cn("max-w-[180px] text-right text-[12px]", valueClass)}>

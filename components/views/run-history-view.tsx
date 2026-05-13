@@ -133,10 +133,10 @@ export function RunHistoryView({
     return (
       <div className="flex h-full items-center justify-center">
         <div className="max-w-[320px] text-center">
-          <div className="text-[11px] font-medium uppercase tracking-[0.1em] text-subtle">
+          <div className="text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
             Run history
           </div>
-          <div className="mt-2 text-[13px] text-muted">
+          <div className="mt-2 text-[12px] text-muted">
             No recent runs to display.
           </div>
         </div>
@@ -162,15 +162,15 @@ export function RunHistoryView({
       {/* Eyebrow with pattern bar */}
       <div className="shrink-0 border-b border-border bg-bg px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="text-[11px] font-medium uppercase tracking-[0.1em] text-muted">
+          <div className="text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
             Last {runs.length} runs
           </div>
-          <div className="text-[11px] text-subtle">{summary.join(" · ")}</div>
+          <div className="text-[12px] text-subtle">{summary.join(" · ")}</div>
         </div>
 
         {/* Pattern bar */}
         <div className="mt-3 flex items-center gap-3">
-          <span className="shrink-0 text-[10.5px] tabular-nums text-subtle">
+          <span className="shrink-0 text-[12px] tabular-nums text-subtle">
             {shortDateTime(oldest.startedAt)}
           </span>
           <div className="flex h-3 flex-1 gap-px overflow-hidden rounded-sm">
@@ -182,7 +182,7 @@ export function RunHistoryView({
               />
             ))}
           </div>
-          <span className="shrink-0 text-[10.5px] tabular-nums text-subtle">
+          <span className="shrink-0 text-[12px] tabular-nums text-subtle">
             {shortDateTime(newest.startedAt)}
           </span>
         </div>
@@ -226,7 +226,7 @@ export function RunHistoryView({
                 type="button"
                 onClick={() => setTimeFilter(tf.key)}
                 className={cn(
-                  "rounded-md px-2 py-0.5 text-[11px] transition-colors",
+                  "rounded-md px-2 py-0.5 text-[12px] transition-colors",
                   timeFilter === tf.key
                     ? "bg-panel-2 text-fg"
                     : "text-subtle hover:text-fg",
@@ -242,7 +242,7 @@ export function RunHistoryView({
       {/* List */}
       <div className="min-h-0 flex-1 overflow-y-auto">
         {/* Column header (sticky) */}
-        <div className="sticky top-0 z-10 grid grid-cols-[150px_140px_72px_minmax(0,1fr)_18px] items-center gap-3 border-b border-border bg-bg px-6 py-2 text-[10.5px] font-medium uppercase tracking-[0.08em] text-subtle">
+        <div className="sticky top-0 z-10 grid grid-cols-[150px_140px_72px_minmax(0,1fr)_18px] items-center gap-3 border-b border-border bg-bg px-6 py-2 text-[12px] font-medium uppercase tracking-[0.08em] text-subtle">
           <div>Time</div>
           <div>Status</div>
           <div className="text-right">Duration</div>
@@ -253,7 +253,7 @@ export function RunHistoryView({
         {filtered.length === 0 ? (
           <div className="flex h-full items-center justify-center px-6 py-12">
             <div className="max-w-[360px] text-center">
-              <div className="text-[12.5px] text-muted">
+              <div className="text-[12px] text-muted">
                 No runs match the current filters.
               </div>
               <button
@@ -363,7 +363,7 @@ function RunHistoryRow({
         type="button"
         onClick={onToggle}
         className={cn(
-          "grid w-full grid-cols-[150px_140px_72px_minmax(0,1fr)_18px] items-center gap-3 px-6 py-2.5 text-left text-[12.5px] transition-colors",
+          "grid w-full grid-cols-[150px_140px_72px_minmax(0,1fr)_18px] items-center gap-3 px-6 py-2.5 text-left text-[12px] transition-colors",
           expanded ? "bg-panel" : "hover:bg-panel/60",
         )}
       >
@@ -372,7 +372,7 @@ function RunHistoryRow({
         </div>
         <span
           className={cn(
-            "inline-flex w-fit items-center gap-1.5 rounded-md border px-2 py-0.5 text-[10.5px] font-medium",
+            "inline-flex w-fit items-center gap-1.5 rounded-md border px-2 py-0.5 text-[12px] font-medium",
             TONE_BORDER[meta.tone],
             TONE_TEXT[meta.tone],
           )}
@@ -441,7 +441,7 @@ function CompactRow({
   const width = (bar.durationMs / maxMs) * 100;
   return (
     <div className="grid grid-cols-[120px_minmax(0,1fr)_56px] items-center gap-3">
-      <div className="truncate text-[11px] text-muted">{label}</div>
+      <div className="truncate text-[12px] text-muted">{label}</div>
       <div className="relative h-[14px] rounded-sm bg-panel-2/50">
         <div
           className={cn(
@@ -451,7 +451,7 @@ function CompactRow({
           style={{ left: `${left}%`, width: `${width}%` }}
         />
       </div>
-      <div className="text-right text-[10.5px] tabular-nums text-subtle">
+      <div className="text-right text-[12px] tabular-nums text-subtle">
         {bar.durationMs}ms
       </div>
     </div>

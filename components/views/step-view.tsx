@@ -132,7 +132,7 @@ export function StepView({ workflow }: { workflow: Workflow }) {
                 <div className="flex min-w-0 items-center gap-2">
                   <span
                     className={cn(
-                      "text-[10.5px] tabular-nums",
+                      "text-[12px] tabular-nums",
                       active ? "text-fg/70" : "text-subtle",
                     )}
                   >
@@ -168,7 +168,7 @@ export function StepView({ workflow }: { workflow: Workflow }) {
               <ServiceIcon service={selected.service} className="h-4 w-4" />
             </div>
             <div className="min-w-0 flex-1">
-              <h2 className="text-[17px] font-medium leading-tight tracking-tightish text-fg">
+              <h2 className="text-[16px] font-medium leading-tight tracking-tightish text-fg">
                 {selected.label}
               </h2>
               <div className="mt-1 text-[12px] text-muted">
@@ -180,7 +180,7 @@ export function StepView({ workflow }: { workflow: Workflow }) {
             {StateIcon && (
               <span
                 className={cn(
-                  "inline-flex shrink-0 items-center gap-1.5 rounded-md border px-2.5 py-1 text-[11.5px] font-medium",
+                  "inline-flex shrink-0 items-center gap-1.5 rounded-md border px-2.5 py-1 text-[12px] font-medium",
                   selected.state === "warning" &&
                     "border-warning/35 bg-warning/10 text-warning",
                   selected.state === "error" &&
@@ -216,14 +216,14 @@ export function StepView({ workflow }: { workflow: Workflow }) {
                   selected.state === "ok" && "bg-ok",
                 )}
               />
-              <p className="text-[13px] leading-[1.55] text-fg">
+              <p className="text-[12px] leading-[1.55] text-fg">
                 {selected.note}
               </p>
             </div>
           )}
 
           {!details ? (
-            <div className="rounded-[6px] border border-border bg-panel px-4 py-6 text-center text-[12.5px] text-subtle">
+            <div className="rounded-[6px] border border-border bg-panel px-4 py-6 text-center text-[12px] text-subtle">
               No detailed inputs/outputs captured for this step yet.
             </div>
           ) : (
@@ -260,7 +260,7 @@ export function StepView({ workflow }: { workflow: Workflow }) {
                   <SectionHeading icon={ArrowUpFromLine}>
                     Last output
                   </SectionHeading>
-                  <span className="text-[11px] text-subtle">
+                  <span className="text-[12px] text-subtle">
                     Last run {relativeFromNow(workflow.lastRunAt)}
                   </span>
                 </div>
@@ -318,22 +318,22 @@ export function StepView({ workflow }: { workflow: Workflow }) {
                         key={i}
                         className="grid grid-cols-[120px_18px_1fr_auto] items-center gap-3 border-b border-border px-4 py-2 last:border-b-0"
                       >
-                        <div className="text-[11.5px] tabular-nums text-subtle">
+                        <div className="text-[12px] tabular-nums text-subtle">
                           {shortDateTime(exec.at)}
                         </div>
                         <Icon
                           className={cn("h-3.5 w-3.5", e.color)}
                           strokeWidth={1.85}
                         />
-                        <div className="min-w-0 truncate text-[12.5px] text-fg">
+                        <div className="min-w-0 truncate text-[12px] text-fg">
                           {exec.detail}
                           {exec.firstFailure && (
-                            <span className="ml-2 inline-flex items-center gap-1 rounded-sm border border-critical/40 bg-critical/15 px-1.5 py-px text-[10px] font-medium uppercase tracking-[0.08em] text-critical">
+                            <span className="ml-2 inline-flex items-center gap-1 rounded-sm border border-critical/40 bg-critical/15 px-1.5 py-px text-[12px] font-medium uppercase tracking-[0.08em] text-critical">
                               First
                             </span>
                           )}
                         </div>
-                        <div className="text-[11px] tabular-nums text-subtle">
+                        <div className="text-[12px] tabular-nums text-subtle">
                           {relativeFromNow(exec.at)}
                         </div>
                       </li>
@@ -382,12 +382,12 @@ function CodePanel({
       <div className="flex items-center justify-between border-b border-border px-3 py-2">
         <div className="flex items-center gap-2">
           <span className={cn("h-1.5 w-1.5 rounded-full", dotColor)} />
-          <span className="text-[10.5px] font-medium uppercase tracking-[0.08em] text-muted">
+          <span className="text-[12px] font-medium uppercase tracking-[0.08em] text-muted">
             {label}
           </span>
         </div>
       </div>
-      <pre className="overflow-x-auto whitespace-pre-wrap break-words p-3 font-mono text-[11.5px] leading-[1.55] text-muted">
+      <pre className="overflow-x-auto whitespace-pre-wrap break-words p-3 font-mono text-[12px] leading-[1.55] text-muted">
         {code}
       </pre>
     </div>

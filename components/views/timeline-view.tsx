@@ -58,10 +58,10 @@ export function TimelineView({ workflow }: { workflow: Workflow }) {
     return (
       <div className="flex h-full items-center justify-center">
         <div className="max-w-[320px] text-center">
-          <div className="text-[11px] font-medium uppercase tracking-[0.1em] text-subtle">
+          <div className="text-[12px] font-medium uppercase tracking-[0.1em] text-subtle">
             Timeline
           </div>
-          <div className="mt-2 text-[13px] text-muted">
+          <div className="mt-2 text-[12px] text-muted">
             No recent runs to display.
           </div>
         </div>
@@ -78,10 +78,10 @@ export function TimelineView({ workflow }: { workflow: Workflow }) {
     <div className="flex h-full flex-col">
       {/* Eyebrow with shared scale */}
       <div className="flex shrink-0 items-center justify-between border-b border-border bg-bg px-6 py-3">
-        <div className="text-[11px] font-medium uppercase tracking-[0.1em] text-muted">
+        <div className="text-[12px] font-medium uppercase tracking-[0.1em] text-muted">
           Last {runs.length} runs
         </div>
-        <div className="text-[11px] tabular-nums text-subtle">
+        <div className="text-[12px] tabular-nums text-subtle">
           shared scale 0 to {niceMax}ms
         </div>
       </div>
@@ -120,19 +120,19 @@ function RunBlock({
       {/* Run header */}
       <div className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
-          <span className="text-[12.5px] font-medium tabular-nums text-fg">
+          <span className="text-[12px] font-medium tabular-nums text-fg">
             Run #{run.number}
           </span>
           <span className="text-border-strong">·</span>
           <span className="text-[12px] tabular-nums text-muted">
             {shortDateTime(run.startedAt)}
           </span>
-          <span className="text-[11.5px] text-subtle">
+          <span className="text-[12px] text-subtle">
             {relativeFromNow(run.startedAt)}
           </span>
           <span
             className={cn(
-              "inline-flex shrink-0 items-center gap-1.5 rounded-md border px-2 py-0.5 text-[10.5px] font-medium",
+              "inline-flex shrink-0 items-center gap-1.5 rounded-md border px-2 py-0.5 text-[12px] font-medium",
               TONE_BORDER[meta.tone],
               TONE_TEXT[meta.tone],
             )}
@@ -182,7 +182,7 @@ function StepRow({
 
   return (
     <div className="grid grid-cols-[140px_minmax(0,1fr)_64px] items-center gap-3">
-      <div className="truncate text-[11.5px] text-muted">{label}</div>
+      <div className="truncate text-[12px] text-muted">{label}</div>
       <div className="relative h-[18px] rounded-sm bg-panel-2/50">
         <div
           className={cn(
@@ -192,7 +192,7 @@ function StepRow({
           style={{ left: `${left}%`, width: `${width}%` }}
         />
       </div>
-      <div className="text-right text-[11px] tabular-nums text-subtle">
+      <div className="text-right text-[12px] tabular-nums text-subtle">
         {bar.durationMs}ms
       </div>
     </div>

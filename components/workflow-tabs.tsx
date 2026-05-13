@@ -39,7 +39,7 @@ export function WorkflowTabs({
               key={tab.key}
               href={href}
               className={cn(
-                "relative inline-flex items-center gap-2 px-3 py-3 text-[13px] font-medium transition-colors",
+                "relative inline-flex items-center gap-2 px-3 py-3 text-[12px] font-medium transition-colors",
                 active ? "text-fg" : "text-muted hover:text-fg",
               )}
             >
@@ -47,7 +47,7 @@ export function WorkflowTabs({
               {showBadge && (
                 <span
                   className={cn(
-                    "inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1.5 text-[10.5px] font-semibold tabular-nums",
+                    "inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full px-1.5 text-[12px] font-semibold tabular-nums",
                     hasUrgentAction
                       ? "bg-critical/15 text-critical"
                       : "bg-panel-2 text-muted",

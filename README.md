@@ -6,6 +6,17 @@ A design prototype for a monitoring product that reframes visibility into Zapier
 
 **Live demo:** [blindspot-prototype.vercel.app](https://blindspot-prototype.vercel.app/)
 
+**Empty-state scenario (first-time UX):** [blindspot-prototype-git-empty-state-demo-kevinnaik5.vercel.app](https://blindspot-prototype-git-empty-state-demo-kevinnaik5.vercel.app/)
+
+---
+
+## Two scenarios
+
+Two deployments are kept side by side so the prototype can be walked from either direction:
+
+- **Production (`main`)** — workspace is fully populated. Five workflows, the Customer Onboarding silent failure already in flight. Best for the framework walkthrough below.
+- **Empty state (`empty-state-demo` branch)** — first-time user experience. No workflows, no sources, no alert routing. A single **Add demo workflow** button loads the Customer Onboarding fixture and its supporting state. Refreshing returns the workspace to empty.
+
 ---
 
 ## The problem
@@ -70,7 +81,17 @@ The scenario continues, Notify uses a preview-style guardrail, Rollback uses a t
 - **Actions**, Hero progression (advances to next uncommitted action), configurable side sheet exposing all three STEER properties, risk-tier-aware confirm gates (none / checkbox / typed / preview), right-rail checklist with timeline connector, post-commit shows operator's chosen config
 - **Cross-tab handoffs**, anomaly→action linkage in fixtures, `<HandoffLink>` button (tone- and size-aware), `?focus=<id>` deep-link with smooth scroll + pulse, action count badge on the Actions tab, lens strip per tab for orientation
 
-**Home page**, Quick start (dismissible), critical-only "Needs attention" hero band, full workflow list with Status + Platform filter chips. Sidebar: Status card (tone-aware ring), Heads up (non-critical alerts), Recent activity (cross-workflow change feed).
+**Home page**, Quick start (dismissible), critical-only "Needs attention" hero band, full workflow list with Status + Platform filter chips. Right rail: Status card with tonal indicator rows (Healthy / Critical / Notice), Heads up (non-critical alerts), Recent activity (cross-workflow change feed). The rail collapses to a 52px icon strip via the `PanelRightClose` toggle, keeping the status counts glanceable while freeing the main column.
+
+**Other pages (full app):**
+
+- `/workflows` — directory with search, status/platform filters, sort (Recently changed / Most failures / Health score / Alphabetical), enriched columns (Health score chip, 24h failure count, last run, owner). `+ Add workflow` opens a three-card modal (Connect a platform / Import file / Paste YAML).
+- `/connections` — Source platforms (Zapier, n8n, Make, Workato, Pipedream) and Alert destinations (Slack, Email, PagerDuty, Teams, SMS) as unified-list tables with status-aware action buttons. Manual import card at the bottom.
+- `/manage` — Workspace card (plan, workflow usage with progress bar), Team members table with role chips and per-row Manage button, Alert routing rules table (severity → destination · cooldown).
+- `/settings` — personal account stub (profile, notifications). Distinct from `/manage`, which is workspace-level.
+- `/help` — guide to the four lenses, key terms glossary, expandable FAQ, contact card.
+
+**Smart back link.** The "← Back" link on workflow detail pages reads `?from=workflows` to choose between **All workflows** (`/workflows`) and **Home** (`/`), so navigation stays contextual to where the workflow was opened from.
 
 ---
 

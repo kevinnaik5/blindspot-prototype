@@ -1,230 +1,278 @@
 {
-  "/Users/kevinnaik/blindspot-prototype/postcss.config.mjs": {
-    "mtime": 1777145377.4885461,
+  "/Users/kevinnaik/blindspot-empty-state/postcss.config.mjs": {
+    "mtime": 1778678964.927565,
     "hash": "c735540bb63936a123bc867d950c9f69"
   },
-  "/Users/kevinnaik/blindspot-prototype/next-env.d.ts": {
-    "mtime": 1778615916.7431877,
+  "/Users/kevinnaik/blindspot-empty-state/next-env.d.ts": {
+    "mtime": 1778678964.925515,
     "hash": "a64595e6014adce3002d3bf762d2dbeb"
   },
-  "/Users/kevinnaik/blindspot-prototype/tailwind.config.ts": {
-    "mtime": 1778615916.7446833,
-    "hash": "586c7e18c82fb1e117bd996ff5318ec3"
+  "/Users/kevinnaik/blindspot-empty-state/tailwind.config.ts": {
+    "mtime": 1778678964.994929,
+    "hash": "bb59868c66d8912cf7cd0d13b767616f"
   },
-  "/Users/kevinnaik/blindspot-prototype/next.config.ts": {
-    "mtime": 1778615916.7453265,
+  "/Users/kevinnaik/blindspot-empty-state/next.config.ts": {
+    "mtime": 1778678964.926208,
     "hash": "daad32b4de0b92afe04301ebf0a6cc76"
   },
-  "/Users/kevinnaik/blindspot-prototype/app/layout.tsx": {
-    "mtime": 1778615916.745866,
+  "/Users/kevinnaik/blindspot-empty-state/app/layout.tsx": {
+    "mtime": 1778678964.88341,
     "hash": "ed2a1558d4c0e704ff9b5a7d0b64fdab"
   },
-  "/Users/kevinnaik/blindspot-prototype/app/page.tsx": {
-    "mtime": 1778615916.7466824,
-    "hash": "186ce4c58ead5a13336ebdf88154122f"
+  "/Users/kevinnaik/blindspot-empty-state/app/page.tsx": {
+    "mtime": 1778678964.8842115,
+    "hash": "eb90517574500b24c752798da2426395"
   },
-  "/Users/kevinnaik/blindspot-prototype/app/workflows/[id]/layout.tsx": {
-    "mtime": 1778615916.7740662,
-    "hash": "89be1ff679146d8aa5be726ca9448ce4"
+  "/Users/kevinnaik/blindspot-empty-state/app/settings/page.tsx": {
+    "mtime": 1778678964.8845654,
+    "hash": "bb81d0ed8f579a9f7c171bb7aab65a75"
   },
-  "/Users/kevinnaik/blindspot-prototype/app/workflows/[id]/page.tsx": {
-    "mtime": 1778615916.7753167,
+  "/Users/kevinnaik/blindspot-empty-state/app/workflows/page.tsx": {
+    "mtime": 1778678964.8872144,
+    "hash": "88b8c25aef9b8dc0c20c5b79903f3c5d"
+  },
+  "/Users/kevinnaik/blindspot-empty-state/app/workflows/[id]/layout.tsx": {
+    "mtime": 1778678964.8865936,
+    "hash": "a24f24a6c335e103303bb43372ac17f3"
+  },
+  "/Users/kevinnaik/blindspot-empty-state/app/workflows/[id]/page.tsx": {
+    "mtime": 1778678964.8868666,
     "hash": "b3f5f5276e1f36d958a97b1a07167429"
   },
-  "/Users/kevinnaik/blindspot-prototype/app/workflows/[id]/health/page.tsx": {
-    "mtime": 1778615916.7757704,
+  "/Users/kevinnaik/blindspot-empty-state/app/workflows/[id]/health/page.tsx": {
+    "mtime": 1778678964.8856275,
     "hash": "fa1de39223dde7989952bc502f97c3e1"
   },
-  "/Users/kevinnaik/blindspot-prototype/app/workflows/[id]/intent/page.tsx": {
-    "mtime": 1778615916.7764869,
+  "/Users/kevinnaik/blindspot-empty-state/app/workflows/[id]/intent/page.tsx": {
+    "mtime": 1778678964.885979,
     "hash": "10e047e6f9d79fe2e71e5fc4ad7da677"
   },
-  "/Users/kevinnaik/blindspot-prototype/app/workflows/[id]/actions/page.tsx": {
-    "mtime": 1778615916.776769,
+  "/Users/kevinnaik/blindspot-empty-state/app/workflows/[id]/actions/page.tsx": {
+    "mtime": 1778678964.8852386,
     "hash": "f8094abab69f6829d4bfb9fcfced2fa6"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/service-icon.tsx": {
-    "mtime": 1778615916.7473888,
+  "/Users/kevinnaik/blindspot-empty-state/app/connections/page.tsx": {
+    "mtime": 1778678964.8819494,
+    "hash": "b57b329bd9f167fbc2e0f2be92988db3"
+  },
+  "/Users/kevinnaik/blindspot-empty-state/app/manage/page.tsx": {
+    "mtime": 1778678964.883851,
+    "hash": "7f75981081c0fa2bbc9834f35478ba90"
+  },
+  "/Users/kevinnaik/blindspot-empty-state/app/help/page.tsx": {
+    "mtime": 1778678964.8830168,
+    "hash": "1dd8555b0ba30773b3415a26ea605177"
+  },
+  "/Users/kevinnaik/blindspot-empty-state/components/workflow-back-link.tsx": {
+    "mtime": 1778678964.893201,
+    "hash": "666fc4ec7ac10d69f74ae5f2f207357e"
+  },
+  "/Users/kevinnaik/blindspot-empty-state/components/help-faq.tsx": {
+    "mtime": 1778678964.8886163,
+    "hash": "91fcd3b9918ea84b666bf90019e89d60"
+  },
+  "/Users/kevinnaik/blindspot-empty-state/components/service-icon.tsx": {
+    "mtime": 1778678964.8895206,
     "hash": "c486752ff329e749222b6de37880bfdf"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/workflow-graph.tsx": {
-    "mtime": 1778615916.747961,
-    "hash": "d8ae6d91670020397b1253becf8001e1"
+  "/Users/kevinnaik/blindspot-empty-state/components/workflow-graph.tsx": {
+    "mtime": 1778678964.893961,
+    "hash": "d3718f7e06dd7f780d4d28a9c85767d5"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/handoff-link.tsx": {
-    "mtime": 1778615916.748742,
-    "hash": "db675e2774563e949b281e6e897ebaad"
+  "/Users/kevinnaik/blindspot-empty-state/components/handoff-link.tsx": {
+    "mtime": 1778678964.8883443,
+    "hash": "27251db26fefd5cf002951eff43d2249"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/view-toggle-bar.tsx": {
-    "mtime": 1778615916.7493072,
-    "hash": "ac5e9a89b6961891906138f01ce7dcb3"
+  "/Users/kevinnaik/blindspot-empty-state/components/view-toggle-bar.tsx": {
+    "mtime": 1778678964.8905187,
+    "hash": "a45b726d486581c40bbd43ebc648b8cc"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/workflow-inspect-drawer.tsx": {
-    "mtime": 1778615916.7499187,
-    "hash": "514412c10aa7da4e987527d4c3491c40"
+  "/Users/kevinnaik/blindspot-empty-state/components/workflow-inspect-drawer.tsx": {
+    "mtime": 1778678964.8941865,
+    "hash": "0c84dc987b3d745072227d5cfdf7db73"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/quick-start.tsx": {
-    "mtime": 1778615916.750705,
-    "hash": "74310e119221c2ba5300aa01d670d227"
+  "/Users/kevinnaik/blindspot-empty-state/components/quick-start.tsx": {
+    "mtime": 1778678964.8891234,
+    "hash": "abf89c569f3a8768d8551bff1468c67b"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/lens-header.tsx": {
-    "mtime": 1778615916.751148,
-    "hash": "9b71cdfe48c952f705554490e548ccc3"
+  "/Users/kevinnaik/blindspot-empty-state/components/lens-header.tsx": {
+    "mtime": 1778678964.888849,
+    "hash": "75d24c56d5ce426d780588a24c6b9246"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/section-label.tsx": {
-    "mtime": 1778615916.7515428,
-    "hash": "d877ffc96b5a410af757006753d52260"
+  "/Users/kevinnaik/blindspot-empty-state/components/section-label.tsx": {
+    "mtime": 1778678964.8893323,
+    "hash": "fc69ab84da0aaee3cbe34bb219a8a4af"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/flow-view.tsx": {
-    "mtime": 1778615916.7520695,
-    "hash": "65af302870ed7f79077eea8f1450e4de"
+  "/Users/kevinnaik/blindspot-empty-state/components/flow-view.tsx": {
+    "mtime": 1778678964.8881438,
+    "hash": "c69da72b5a4ad9a486d9d075ef95e9ca"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/workflow-list.tsx": {
-    "mtime": 1778615916.7526305,
-    "hash": "e07566b569d8cab1f886ea7fc7aa737d"
+  "/Users/kevinnaik/blindspot-empty-state/components/workflow-list.tsx": {
+    "mtime": 1778678964.8944128,
+    "hash": "e91a83c470cdf00326c7c4861330cb87"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/sidebar.tsx": {
-    "mtime": 1778615916.754182,
-    "hash": "3d09bec83d10f4d96fabf7a188d492d4"
+  "/Users/kevinnaik/blindspot-empty-state/components/sidebar.tsx": {
+    "mtime": 1778678964.890195,
+    "hash": "bbb7ae4961376f4266d80f58d23701d6"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/severity-bar.tsx": {
-    "mtime": 1778615916.755456,
-    "hash": "29b09ec49f7c8266b84a100c791e4463"
+  "/Users/kevinnaik/blindspot-empty-state/components/severity-bar.tsx": {
+    "mtime": 1778678964.8897314,
+    "hash": "a43268b0ca3d96bff142570cf5497da1"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/app-shell.tsx": {
-    "mtime": 1778615916.756175,
+  "/Users/kevinnaik/blindspot-empty-state/components/workflow-directory.tsx": {
+    "mtime": 1778678964.8934655,
+    "hash": "f35542deafa290e51a383edbd0259810"
+  },
+  "/Users/kevinnaik/blindspot-empty-state/components/app-shell.tsx": {
+    "mtime": 1778678964.887847,
     "hash": "49a8039f7a22f20bbf6e72306b1e90fb"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/workflow-tabs.tsx": {
-    "mtime": 1778615916.756645,
-    "hash": "0c0dd742a8449bbfe5a816448e5f442e"
+  "/Users/kevinnaik/blindspot-empty-state/components/workflow-tabs.tsx": {
+    "mtime": 1778678964.8948345,
+    "hash": "93d7c19c041b6f68024ca8cce4d5be9e"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/actions/action-sheet.tsx": {
-    "mtime": 1778615916.7664943,
-    "hash": "8ac61d55a5d6e87a9f20215dfd5a499d"
+  "/Users/kevinnaik/blindspot-empty-state/components/actions/action-sheet.tsx": {
+    "mtime": 1778678964.887595,
+    "hash": "d9894246d05415108e12dc51c91f2128"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/views/step-view.tsx": {
-    "mtime": 1778615916.7672513,
-    "hash": "5b80d7e25d8c6b8115c521d59d220cd0"
+  "/Users/kevinnaik/blindspot-empty-state/components/views/step-view.tsx": {
+    "mtime": 1778678964.8926668,
+    "hash": "c60f0a9f7344e57f8710f9b09fa49337"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/views/timeline-view.tsx": {
-    "mtime": 1778615916.76813,
-    "hash": "fe68a5419f9169550ca382d58c2b022e"
+  "/Users/kevinnaik/blindspot-empty-state/components/views/timeline-view.tsx": {
+    "mtime": 1778678964.8929594,
+    "hash": "8f8168e80a626cd34392085acab9b79e"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/views/run-history-view.tsx": {
-    "mtime": 1778615916.7689626,
-    "hash": "d4f11c710200b038ba4da2fbf0a452e4"
+  "/Users/kevinnaik/blindspot-empty-state/components/views/run-history-view.tsx": {
+    "mtime": 1778678964.8923616,
+    "hash": "3ce05d4755cc0565cca4d9e5c0c2477d"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/views/health-view.tsx": {
-    "mtime": 1778615916.7702684,
-    "hash": "7861653de6382a443a5ad0c812c76787"
+  "/Users/kevinnaik/blindspot-empty-state/components/views/health-view.tsx": {
+    "mtime": 1778678964.891706,
+    "hash": "6f00eb798c3cc7a0aea929e2ee185db2"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/views/focusable-action-item.tsx": {
-    "mtime": 1778615916.7716696,
+  "/Users/kevinnaik/blindspot-empty-state/components/views/focusable-action-item.tsx": {
+    "mtime": 1778678964.8911638,
     "hash": "428ddb013cd4c09f6993ec15dfa525f3"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/views/intent-view.tsx": {
-    "mtime": 1778615916.7721462,
-    "hash": "f7a7e64cdde5fcf833f289145424fd68"
+  "/Users/kevinnaik/blindspot-empty-state/components/views/intent-view.tsx": {
+    "mtime": 1778678964.892048,
+    "hash": "b4b3c6e9d811f768d202f923972487aa"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/views/graph-view.tsx": {
-    "mtime": 1778615916.7727182,
+  "/Users/kevinnaik/blindspot-empty-state/components/views/graph-view.tsx": {
+    "mtime": 1778678964.8914194,
     "hash": "783bdbe1ff9fd3baa4bdda7892cf3d81"
   },
-  "/Users/kevinnaik/blindspot-prototype/components/views/actions-view.tsx": {
-    "mtime": 1778615916.773536,
-    "hash": "74934db0cffaf00aec736640699e3287"
+  "/Users/kevinnaik/blindspot-empty-state/components/views/actions-view.tsx": {
+    "mtime": 1778678964.8908055,
+    "hash": "bafb53369eb4403685eb27795ded38bf"
   },
-  "/Users/kevinnaik/blindspot-prototype/lib/utils.ts": {
-    "mtime": 1778615916.7569745,
+  "/Users/kevinnaik/blindspot-empty-state/lib/utils.ts": {
+    "mtime": 1778678964.9252334,
     "hash": "d9837f38cc05303254571985e3164050"
   },
-  "/Users/kevinnaik/blindspot-prototype/lib/time.ts": {
-    "mtime": 1778615916.7575943,
+  "/Users/kevinnaik/blindspot-empty-state/lib/time.ts": {
+    "mtime": 1778678964.9247859,
     "hash": "088bbf631359e6d59d7d3782706a435c"
   },
-  "/Users/kevinnaik/blindspot-prototype/data/runs.ts": {
-    "mtime": 1778615916.758088,
+  "/Users/kevinnaik/blindspot-empty-state/data/help.ts": {
+    "mtime": 1778678964.8963385,
+    "hash": "bd4f07b31400c4b2b84a79521ea73143"
+  },
+  "/Users/kevinnaik/blindspot-empty-state/data/runs.ts": {
+    "mtime": 1778678964.8972838,
     "hash": "a876a623a6868c725bd7c66544a41232"
   },
-  "/Users/kevinnaik/blindspot-prototype/data/workflows.ts": {
-    "mtime": 1778615916.759448,
+  "/Users/kevinnaik/blindspot-empty-state/data/workflows.ts": {
+    "mtime": 1778678964.8982148,
     "hash": "e4574544c930b6b152e37e16a006eee8"
   },
-  "/Users/kevinnaik/blindspot-prototype/data/step-details.ts": {
-    "mtime": 1778615916.7607346,
+  "/Users/kevinnaik/blindspot-empty-state/data/settings.ts": {
+    "mtime": 1778678964.89757,
+    "hash": "2e86925d7c1ce6eb984bf300fb524ba1"
+  },
+  "/Users/kevinnaik/blindspot-empty-state/data/step-details.ts": {
+    "mtime": 1778678964.8979402,
     "hash": "24d99e1ee86aa47e932d565ea5dfc40b"
   },
-  "/Users/kevinnaik/blindspot-prototype/data/actions.ts": {
-    "mtime": 1778615961.3716156,
+  "/Users/kevinnaik/blindspot-empty-state/data/actions.ts": {
+    "mtime": 1778678964.8953018,
     "hash": "21c6acf3c917bbda02210163220f748b"
   },
-  "/Users/kevinnaik/blindspot-prototype/data/health.ts": {
-    "mtime": 1778615916.7637749,
+  "/Users/kevinnaik/blindspot-empty-state/data/connections.ts": {
+    "mtime": 1778678964.8958025,
+    "hash": "dae622aa9bdbd75dd2efdf323c68c97d"
+  },
+  "/Users/kevinnaik/blindspot-empty-state/data/health.ts": {
+    "mtime": 1778678964.896086,
     "hash": "0eefc121470247a96edc12eb50036322"
   },
-  "/Users/kevinnaik/blindspot-prototype/data/alerts.ts": {
-    "mtime": 1778615916.764615,
+  "/Users/kevinnaik/blindspot-empty-state/data/alerts.ts": {
+    "mtime": 1778678964.8955567,
     "hash": "72e840337b9d393783e3acaa289deaf1"
   },
-  "/Users/kevinnaik/blindspot-prototype/README.md": {
-    "mtime": 1778615916.7439942,
+  "/Users/kevinnaik/blindspot-empty-state/README.md": {
+    "mtime": 1778678964.881443,
     "hash": "5d2f09f1e6745c8495d35059f9f34e90"
   },
-  "/Users/kevinnaik/blindspot-prototype/project-brief.pdf": {
-    "mtime": 1777141093.3525167,
+  "/Users/kevinnaik/blindspot-empty-state/project-brief.pdf": {
+    "mtime": 1778678964.960044,
     "hash": "cd94ca13d8d98167cbd2c8c2679304c5"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/side section.png": {
-    "mtime": 1777149644.67109,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/side section.png": {
+    "mtime": 1778678964.9877434,
     "hash": "57f7cd7e32cd9f1a3bef93e9c0bf31d2"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/step2.png": {
-    "mtime": 1777263185.1603181,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/step2.png": {
+    "mtime": 1778678964.9942632,
     "hash": "ce2bee8aae31ee5538a2cdb507393eb7"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/image 9.png": {
-    "mtime": 1777283617.8222628,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/image 9.png": {
+    "mtime": 1778678964.974961,
     "hash": "f3971e60758b18971dac24bd0dcc052c"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/step1.png": {
-    "mtime": 1777262504.4477935,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/step1.png": {
+    "mtime": 1778678964.9910705,
     "hash": "a2b2380b10744cbd7d0e2b8831ed5e19"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/step.png": {
-    "mtime": 1777229643.4414268,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/step.png": {
+    "mtime": 1778678964.988621,
     "hash": "33f841ef88c0be079762964163020d36"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/inspect.png": {
-    "mtime": 1777228491.5175433,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/inspect.png": {
+    "mtime": 1778678964.9793265,
     "hash": "a0297ecd3e4bfb13770bbf8c2ece080f"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/better.png": {
-    "mtime": 1777284372.6390388,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/better.png": {
+    "mtime": 1778678964.9690151,
     "hash": "e4920b95de2a3b16a2165d47e49277ae"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/error.png": {
-    "mtime": 1777264033.880094,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/error.png": {
+    "mtime": 1778678964.9714987,
     "hash": "f35c2749f05221c542591cbd050d8921"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/onboarding.png": {
-    "mtime": 1777149607.018129,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/onboarding.png": {
+    "mtime": 1778678964.9806914,
     "hash": "5d28fd18db5f737733810fb61b99f275"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/output.png": {
-    "mtime": 1777184202.2611575,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/output.png": {
+    "mtime": 1778678964.9831424,
     "hash": "30c7395dc79c1cee0edc63d56872ba6d"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/shadow.png": {
-    "mtime": 1777180206.423175,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/skip setup.png": {
+    "mtime": 1778678964.9883003,
+    "hash": "d9258031a2e0985ab80cec58091f46db"
+  },
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/shadow.png": {
+    "mtime": 1778678964.9855573,
     "hash": "74458b2b9cb872a2862de6df1ffdb2be"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/framework.png": {
-    "mtime": 1778165393.31973,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/framework.png": {
+    "mtime": 1778678964.974176,
     "hash": "d9a437eea55d9bf7a91c48b035e3c6d6"
   },
-  "/Users/kevinnaik/blindspot-prototype/reference Images/image.png": {
-    "mtime": 1777285177.0591252,
+  "/Users/kevinnaik/blindspot-empty-state/reference Images/image.png": {
+    "mtime": 1778678964.9767418,
     "hash": "c31707c6ffa1b888c7a03e039d82c29f"
   }
 }

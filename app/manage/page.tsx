@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Bell,
   Briefcase,
@@ -11,16 +13,20 @@ import {
 } from "lucide-react";
 import {
   ALERT_RULES,
+  DEMO_LOADED_ALERT_RULES,
+  DEMO_LOADED_WORKSPACE,
   TEAM_MEMBERS,
   WORKSPACE,
   type AlertRule,
   type AlertRuleStatus,
   type MemberRole,
   type TeamMember,
+  type Workspace,
 } from "@/data/settings";
 import type { AnomalySeverity } from "@/data/health";
 import type { AlertChannel } from "@/data/connections";
 import { relativeFromNow } from "@/lib/time";
+import { useDemoLoaded } from "@/lib/demo";
 import { SectionHeading } from "@/components/section-label";
 import { cn } from "@/lib/utils";
 
@@ -99,19 +105,19 @@ export default function SettingsPage() {
 // --- Workspace card ---
 
 function WorkspaceSection() {
-  const pct = Math.round(
-    (WORKSPACE.workflowsUsed / WORKSPACE.workflowsLimit) * 100,
-  );
+  const demoLoaded = useDemoLoaded();
+  const ws: Workspace = demoLoaded ? DEMO_LOADED_WORKSPACE : WORKSPACE;
+  const pct = Math.round((ws.workflowsUsed / ws.workflowsLimit) * 100);
   return (
     <section>
       <SectionHeading icon={Briefcase}>Workspace</SectionHeading>
       <div className="mt-3 overflow-hidden rounded-[6px] border border-border bg-panel">
-        <SettingsRow label="Workspace name" value={WORKSPACE.name} />
+        <SettingsRow label="Workspace name" value={ws.name} />
         <SettingsRow
           label="Plan"
           rightSlot={
             <span className="inline-flex items-center gap-1.5 rounded-md bg-info/15 px-2 py-0.5 text-[12px] font-medium text-info">
-              {WORKSPACE.plan}
+              {ws.plan}
             </span>
           }
         />
@@ -120,7 +126,7 @@ function WorkspaceSection() {
           rightSlot={
             <div className="flex items-center gap-3">
               <span className="text-[12px] tabular-nums text-fg">
-                {WORKSPACE.workflowsUsed} / {WORKSPACE.workflowsLimit}
+                {ws.workflowsUsed} / {ws.workflowsLimit}
               </span>
               <div className="h-1.5 w-[120px] overflow-hidden rounded-sm bg-panel-2">
                 <div
@@ -133,7 +139,7 @@ function WorkspaceSection() {
         />
         <SettingsRow
           label="Owner"
-          value={`${WORKSPACE.ownerName} · ${WORKSPACE.ownerEmail}`}
+          value={`${ws.ownerName} · ${ws.ownerEmail}`}
           last
         />
       </div>
@@ -252,6 +258,8 @@ function MemberRow({ member: m }: { member: TeamMember }) {
 // --- Alert routing rules ---
 
 function AlertRoutingSection() {
+  const demoLoaded = useDemoLoaded();
+  const rules: AlertRule[] = demoLoaded ? DEMO_LOADED_ALERT_RULES : ALERT_RULES;
   return (
     <section>
       <SectionHeading
@@ -269,20 +277,44 @@ function AlertRoutingSection() {
         Alert routing
       </SectionHeading>
 
-      <div className="mt-3 overflow-hidden rounded-[6px] border border-border bg-panel">
-        <div className="grid grid-cols-[140px_minmax(0,1.4fr)_120px_120px_120px] items-center gap-4 border-b border-border bg-panel-2 px-5 py-2.5 text-[12px] font-medium uppercase tracking-[0.08em] text-muted">
-          <div>Severity</div>
-          <div>Destination</div>
-          <div>Cooldown</div>
-          <div>Status</div>
-          <div className="text-right">Action</div>
+      {rules.length === 0 ? (
+        <div className="mt-3 rounded-[6px] border border-dashed border-border-strong bg-panel p-8">
+          <div className="mx-auto flex max-w-[440px] flex-col items-center text-center">
+            <div className="flex h-10 w-10 items-center justify-center rounded-md bg-panel-2 text-muted">
+              <Bell className="h-4 w-4" strokeWidth={1.75} />
+            </div>
+            <h3 className="mt-4 text-[16px] font-medium tracking-tightish text-fg">
+              No routing rules yet
+            </h3>
+            <p className="mt-1.5 text-[12px] leading-[1.55] text-muted">
+              Decide which severities go to which destinations. Add a
+              destination on the Connections page first if you haven&apos;t.
+            </p>
+            <button
+              type="button"
+              className="mt-5 inline-flex items-center gap-1.5 rounded-md bg-info-solid px-3 py-1.5 text-[12px] font-medium text-fg transition-colors hover:bg-info-solid/85"
+            >
+              <Plus className="h-3 w-3" strokeWidth={2} />
+              Add your first rule
+            </button>
+          </div>
         </div>
-        <ul className="divide-y divide-border">
-          {ALERT_RULES.map((r) => (
-            <AlertRuleRow key={r.id} rule={r} />
-          ))}
-        </ul>
-      </div>
+      ) : (
+        <div className="mt-3 overflow-hidden rounded-[6px] border border-border bg-panel">
+          <div className="grid grid-cols-[140px_minmax(0,1.4fr)_120px_120px_120px] items-center gap-4 border-b border-border bg-panel-2 px-5 py-2.5 text-[12px] font-medium uppercase tracking-[0.08em] text-muted">
+            <div>Severity</div>
+            <div>Destination</div>
+            <div>Cooldown</div>
+            <div>Status</div>
+            <div className="text-right">Action</div>
+          </div>
+          <ul className="divide-y divide-border">
+            {rules.map((r) => (
+              <AlertRuleRow key={r.id} rule={r} />
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   );
 }

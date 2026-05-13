@@ -10,13 +10,20 @@ export type Workspace = {
   ownerEmail: string;
 };
 
+// Workspace exists at signup. Empty-state defaults reflect a fresh account.
 export const WORKSPACE: Workspace = {
-  name: "Acme Ops",
-  plan: "Pro",
-  workflowsUsed: 12,
-  workflowsLimit: 25,
-  ownerName: "Mira Chen",
-  ownerEmail: "mira@acme.co",
+  name: "My workspace",
+  plan: "Free",
+  workflowsUsed: 0,
+  workflowsLimit: 5,
+  ownerName: "Kevin Naik",
+  ownerEmail: "kevin@acme.co",
+};
+
+// Reflects the workspace after the demo workflow has been loaded.
+export const DEMO_LOADED_WORKSPACE: Workspace = {
+  ...WORKSPACE,
+  workflowsUsed: 1,
 };
 
 export type MemberRole = "owner" | "admin" | "viewer";
@@ -29,7 +36,7 @@ export type TeamMember = {
   lastActiveAt?: string;
 };
 
-export const TEAM_MEMBERS: TeamMember[] = [
+export const DEMO_TEAM_MEMBERS: TeamMember[] = [
   {
     id: "mira",
     name: "Mira Chen",
@@ -66,6 +73,17 @@ export const TEAM_MEMBERS: TeamMember[] = [
   },
 ];
 
+// First-time experience: only the owner is on the team.
+export const TEAM_MEMBERS: TeamMember[] = [
+  {
+    id: "kevin",
+    name: "Kevin Naik",
+    email: "kevin@acme.co",
+    role: "owner",
+    lastActiveAt: "2026-05-13T12:00:00-07:00",
+  },
+];
+
 export type AlertRuleStatus = "active" | "off";
 
 export type AlertRule = {
@@ -77,7 +95,7 @@ export type AlertRule = {
   status: AlertRuleStatus;
 };
 
-export const ALERT_RULES: AlertRule[] = [
+export const DEMO_ALERT_RULES: AlertRule[] = [
   {
     id: "crit-pd",
     severity: "critical",
@@ -117,5 +135,28 @@ export const ALERT_RULES: AlertRule[] = [
     destinationLabel: "Microsoft Teams · Operations",
     cooldownMinutes: 60,
     status: "off",
+  },
+];
+
+export const ALERT_RULES: AlertRule[] = [];
+
+// Minimal rules surfaced alongside the demo workflow so the alerts coming
+// off it actually have somewhere to land.
+export const DEMO_LOADED_ALERT_RULES: AlertRule[] = [
+  {
+    id: "crit-slack",
+    severity: "critical",
+    channel: "slack",
+    destinationLabel: "Slack · #ops-alerts",
+    cooldownMinutes: 5,
+    status: "active",
+  },
+  {
+    id: "warn-email",
+    severity: "warning",
+    channel: "email",
+    destinationLabel: "Email · ops@acme.co",
+    cooldownMinutes: 30,
+    status: "active",
   },
 ];

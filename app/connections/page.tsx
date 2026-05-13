@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Bell,
   Hash,
@@ -12,6 +14,8 @@ import {
 import { PLATFORM_LABEL } from "@/data/workflows";
 import {
   ALERT_DESTINATIONS,
+  DEMO_LOADED_ALERT_DESTINATIONS,
+  DEMO_LOADED_SOURCES,
   SOURCES,
   type AlertChannel,
   type AlertDestination,
@@ -20,6 +24,7 @@ import {
   type SourceConnection,
 } from "@/data/connections";
 import { relativeFromNow } from "@/lib/time";
+import { useDemoLoaded } from "@/lib/demo";
 import { SectionHeading } from "@/components/section-label";
 import { cn } from "@/lib/utils";
 
@@ -62,12 +67,18 @@ function alertActionLabel(s: AlertStatus): string {
 }
 
 export default function ConnectionsPage() {
-  const connectedSources = SOURCES.filter((s) => s.status === "connected").length;
-  const totalWorkflowsImported = SOURCES.reduce(
+  const demoLoaded = useDemoLoaded();
+  const sources: SourceConnection[] = demoLoaded ? DEMO_LOADED_SOURCES : SOURCES;
+  const destinations: AlertDestination[] = demoLoaded
+    ? DEMO_LOADED_ALERT_DESTINATIONS
+    : ALERT_DESTINATIONS;
+
+  const connectedSources = sources.filter((s) => s.status === "connected").length;
+  const totalWorkflowsImported = sources.reduce(
     (acc, s) => acc + s.workflowsImported,
     0,
   );
-  const activeDestinations = ALERT_DESTINATIONS.filter(
+  const activeDestinations = destinations.filter(
     (a) => a.status === "active",
   ).length;
 
@@ -84,11 +95,9 @@ export default function ConnectionsPage() {
           Sources and destinations
         </h1>
         <p className="mt-2 max-w-[680px] text-[12px] leading-[1.55] text-muted">
-          {connectedSources}{" "}
-          {connectedSources === 1 ? "source" : "sources"} connected ·{" "}
-          {totalWorkflowsImported} workflows pulled in ·{" "}
-          {activeDestinations} alert{" "}
-          {activeDestinations === 1 ? "destination" : "destinations"} active.
+          {sources.length === 0 && destinations.length === 0
+            ? "Nothing connected yet. Pick a source platform to start pulling in workflows, and a destination to receive alerts."
+            : `${connectedSources} ${connectedSources === 1 ? "source" : "sources"} connected · ${totalWorkflowsImported} workflows pulled in · ${activeDestinations} alert ${activeDestinations === 1 ? "destination" : "destinations"} active.`}
         </p>
       </div>
 
@@ -98,26 +107,35 @@ export default function ConnectionsPage() {
           <SectionHeading
             icon={Plug}
             trailing={
-              <span className="tabular-nums">{SOURCES.length} platforms</span>
+              <span className="tabular-nums">{sources.length} platforms</span>
             }
           >
             Source platforms
           </SectionHeading>
 
-          <div className="mt-3 overflow-hidden rounded-[6px] border border-border bg-panel">
-            <div className="grid grid-cols-[minmax(0,1.4fr)_140px_120px_140px_120px] items-center gap-4 border-b border-border bg-panel-2 px-5 py-2.5 text-[12px] font-medium uppercase tracking-[0.08em] text-muted">
-              <div>Platform</div>
-              <div>Status</div>
-              <div>Workflows</div>
-              <div>Last sync</div>
-              <div className="text-right">Action</div>
+          {sources.length === 0 ? (
+            <EmptySectionHero
+              Icon={Plug}
+              title="No source platforms connected"
+              detail="Connect Zapier, n8n, Make, Workato, or Pipedream to start pulling in your existing workflows automatically."
+              cta="Connect your first platform"
+            />
+          ) : (
+            <div className="mt-3 overflow-hidden rounded-[6px] border border-border bg-panel">
+              <div className="grid grid-cols-[minmax(0,1.4fr)_140px_120px_140px_120px] items-center gap-4 border-b border-border bg-panel-2 px-5 py-2.5 text-[12px] font-medium uppercase tracking-[0.08em] text-muted">
+                <div>Platform</div>
+                <div>Status</div>
+                <div>Workflows</div>
+                <div>Last sync</div>
+                <div className="text-right">Action</div>
+              </div>
+              <ul className="divide-y divide-border">
+                {sources.map((s) => (
+                  <SourceRow key={s.id} source={s} />
+                ))}
+              </ul>
             </div>
-            <ul className="divide-y divide-border">
-              {SOURCES.map((s) => (
-                <SourceRow key={s.id} source={s} />
-              ))}
-            </ul>
-          </div>
+          )}
         </section>
 
         {/* Alert destinations */}
@@ -126,27 +144,36 @@ export default function ConnectionsPage() {
             icon={Bell}
             trailing={
               <span className="tabular-nums">
-                {ALERT_DESTINATIONS.length} destinations
+                {destinations.length} destinations
               </span>
             }
           >
             Alert destinations
           </SectionHeading>
 
-          <div className="mt-3 overflow-hidden rounded-[6px] border border-border bg-panel">
-            <div className="grid grid-cols-[minmax(0,1.4fr)_140px_minmax(0,1.2fr)_140px_120px] items-center gap-4 border-b border-border bg-panel-2 px-5 py-2.5 text-[12px] font-medium uppercase tracking-[0.08em] text-muted">
-              <div>Destination</div>
-              <div>Status</div>
-              <div>Target</div>
-              <div>Last notified</div>
-              <div className="text-right">Action</div>
+          {destinations.length === 0 ? (
+            <EmptySectionHero
+              Icon={Bell}
+              title="No alert destinations yet"
+              detail="Add Slack, PagerDuty, Email, Teams, or SMS so Blindspot can reach you when a workflow needs attention."
+              cta="Add a destination"
+            />
+          ) : (
+            <div className="mt-3 overflow-hidden rounded-[6px] border border-border bg-panel">
+              <div className="grid grid-cols-[minmax(0,1.4fr)_140px_minmax(0,1.2fr)_140px_120px] items-center gap-4 border-b border-border bg-panel-2 px-5 py-2.5 text-[12px] font-medium uppercase tracking-[0.08em] text-muted">
+                <div>Destination</div>
+                <div>Status</div>
+                <div>Target</div>
+                <div>Last notified</div>
+                <div className="text-right">Action</div>
+              </div>
+              <ul className="divide-y divide-border">
+                {destinations.map((a) => (
+                  <AlertRow key={a.id} dest={a} />
+                ))}
+              </ul>
             </div>
-            <ul className="divide-y divide-border">
-              {ALERT_DESTINATIONS.map((a) => (
-                <AlertRow key={a.id} dest={a} />
-              ))}
-            </ul>
-          </div>
+          )}
         </section>
 
         {/* Manual import */}
@@ -306,5 +333,40 @@ function AlertActionButton({
     >
       {children}
     </button>
+  );
+}
+
+function EmptySectionHero({
+  Icon,
+  title,
+  detail,
+  cta,
+}: {
+  Icon: LucideIcon;
+  title: string;
+  detail: string;
+  cta: string;
+}) {
+  return (
+    <div className="mt-3 rounded-[6px] border border-dashed border-border-strong bg-panel p-8">
+      <div className="mx-auto flex max-w-[440px] flex-col items-center text-center">
+        <div className="flex h-10 w-10 items-center justify-center rounded-md bg-panel-2 text-muted">
+          <Icon className="h-4 w-4" strokeWidth={1.75} />
+        </div>
+        <h3 className="mt-4 text-[16px] font-medium tracking-tightish text-fg">
+          {title}
+        </h3>
+        <p className="mt-1.5 text-[12px] leading-[1.55] text-muted">
+          {detail}
+        </p>
+        <button
+          type="button"
+          className="mt-5 inline-flex items-center gap-1.5 rounded-md bg-info-solid px-3 py-1.5 text-[12px] font-medium text-fg transition-colors hover:bg-info-solid/85"
+        >
+          <Plus className="h-3 w-3" strokeWidth={2} />
+          {cta}
+        </button>
+      </div>
+    </div>
   );
 }

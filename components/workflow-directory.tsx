@@ -20,6 +20,7 @@ import {
   type WorkflowStatus,
 } from "@/data/workflows";
 import { relativeFromNow } from "@/lib/time";
+import { setDemoLoaded } from "@/lib/demo";
 import { SectionHeading } from "@/components/section-label";
 import { cn } from "@/lib/utils";
 
@@ -159,18 +160,24 @@ export function WorkflowDirectory({
             All workflows
           </h1>
           <p className="mt-2 max-w-[640px] text-[12px] leading-[1.55] text-muted">
-            {counts.all} {counts.all === 1 ? "workflow" : "workflows"}{" "}
-            connected.{" "}
-            {counts.failing > 0 ? (
-              <>
-                <span className="text-critical">
-                  {counts.failing}{" "}
-                  {counts.failing === 1 ? "needs" : "need"} attention
-                </span>
-                ; the other {counts.healthy} are running normally.
-              </>
+            {counts.all === 0 ? (
+              "No workflows connected yet."
             ) : (
-              <span className="text-ok">All healthy.</span>
+              <>
+                {counts.all}{" "}
+                {counts.all === 1 ? "workflow" : "workflows"} connected.{" "}
+                {counts.failing > 0 ? (
+                  <>
+                    <span className="text-critical">
+                      {counts.failing}{" "}
+                      {counts.failing === 1 ? "needs" : "need"} attention
+                    </span>
+                    ; the other {counts.healthy} are running normally.
+                  </>
+                ) : (
+                  <span className="text-ok">All healthy.</span>
+                )}
+              </>
             )}
           </p>
         </div>
@@ -187,6 +194,10 @@ export function WorkflowDirectory({
 
       <AddWorkflowModal open={addOpen} onClose={() => setAddOpen(false)} />
 
+      {workflows.length === 0 ? (
+        <EmptyDirectoryHero onAddDemo={() => setDemoLoaded(true)} />
+      ) : (
+        <>
       {/* Toolbar: search + filters + sort */}
       <div className="mt-7 space-y-3">
         <div className="flex flex-wrap items-center gap-3">
@@ -369,6 +380,43 @@ export function WorkflowDirectory({
           )}
         </div>
       </section>
+        </>
+      )}
+    </div>
+  );
+}
+
+function EmptyDirectoryHero({ onAddDemo }: { onAddDemo: () => void }) {
+  return (
+    <div className="mt-7 rounded-[6px] border border-dashed border-border-strong bg-panel p-12">
+      <div className="mx-auto flex max-w-[440px] flex-col items-center text-center">
+        <div className="flex h-10 w-10 items-center justify-center rounded-md bg-panel-2 text-muted">
+          <WorkflowIcon className="h-4 w-4" strokeWidth={1.75} />
+        </div>
+        <h3 className="mt-4 text-[20px] font-medium tracking-tightish text-fg">
+          No workflows yet
+        </h3>
+        <p className="mt-2 text-[12px] leading-[1.6] text-muted">
+          Connect a source platform to import your workflows automatically,
+          or load a demo workflow to explore what Blindspot looks like in
+          use.
+        </p>
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+          <Link
+            href="/connections"
+            className="inline-flex items-center gap-1.5 rounded-md bg-info-solid px-3 py-1.5 text-[12px] font-medium text-fg transition-colors hover:bg-info-solid/85"
+          >
+            Connect a platform
+          </Link>
+          <button
+            type="button"
+            onClick={onAddDemo}
+            className="inline-flex items-center gap-1.5 rounded-md bg-panel-2 px-3 py-1.5 text-[12px] font-medium text-fg transition-colors hover:bg-border-strong"
+          >
+            Add demo workflow
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

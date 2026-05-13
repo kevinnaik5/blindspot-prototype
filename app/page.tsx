@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  Workflow,
+  Workflow as WorkflowIcon,
   Activity,
   AlertTriangle,
   CheckCircle2,
@@ -15,13 +15,24 @@ import {
   PanelRightOpen,
   type LucideIcon,
 } from "lucide-react";
-import { ALERTS, type Alert, type IndicatorTone } from "@/data/alerts";
-import { WORKFLOWS, type WorkflowChange } from "@/data/workflows";
+import {
+  ALERTS,
+  DEMO_LOADED_ALERTS,
+  type Alert,
+  type IndicatorTone,
+} from "@/data/alerts";
+import {
+  WORKFLOWS,
+  DEMO_LOADED_WORKFLOWS,
+  type Workflow,
+  type WorkflowChange,
+} from "@/data/workflows";
 import { NOW, relativeFromNow } from "@/lib/time";
 import { SectionHeading } from "@/components/section-label";
 import { SeverityBar, SeverityIcon } from "@/components/severity-bar";
 import { WorkflowList } from "@/components/workflow-list";
 import { QuickStart } from "@/components/quick-start";
+import { useDemoLoaded, setDemoLoaded } from "@/lib/demo";
 import { cn } from "@/lib/utils";
 
 // A workflow change enriched with the originating workflow's name + id
@@ -80,6 +91,13 @@ const SEVERITY_CARD: Record<
 
 export default function HomePage() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const demoLoaded = useDemoLoaded();
+
+  // When the demo workflow is loaded, surface only that workflow + its
+  // alerts. The rest of DEMO_WORKFLOWS / DEMO_ALERTS stays out so the
+  // empty-state experience for connections, manage, etc. remains clean.
+  const workflows: Workflow[] = demoLoaded ? DEMO_LOADED_WORKFLOWS : WORKFLOWS;
+  const alerts: Alert[] = demoLoaded ? DEMO_LOADED_ALERTS : ALERTS;
 
   const today = NOW.toLocaleDateString("en-US", {
     weekday: "short",
@@ -88,19 +106,19 @@ export default function HomePage() {
   });
 
   const counts = {
-    healthy: WORKFLOWS.filter((w) => w.status === "healthy").length,
-    critical: ALERTS.filter((a) => a.severity === "critical").length,
-    notice: ALERTS.filter((a) => a.severity === "notice").length,
+    healthy: workflows.filter((w) => w.status === "healthy").length,
+    critical: alerts.filter((a) => a.severity === "critical").length,
+    notice: alerts.filter((a) => a.severity === "notice").length,
   };
-  const needsAttention = WORKFLOWS.length - counts.healthy;
+  const needsAttention = workflows.length - counts.healthy;
 
   // Only critical alerts get the hero band, notices stay in the
   // sidebar's "Heads up" panel so they're visible without being loud.
-  const criticalAlerts = ALERTS.filter((a) => a.severity === "critical");
-  const nonCriticalAlerts = ALERTS.filter((a) => a.severity !== "critical");
+  const criticalAlerts = alerts.filter((a) => a.severity === "critical");
+  const nonCriticalAlerts = alerts.filter((a) => a.severity !== "critical");
 
   // Cross-workflow change feed for the sidebar's Recent activity panel.
-  const recentActivity: ActivityEntry[] = WORKFLOWS.flatMap((w) =>
+  const recentActivity: ActivityEntry[] = workflows.flatMap((w) =>
     w.changes.map((c) => ({
       ...c,
       workflowId: w.id,
@@ -156,23 +174,31 @@ export default function HomePage() {
 
         {/* All workflows */}
         <section className="mt-12">
-          <SectionHeading
-            icon={Workflow}
-            trailing={
-              <Link
-                href="/workflows"
-                className="text-muted transition-colors hover:text-fg"
+          {workflows.length === 0 ? (
+            <>
+              <SectionHeading icon={WorkflowIcon}>All workflows</SectionHeading>
+              <EmptyWorkflowsHero />
+            </>
+          ) : (
+            <>
+              <SectionHeading
+                icon={WorkflowIcon}
+                trailing={
+                  <Link
+                    href="/workflows"
+                    className="text-muted transition-colors hover:text-fg"
+                  >
+                    View all
+                  </Link>
+                }
               >
-                View all
-              </Link>
-            }
-          >
-            All workflows
-          </SectionHeading>
-
-          <div className="mt-3">
-            <WorkflowList workflows={WORKFLOWS} />
-          </div>
+                All workflows
+              </SectionHeading>
+              <div className="mt-3">
+                <WorkflowList workflows={workflows} />
+              </div>
+            </>
+          )}
         </section>
       </div>
 
@@ -271,17 +297,26 @@ export default function HomePage() {
             </div>
             <div className="px-4 pt-4 pb-3">
               <p className="text-[12px] leading-[1.55] text-fg">
-                {WORKFLOWS.length} workflows are connected.{" "}
-                {needsAttention > 0 ? (
-                  <>
-                    <span className="text-critical">
-                      {needsAttention}{" "}
-                      {needsAttention === 1 ? "needs" : "need"} attention
-                    </span>
-                    ; the other {counts.healthy} are running normally.
-                  </>
+                {workflows.length === 0 ? (
+                  <span className="text-muted">
+                    No workflows connected yet. Add one to start seeing
+                    health signals here.
+                  </span>
                 ) : (
-                  <span className="text-ok">All healthy.</span>
+                  <>
+                    {workflows.length} workflows are connected.{" "}
+                    {needsAttention > 0 ? (
+                      <>
+                        <span className="text-critical">
+                          {needsAttention}{" "}
+                          {needsAttention === 1 ? "needs" : "need"} attention
+                        </span>
+                        ; the other {counts.healthy} are running normally.
+                      </>
+                    ) : (
+                      <span className="text-ok">All healthy.</span>
+                    )}
+                  </>
                 )}
               </p>
             </div>
@@ -568,5 +603,39 @@ function RailChip({
         {count}
       </span>
     </button>
+  );
+}
+
+function EmptyWorkflowsHero() {
+  return (
+    <div className="mt-3 rounded-[6px] border border-dashed border-border-strong bg-panel p-8">
+      <div className="mx-auto flex max-w-[420px] flex-col items-center text-center">
+        <div className="flex h-10 w-10 items-center justify-center rounded-md bg-panel-2 text-muted">
+          <WorkflowIcon className="h-4 w-4" strokeWidth={1.75} />
+        </div>
+        <h3 className="mt-4 text-[16px] font-medium tracking-tightish text-fg">
+          No workflows connected yet
+        </h3>
+        <p className="mt-1.5 text-[12px] leading-[1.55] text-muted">
+          Connect a source platform to bring in your existing automations,
+          or load a demo workflow to explore what Blindspot sees.
+        </p>
+        <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+          <Link
+            href="/connections"
+            className="inline-flex items-center gap-1.5 rounded-md bg-info-solid px-3 py-1.5 text-[12px] font-medium text-fg transition-colors hover:bg-info-solid/85"
+          >
+            Connect a platform
+          </Link>
+          <button
+            type="button"
+            onClick={() => setDemoLoaded(true)}
+            className="inline-flex items-center gap-1.5 rounded-md bg-panel-2 px-3 py-1.5 text-[12px] font-medium text-fg transition-colors hover:bg-border-strong"
+          >
+            Add demo workflow
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }

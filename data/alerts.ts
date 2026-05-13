@@ -24,7 +24,7 @@ export type Alert = {
   action: string;
 };
 
-export const ALERTS: Alert[] = [
+export const DEMO_ALERTS: Alert[] = [
   {
     id: "alert-1",
     severity: "critical",
@@ -56,3 +56,10 @@ export const ALERTS: Alert[] = [
     action: "View migration",
   },
 ];
+
+export const ALERTS: Alert[] = [];
+
+// Only the alerts for the demo workflow load when Add demo workflow fires.
+export const DEMO_LOADED_ALERTS: Alert[] = DEMO_ALERTS.filter(
+  (a) => a.workflowId === "customer-onboarding",
+);

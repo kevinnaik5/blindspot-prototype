@@ -37,9 +37,9 @@ const CARDS: QuickStartCard[] = [
     icon: Upload,
   },
   {
-    title: "Walk through a demo",
-    description: "See how Blindspot reads an automation.",
-    href: "/workflows/customer-onboarding",
+    title: "Try a demo workflow",
+    description: "Load a sample workflow to see what Blindspot looks like.",
+    href: "/workflows",
     icon: Play,
   },
   {

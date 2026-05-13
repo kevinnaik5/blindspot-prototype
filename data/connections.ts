@@ -29,7 +29,8 @@ export type AlertDestination = {
   detail?: string;
 };
 
-export const SOURCES: SourceConnection[] = [
+// Demo fixtures loaded by the "Add demo workflow" path. Live state is empty.
+export const DEMO_SOURCES: SourceConnection[] = [
   {
     id: "zapier",
     platform: "zapier",
@@ -68,7 +69,35 @@ export const SOURCES: SourceConnection[] = [
   },
 ];
 
-export const ALERT_DESTINATIONS: AlertDestination[] = [
+export const SOURCES: SourceConnection[] = [];
+
+// Surfaced when the demo workflow is loaded: just the platform that
+// hosts the demo workflow (Zapier), plus the other platforms shown as
+// disconnected so operators can see what else they could connect.
+export const DEMO_LOADED_SOURCES: SourceConnection[] = [
+  {
+    id: "zapier",
+    platform: "zapier",
+    status: "connected",
+    workflowsImported: 1,
+    lastSyncAt: "2026-05-13T11:32:00-07:00",
+    detail: "Customer Onboarding pulled in",
+  },
+  {
+    id: "n8n",
+    platform: "n8n",
+    status: "disconnected",
+    workflowsImported: 0,
+  },
+  {
+    id: "make",
+    platform: "make",
+    status: "disconnected",
+    workflowsImported: 0,
+  },
+];
+
+export const DEMO_ALERT_DESTINATIONS: AlertDestination[] = [
   {
     id: "slack",
     channel: "slack",
@@ -103,5 +132,28 @@ export const ALERT_DESTINATIONS: AlertDestination[] = [
     channel: "sms",
     name: "SMS",
     status: "inactive",
+  },
+];
+
+export const ALERT_DESTINATIONS: AlertDestination[] = [];
+
+// Surfaced when the demo workflow loads: a couple of destinations so the
+// alert routing rules below have somewhere to point.
+export const DEMO_LOADED_ALERT_DESTINATIONS: AlertDestination[] = [
+  {
+    id: "slack",
+    channel: "slack",
+    name: "Slack",
+    status: "active",
+    lastNotifiedAt: "2026-05-13T09:34:00-07:00",
+    detail: "#ops-alerts",
+  },
+  {
+    id: "email",
+    channel: "email",
+    name: "Email",
+    status: "active",
+    lastNotifiedAt: "2026-05-13T08:32:00-07:00",
+    detail: "ops@acme.co",
   },
 ];

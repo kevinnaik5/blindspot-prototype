@@ -110,7 +110,10 @@ export type Workflow = {
   stakeholders?: Stakeholder[];
 };
 
-export const WORKFLOWS: Workflow[] = [
+// Demo fixtures, available to load via "Add demo workflow" but the live
+// state of this scenario starts with no workflows. WORKFLOWS below is the
+// empty list every page reads from.
+export const DEMO_WORKFLOWS: Workflow[] = [
   {
     id: "customer-onboarding",
     name: "Customer Onboarding → Welcome Email + CRM sync",
@@ -613,6 +616,16 @@ export const WORKFLOWS: Workflow[] = [
     ],
   },
 ];
+
+export const WORKFLOWS: Workflow[] = [];
+
+// The id loaded when the user clicks "Add demo workflow". Only this one
+// gets surfaced, not the rest of the DEMO_WORKFLOWS fixtures.
+export const DEMO_WORKFLOW_ID = "customer-onboarding";
+
+export const DEMO_LOADED_WORKFLOWS: Workflow[] = DEMO_WORKFLOWS.filter(
+  (w) => w.id === DEMO_WORKFLOW_ID,
+);
 
 export function getWorkflow(id: string): Workflow | undefined {
   return WORKFLOWS.find((w) => w.id === id);

@@ -1,22 +1,38 @@
+"use client";
+
+import { use, useEffect, useState } from "react";
 import { notFound } from "next/navigation";
 import { AlertTriangle, CheckCircle2 } from "lucide-react";
-import { getWorkflow, PLATFORM_LABEL } from "@/data/workflows";
+import { DEMO_LOADED_WORKFLOWS, PLATFORM_LABEL } from "@/data/workflows";
 import { getActions } from "@/data/actions";
 import { relativeFromNow } from "@/lib/time";
+import { useDemoLoaded } from "@/lib/demo";
 import { WorkflowTabs } from "@/components/workflow-tabs";
 import { LensHeader } from "@/components/lens-header";
 import { WorkflowBackLink } from "@/components/workflow-back-link";
 import { cn } from "@/lib/utils";
 
-export default async function WorkflowLayout({
+export default function WorkflowLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
-  const workflow = getWorkflow(id);
+  const { id } = use(params);
+  const demoLoaded = useDemoLoaded();
+
+  // Detail pages only resolve once the demo workflow has been loaded.
+  // Before localStorage has been read, render nothing to avoid flashing
+  // a "not found" briefly on refresh of a real route.
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
+
+  if (!hydrated) return null;
+
+  const workflow = demoLoaded
+    ? DEMO_LOADED_WORKFLOWS.find((w) => w.id === id)
+    : undefined;
   if (!workflow) notFound();
 
   const failing = workflow.status !== "healthy";

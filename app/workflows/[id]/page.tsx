@@ -1,23 +1,35 @@
-import { notFound } from "next/navigation";
-import { getWorkflow } from "@/data/workflows";
-import { FlowView } from "@/components/flow-view";
+"use client";
 
-export default async function FlowTabPage({
+import { use, useEffect, useState } from "react";
+import { notFound, useSearchParams } from "next/navigation";
+import { DEMO_LOADED_WORKFLOWS } from "@/data/workflows";
+import { FlowView } from "@/components/flow-view";
+import { useDemoLoaded } from "@/lib/demo";
+
+export default function FlowTabPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ view?: string; status?: string }>;
 }) {
-  const { id } = await params;
-  const sp = await searchParams;
-  const workflow = getWorkflow(id);
+  const { id } = use(params);
+  const demoLoaded = useDemoLoaded();
+  const sp = useSearchParams();
+
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => setHydrated(true), []);
+
+  if (!hydrated) return null;
+
+  const workflow = demoLoaded
+    ? DEMO_LOADED_WORKFLOWS.find((w) => w.id === id)
+    : undefined;
   if (!workflow) notFound();
+
   return (
     <FlowView
       workflow={workflow}
-      initialView={sp.view}
-      initialRunStatus={sp.status}
+      initialView={sp.get("view") ?? undefined}
+      initialRunStatus={sp.get("status") ?? undefined}
     />
   );
 }
